@@ -7,17 +7,15 @@ require_relative 'audience'
 module Aritcle_info
   # Library for Github Web API
   class NewsApi
-    API_PROJECT_ROOT = # 'https://api.github.com/repos'
+    module Errors
+      class NotFound < StandardError; end
+      class Unauthorized < StandardError; end
+    end
 
-    # module Errors
-    #   class NotFound < StandardError; end
-    #   class Unauthorized < StandardError; end
-    # end
-
-    # HTTP_ERROR = {
-    #   401 => Errors::Unauthorized,
-    #   404 => Errors::NotFound
-    # }.freeze
+    HTTP_ERROR = {
+      401 => Errors::Unauthorized,
+      404 => Errors::NotFound
+    }.freeze
 
     def initialize(token)
       @gh_token = token
@@ -25,7 +23,8 @@ module Aritcle_info
 
     def project(username, project_name)
       project_req_url = gh_api_path([username, project_name].join('/'))
-      project_data = call_gh_url(project_req_url).parse
+      full_url = news_api_path(key)
+      project_data = call_news_url(project_req_url).parse
       Project.new(project_data, self)
     end
 
@@ -34,20 +33,22 @@ module Aritcle_info
       contributors_data.map { |account_data| Contributor.new(account_data) }
     end
 
-    private
 
-    def gh_api_path(path)
-      "#{API_PROJECT_ROOT}/#{path}"
+    def news_api_path( name_of_key)
+        config_yaml = YAML.safe_load(File.read('config/secrets.yml'))
+        key =config_yaml['api'][0]['News']
+        "https://newsapi.org/v2/top-headlines?country=tw&apiKey=#{key}"
     end
 
-    def call_gh_url(url)
-      result =
-        HTTP.headers('Accept' => 'application/vnd.github.v3+json',
-                     'Authorization' => "token #{@gh_token}")
-            .get(url)
 
-      successful?(result) ? result : raise(HTTP_ERROR[result.code])
+    def call_news_url(url)
+        full = URI(url) 
+        res = Net::HTTP.get_response(full)
+        res.body if res.is_a?(Net::HTTPSuccess)
+
+        successful?(res) ? res : raise(HTTP_ERROR[res.code])
     end
+
 
     def successful?(result)
       !HTTP_ERROR.keys.include?(result.code)
