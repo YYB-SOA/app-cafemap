@@ -6,3 +6,4 @@ source 'https://rubygems.org'
 gem 'http', '~> 5'
 gem "minitest"
 
+gem 'json'
