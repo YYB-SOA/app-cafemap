@@ -19,6 +19,8 @@ CORRECT = YAML.safe_load(File.read('spec/fixtures/github_results.yml'))
 
 describe "columns numbers"
 
+123
+
 
 
 # describe 'Tests Github API library' do
