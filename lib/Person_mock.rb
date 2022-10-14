@@ -1,11 +1,10 @@
 class Person
     attr_accessor :age
-    # attr_reader :age
 
+    # attr_reader :age
     def initialize( age = 18)
         @age = age
     end
-
 end
 
 freshman = Person.new
