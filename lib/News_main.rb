@@ -21,10 +21,8 @@ module Aritcle_info
       @news_token = name_of_key
     end
 
-    # 待改
-    def project(name_of_key = @news_token)
-      puts call_news_url(news_api_path(name_of_key))
-    end
+  
+
 
     def news_api_path(name_of_key = @news_token)
       config_yaml = YAML.safe_load(File.read('config/secrets.yml'))
@@ -45,6 +43,10 @@ module Aritcle_info
 
     def successful?(result)
       !HTTP_ERROR.keys.include?(result.code)
+    end
+
+    def news_hash_generator(name_of_key = @news_token)
+      call_news_url(news_api_path(name_of_key))
     end
   end
 end
