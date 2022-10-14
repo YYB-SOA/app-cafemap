@@ -10,6 +10,6 @@ require 'uri'
 require 'yaml'
 require_relative 'News_main.rb'
 
-freshman = Aritcle_info::NewsApi.new("news")
+freshman = Aritcle_info::NewsApi.new("News")
 
-freshman.project()
+p freshman.project()

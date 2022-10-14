@@ -26,11 +26,9 @@ module Aritcle_info
       puts call_news_url(news_api_path(name_of_key))
     end
 
-
-
     def news_api_path(name_of_key = @news_token)
       config_yaml = YAML.safe_load(File.read('config/secrets.yml'))
-      key = config_yaml['api'][0][name_of_key]
+      key = config_yaml['api'][0][@news_token]
       "https://newsapi.org/v2/top-headlines?country=tw&apiKey=#{key}"
     end
 
@@ -40,8 +38,9 @@ module Aritcle_info
       # Url只能吃news_api_path url
       full = URI(url)
       res = Net::HTTP.get_response(full)
-      JSON.parse(res.body) if res.is_a?(Net::HTTPSuccess)
+      output = JSON.parse(res.body) if res.is_a?(Net::HTTPSuccess)
       successful?(res) ? res : raise(HTTP_ERROR[res.code])
+      output
     end
 
     def successful?(result)
