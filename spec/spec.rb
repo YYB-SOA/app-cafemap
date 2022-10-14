@@ -3,62 +3,70 @@
 require 'minitest/autorun'
 require 'minitest/rg'
 require 'yaml'
-require_relative '../lib/github_api'
+require_relative './lib/News_api'
 
-
-
-
+config = YAML.safe_load(File.read('config/secrets.yml')) #yaml
 def news_api_path(path)
-    "https://newsapi.org/v2/top-headlines?country=tw&apiKey=#{path}"
+   "https://newsapi.org/v2/top-headlines?country=tw&apiKey=#{path}"
 end
-full_url = news_api_path(key)
-
-config = YAML.safe_load(File.read('config/secrets.yml'))
 key = config['api'][0]['News']
-CORRECT = YAML.safe_load(File.read('spec/fixtures/github_results.yml'))
+full_url = news_api_path(key)
+ 
+# # 回傳結果hash
+# def call_news_url(url)
+#    full = URI(url)
+#    res = Net::HTTP.get_response(full)
+#    JSON.parse(res.body) if res.is_a?(Net::HTTPSuccess)
+# end
+ 
+# news_hash = call_news_url(full_url)
+ 
+ 
+# api跑完後的結果
+CORRECT = YAML.safe_load(File.read('spec/fixtures/github_results.yml')) 
+test_keys = CORRECT["articles"][0].keys
 
-describe "columns numbers"
+#describe "columns numbers" do
 
-123
+#end
 
+describe 'Tests News API library' do
+  describe 'News information' do
+    it 'HAPPY: should provide correct project attributes' do
 
+      data = call_news_url(news_api_path('news'))  
+      project = Aritcle_info::NewsApi.new().????Yuan(data)
+      _(project.size).must_equal CORRECT['size']
+      _(project.git_url).must_equal CORRECT['git_url']
+    end
 
-# describe 'Tests Github API library' do
-#   describe 'Project information' do
-#     it 'HAPPY: should provide correct project attributes' do
-#       project = CodePraise::GithubApi.new(GITHUB_TOKEN)
-#                                      .project(USERNAME, PROJECT_NAME)
-#       _(project.size).must_equal CORRECT['size']
-#       _(project.git_url).must_equal CORRECT['git_url']
-#     end
+    it 'SAD: should raise exception on incorrect project' do
+      _(proc do
+        CodePraise::NewsApi.new(GITHUB_TOKEN).project('soumyaray', 'foobar')
+      end).must_raise CodePraise::NewsApi::Errors::NotFound
+    end
 
-#     it 'SAD: should raise exception on incorrect project' do
-#       _(proc do
-#         CodePraise::GithubApi.new(GITHUB_TOKEN).project('soumyaray', 'foobar')
-#       end).must_raise CodePraise::GithubApi::Errors::NotFound
-#     end
+    it 'SAD: should raise exception when unauthorized' do
+      _(proc do
+        CodePraise::NewsApi.new('BAD_TOKEN').project('soumyaray', 'foobar')
+      end).must_raise CodePraise::GithubApi::Errors::Unauthorized
+    end
+  end
 
-#     it 'SAD: should raise exception when unauthorized' do
-#       _(proc do
-#         CodePraise::GithubApi.new('BAD_TOKEN').project('soumyaray', 'foobar')
-#       end).must_raise CodePraise::GithubApi::Errors::Unauthorized
-#     end
-#   end
+  describe 'Contributor information' do
+    before do
+      @project = CodePraise::NewsApi.new(GITHUB_TOKEN)
+                                      .project(USERNAME, PROJECT_NAME)
+    end
 
-#   describe 'Contributor information' do
-#     before do
-#       @project = CodePraise::GithubApi.new(GITHUB_TOKEN)
-#                                       .project(USERNAME, PROJECT_NAME)
-#     end
+    it 'HAPPY: should recognize owner' do
+      _(@project.owner).must_be_kind_of CodePraise::Contributor
+    end
 
-#     it 'HAPPY: should recognize owner' do
-#       _(@project.owner).must_be_kind_of CodePraise::Contributor
-#     end
-
-#     it 'HAPPY: should identify owner' do
-#       _(@project.owner.username).wont_be_nil
-#       _(@project.owner.username).must_equal CORRECT['owner']['login']
-#     end
+    it 'HAPPY: should identify owner' do
+      _(@project.owner.username).wont_be_nil
+      _(@project.owner.username).must_equal CORRECT['owner']['login']
+    end
 
 #     it 'HAPPY: should identify contributors' do
 #       contributors = @project.contributors
