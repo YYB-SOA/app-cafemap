@@ -33,10 +33,11 @@ full_url = news_api_path(key)
 def call_news_url(url)
   full = URI(url)
   res = Net::HTTP.get_response(full)
-  res.body if res.is_a?(Net::HTTPSuccess)
+  JSON.parse(res.body) if res.is_a?(Net::HTTPSuccess)
 end
 
 news_json = call_news_url(full_url)
+puts news_json["articles"][0].keys
 
 # print news_json
 # File.write('lib/sample/news.json', JSON.dump(news_json))
@@ -44,11 +45,16 @@ news_json = call_news_url(full_url)
 # File.open("lib/sample/news.json", "w") do |f|
 #     f.write(JSON.pretty_generate(news_json))
 #   end
-def hash_to_json(data, dist)
-  # Save it!
-  f_data = File.open(dist, 'w')
-  f_data.write(data)
-  f_data.close
-end
+# def hash_to_json(data, dist)
+#   # Save it!
+#   f_data = File.open(dist, 'w')
+#   f_data.write(data)
+#   f_data.close
+# end
 
-hash_to_json(news_json, 'lib/sample/news.json')
+# hash_to_json(news_json, 'lib/sample/news.json')
+#
+
+# File.open("spec/fixture/results.yml", 'w') do |file|
+#   file.puts news_json.to_yaml
+# end

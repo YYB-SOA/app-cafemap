@@ -7,3 +7,4 @@ gem 'http', '~> 5'
 gem "minitest"
 
 gem 'json'
+gem 'httparty'
