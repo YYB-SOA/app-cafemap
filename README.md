@@ -1,10 +1,12 @@
 # MoneyPlan
 
+1. API relative information
+* Name : News API
+* Url : https://newsapi.org/docs/get-started
+* Description : We adopt Top headlines API for our project.This endpoint provides live top and breaking articles for a country, specific category in a country, single source, or multiple sources. You can also search with keywords. Articles are sorted by the earliest date published first.
 
 
-## Data elements
-
-
+2. Data elements
 
 * status : If the request was successful or not. Options: ok, error. In the case of error a code and message property will be populated. 
 * totalResults : The total number of results available for your request.
@@ -18,3 +20,7 @@
 * urlToImage : The URL to a relevant image for the article.  
 * publishedAt : The date and time that the article was published, in UTC (+000)   
 * content : The unformatted content of the article, where available. This is truncated to 200 chars.
+
+3. Entities : ![image](https://ibb.co/MDdqsdC)
+
+
