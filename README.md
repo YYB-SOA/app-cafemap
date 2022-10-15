@@ -21,6 +21,4 @@
 * publishedAt : The date and time that the article was published, in UTC (+000)   
 * content : The unformatted content of the article, where available. This is truncated to 200 chars.
 
-3. Entities : ![image](https://ibb.co/MDdqsdC)
-
-
+3. Entities : ![ERD](https://user-images.githubusercontent.com/103323426/195989801-fdff892f-ee32-4d46-b479-c91d2713b0b5.png)
