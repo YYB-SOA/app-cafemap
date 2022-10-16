@@ -2,9 +2,9 @@
 
 require 'http'
 require_relative 'content'
-require_relative 'Publisher'
+require_relative 'issuer'
 
-module Aritcle_info
+module AritcleInfo
   # Library for news API
   class NewsApi
     module Errors
@@ -21,10 +21,7 @@ module Aritcle_info
       @news_token = name_of_key
     end
 
-  
-
-
-    def news_api_path(name_of_key = @news_token)
+    def news_api_path(_name_of_key = @news_token)
       config_yaml = YAML.safe_load(File.read('config/secrets.yml'))
       key = config_yaml['api'][0][@news_token]
       "https://newsapi.org/v2/top-headlines?country=tw&apiKey=#{key}"

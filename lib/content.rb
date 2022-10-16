@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative 'Publisher'
+require_relative 'issuer'
 
-module Aritcle_info
+module AritcleInfo
   # Provides access to contributor data
   class Contents
     def initialize(content_data)
@@ -21,7 +21,7 @@ module Aritcle_info
       @content['description']
     end
 
-    def publishedAt
+    def publishedat
       @content['publishedAt']
     end
   end

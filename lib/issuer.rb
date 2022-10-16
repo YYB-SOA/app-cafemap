@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module Aritcle_info
+module AritcleInfo
   # Provides access to contributor data
-  class Publisher
+  class Issuer
     def initialize(issuer_data)
       @issuer = issuer_data
     end
@@ -15,10 +15,8 @@ module Aritcle_info
       @issuer['source']['id']
     end
 
-
-    def source_id
+    def source_name
       @issuer['source']['name']
     end
-
   end
 end
