@@ -21,13 +21,15 @@ module AritcleInfo
       @news_token = name_of_key
     end
 
-    def news_api_path(_name_of_key = @news_token)
+    def news_api_path(token_category= 'News_api' , name_of_key = @news_token)
       config_yaml = YAML.safe_load(File.read('config/secrets.yml'))
-      key = config_yaml['api'][0][@news_token]
-      "https://newsapi.org/v2/top-headlines?country=tw&apiKey=#{key}"
+      token = config_yaml[token_category][0][name_of_key]
+      news_url_concat(token)
     end
 
-    # data = call_news_url(news_api_path('news'))
+    def news_url_concat(token)
+      "https://newsapi.org/v2/top-headlines?country=tw&apiKey=#{token}"
+    end
 
     def call_news_url(url)
       # Url只能吃news_api_path url
@@ -42,8 +44,8 @@ module AritcleInfo
       !HTTP_ERROR.keys.include?(result.code)
     end
 
-    def news_hash_generator(name_of_key = @news_token)
-      call_news_url(news_api_path(name_of_key))
+    def news_hash_generator(token_category='News_api' , name_of_key = @news_token)
+      call_news_url(news_url_concat(news_api_path(token_category, name_of_key)))
     end
   end
 end
