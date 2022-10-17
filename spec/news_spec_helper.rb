@@ -15,9 +15,9 @@ require_relative '../lib/news_api'
 # PROJECT_NAME = 'YPBT-app'
 
 CONFIG = YAML.safe_load(File.read('config/secrets.yml'))
-BOX = [nil]
+BOX = Array.new()
 NEWS_TOKEN = CONFIG['NEWS_API'][0]['News']
 CORRECT = YAML.safe_load(File.read('spec/fixtures/news_results.yml'))
-
+# p CORRECT['status'] # Return ok
 CASSETTES_FOLDER = 'spec/fixtures/cassettes'
 CASSETTE_FILE = 'news_api'
