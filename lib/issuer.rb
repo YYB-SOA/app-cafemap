@@ -8,15 +8,15 @@ module AritcleInfo
     end
 
     def author
-      @issuer['author']
+      @issuer['article']['author']
     end
 
     def source_id
-      @issuer['source']['id']
+      @issuer['article'][0]['source']['id']
     end
 
     def source_name
-      @issuer['source']['name']
+      @issuer['article'][0]['source']['name']
     end
   end
 end

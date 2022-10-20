@@ -28,7 +28,6 @@ csv_string = CSV.generate do |csv|
     csv << hash.values
   end
 end
-
 # Save CSV File
 File.write('lib/sample/cafe_nomad.csv', csv_string)
 # No test Demo for this API

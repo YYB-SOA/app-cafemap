@@ -9,12 +9,17 @@ module AritcleInfo
       @content = content_data
     end
 
+    def status
+      @content['status']
+    end
+
     def title
       @content['article'][0]['title']
     end
 
     def author
-      @auther ||= Issuer.new(@content['article'][0]['author'])
+      @
+      uther ||= Issuer.new(@content['article'][0]['author'])
     end
 
     def description
@@ -23,10 +28,6 @@ module AritcleInfo
 
     def publishedat
       @content['article'][0]['publishedAt']
-    end
-
-    def status
-      @content['status']
     end
   end
 end

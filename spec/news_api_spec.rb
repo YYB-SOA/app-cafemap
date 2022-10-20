@@ -26,15 +26,15 @@ describe 'Tests News API library' do
 
   describe 'News information' do
     before do
-      @article_hash = AritcleInfo::NewsApi.new('News')#.news_hash_generator
-      print "abd: #{@article_hash}"
+      @contents = AritcleInfo::NewsApi.new('News')#.news_hash_generator
+      # print "abd: #{@article_hash}"
     end
 
     it 'HAPPY: should provide correct News attributes' do
-      at = @article_hash.news_hash_generator('NEWS_API')
-      print "class123: #{at}"
-      # _(@article_hash['status']).must_equal CORRECT['status']
-      # _(@article_hash['articles'].length).must_equal CORRECT['articles'].length
+      article_hash = @contents.news_hash_generator('NEWS_API')
+      print "class123: #{article_hash}"
+      _(article_hash['status']).must_equal CORRECT['status']
+      _(article_hash['articles'].length).must_equal CORRECT['articles'].length
     end
   end
     # it 'HAPPY: should provide correct article columns' do
