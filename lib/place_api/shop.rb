@@ -15,7 +15,7 @@ module CafeShop
     end
 
     def shop_id
-      @shop_yaml[]['id']
+      @shop_yaml['id']
     end
 
     def title
