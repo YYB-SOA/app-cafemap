@@ -45,9 +45,9 @@ module CafeShop
   # Storage: spec/fixtures/cafe_place_api_results.yml  or spec/fixtures/cafe_place_api_results_hc.yml
   class Shop
     def initialize(shop_yaml)
-      # get data from cafenomad api
       @shop_yaml = shop_yaml
     end
+
     def name
       @shop_yaml['result']['name']
     end

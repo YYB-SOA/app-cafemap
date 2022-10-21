@@ -5,8 +5,7 @@ require_relative 'shop'
 module CafeShop
   # Provides access to contributor data
   class Feedback
-      # Model for Feedback
-
+    # Model for Feedback
     def initialize(feedback_data, cafe_data)
       # data comes from placeap
       @feedback = feedback_data
@@ -24,5 +23,10 @@ module CafeShop
     def user_ratings_total
       @feedback['result']['user_ratings_total']
     end
+
+    # Teacher's code Idk????
+    # def contributors
+    #   @contributors ||= @data_source.contributors(@project['contributors_url'])
+    # end
   end
 end

@@ -5,7 +5,7 @@ require "http"
 # copy place_info new
 # json array -> json file
 # place_info_new
-def read_cafe(path = 'lib/sample/cafe_nomad?.json')
+def read_cafe(path = 'lib/sample/cafe_nomad*.json')
     data_hash = JSON.parse(File.read(path))
     data_hash
 end
