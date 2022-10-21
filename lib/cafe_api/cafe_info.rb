@@ -43,7 +43,7 @@ def json_array_to_yaml(cafe_json)
   # values_num = cafe_json[0].length() -1
   ## Need Refactor
   cafe_json.map do |row_data|
-    { row_data[store_id] =>
+    { row_data[ headers[0]] =>
                                                   {
                                                     headers[1] => row_data[headers[1]],
                                                     headers[2] => row_data[headers[2]],
