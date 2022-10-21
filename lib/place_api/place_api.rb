@@ -42,7 +42,7 @@ module CafeShop
       def repo(username, project_name)
         get(@resource_root + [username, project_name].join('/'))
       end
-      
+
       def call_placeapi_url(input)
         token = get_placeapi_token()
         HTTP.get("https://maps.googleapis.com/maps/api/place/textsearch/json?query=#{input}&key=#{token}&language=zh-TW")

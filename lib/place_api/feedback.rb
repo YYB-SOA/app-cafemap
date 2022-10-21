@@ -4,19 +4,20 @@ module CafeShop
   # Provides access to contributor data
   class Feedback
     def initialize(feedback_data)
+      # data comes from placeap
       @feedback = feedback_data
     end
 
-    def author
-      @feedback['article']['author']
+    def name
+      @feedback['result']['name']
     end
 
-    def source_id
-      @feedback['article'][0]['source']['id']
+    def rating
+      @feedback['result']['rating']
     end
 
-    def source_name
-      @feedback['article'][0]['source']['name']
+    def user_ratings_total
+      @feedback['result']['user_ratings_total']
     end
   end
 end
