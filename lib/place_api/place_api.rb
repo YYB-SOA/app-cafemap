@@ -1,90 +1,77 @@
+# frozen_string_literal: true
 require 'yaml'
+# require 'httparty'
 require 'json'
-require "http"
- 
+# require 'net/http'
+# require 'uri'
+require 'http'
 
-def read_cafe(path = 'lib/sample/cafe_nomad2.json')
-    data_hash = JSON.parse(File.read(path))
-    data_hash
-end
-
+require_relative 'store'
+require_relative 'comment'
 
 
-def read_cafe_attribute(data_hash, attribute = nil)
-    box = []
-    if attribute.nil?
-        box = data_hash
-        puts "Condition 1 #{puts data_hash}"
-    else
-        data_hash.select {|ele| box << ele[attribute] }
-    end
-    return box
-end
 
-def get_placeapi_token(token_category = 'GOOGLE_MAP', name_of_key = "Place_api")
-    config_yaml = YAML.safe_load(File.read('config/secrets.yml'))
-    config_yaml[token_category][0][name_of_key]
-end
+module CafeShop
+  # Client Library for Github Web API
+  class PlaceApi
+    REPOS_PATH = 'https://api.github.com/repos/'
 
-
-def call_placeapi_url(input)
-   token = get_placeapi_token()
-   HTTP.get("https://maps.googleapis.com/maps/api/place/textsearch/json?query=#{input}&key=#{token}&language=zh-TW")
-end
- 
- 
-def noise_filter(name_str)
-    # Normalization
-    name_str.gsub('暫停營業', '').gsub('()', '').gsub(' ', '').gsub("\b", "")    
-end
-
-
-def data_clean(box)
-    # Input: string array of cafe name
-    box.map{ |name_str| noise_filter(name_str)}
-end
-
-
-def save_to_yaml(json_file, dist)
-    # Save hash to yaml and keep insert value to 
-    File.open(dist, 'w') do |file|
-      file.puts json_file.to_yaml
-    end
-end
-
-
-# def successful?(result)
-#     !HTTP_ERROR.keys.include?(result.code)
-# end
-def location_filter(input, attribute, word_term)
-    # input.map!{|item|  item * (item[attribute].include? word_term)}
-    abc = input.select!{|item|  item[attribute].include? word_term}
-    abc
-end
-
-
-def main(path)
-    # call_place_url
-    cafe_raw = read_cafe(path)
-    
-    # puts "cafe_raw 1#{ puts cafe_raw}"
-    regional_cafe = location_filter(cafe_raw, 'address',  "新竹")
-    regional_cafe_name = read_cafe_attribute(regional_cafe, "name")
-    clean_name = data_clean(regional_cafe_name)
-    puts "cafe_all 4#{ clean_name}"
-    output = {}
-    dist = 'spec/fixtures/cafe_place_api_results.yml'
-
-    (0..(clean_name.length()-1)).each do |number|
-        key = clean_name[number]
-        puts "No: #{number} #{key}"
-        output[key] = call_placeapi_url(key).parse
-    # successful?(res) ? res : raise(HTTP_ERROR[res.code])
-        save_to_yaml(output, dist ) # 先在fixture下建立yml檔案
+    def initialize(token)
+      @gh_token = token
     end
 
-end
+    def store(username, project_name)
+      project_response = Request.new(REPOS_PATH, @gh_token)
+                                .repo(username, project_name).parse
+      Project.new(project_response, self)
+    end
 
-puts main('lib/sample/cafe_nomad.json')
-# puts [1,2,3,4,5,6].select(&:even?)
-# open(file.path) as f:
+    def contributors(contributors_url)
+      contributors_data = Request.new(REPOS_PATH, @gh_token)
+                                 .get(contributors_url).parse
+      contributors_data.map { |account_data| Contributor.new(account_data) }
+    end
+
+    # Sends out HTTP requests to Github
+    class Request
+      def initialize(resource_root, token)
+        @resource_root = resource_root
+        @token = token
+      end
+
+      def repo(username, project_name)
+        get(@resource_root + [username, project_name].join('/'))
+      end
+
+      def get(url)
+        http_response = HTTP.headers(
+          'Accept' => 'application/vnd.github.v3+json',
+          'Authorization' => "token #{@token}"
+        ).get(url)
+
+        Response.new(http_response).tap do |response|
+          raise(response.error) unless response.successful?
+        end
+      end
+    end
+
+    # Decorates HTTP responses from Github with success/error reporting
+    class Response < SimpleDelegator
+      Unauthorized = Class.new(StandardError)
+      NotFound = Class.new(StandardError)
+
+      HTTP_ERROR = {
+        401 => Unauthorized,
+        404 => NotFound
+      }.freeze
+
+      def successful?
+        HTTP_ERROR.keys.none?(code)
+      end
+
+      def error
+        HTTP_ERROR[code]
+      end
+    end
+  end
+end
