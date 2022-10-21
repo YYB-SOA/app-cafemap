@@ -7,8 +7,8 @@ require 'net/http'
 # require 'uri'
 require 'http'
 
-require_relative 'store'
-require_relative 'comment'
+require_relative 'shop'
+require_relative 'feedback'
 
 module CafeShop
   # Client Library for Github Web API
