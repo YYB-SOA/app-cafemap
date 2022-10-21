@@ -2,8 +2,10 @@ require 'yaml'
 require 'json'
 require "http"
  
-
-def read_cafe(path = 'lib/sample/cafe_nomad2.json')
+# copy place_info new
+# json array -> json file
+# place_info_new
+def read_cafe(path = 'lib/sample/cafe_nomad?.json')
     data_hash = JSON.parse(File.read(path))
     data_hash
 end
@@ -83,7 +85,8 @@ def main(path)
     end
 
 end
+puts main('lib/sample/cafe_nomad1.json')
 
-puts main('lib/sample/cafe_nomad.json')
+# puts main('lib/sample/cafe_nomad.json')
 # puts [1,2,3,4,5,6].select(&:even?)
 # open(file.path) as f:

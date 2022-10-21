@@ -18,8 +18,7 @@ module AritcleInfo
     end
 
     def author
-      @
-      uther ||= Issuer.new(@content['article'][0]['author'])
+      @auther ||= Issuer.new(@content['article'][0]['author'])
     end
 
     def description

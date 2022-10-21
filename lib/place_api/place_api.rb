@@ -1,33 +1,33 @@
 # frozen_string_literal: true
+
 require 'yaml'
 # require 'httparty'
 require 'json'
-# require 'net/http'
+require 'net/http'
 # require 'uri'
 require 'http'
 
 require_relative 'store'
 require_relative 'comment'
 
-
-
 module CafeShop
   # Client Library for Github Web API
   class PlaceApi
-    REPOS_PATH = 'https://api.github.com/repos/'
+    token_category = 'GOOGLE_MAP'
+    name_of_key = "Place_api"
 
     def initialize(token)
-      @gh_token = token
+      @place_token = token
     end
 
     def store(username, project_name)
-      project_response = Request.new(REPOS_PATH, @gh_token)
+      project_response = Request.new(REPOS_PATH, @place_token)
                                 .repo(username, project_name).parse
       Project.new(project_response, self)
     end
 
     def contributors(contributors_url)
-      contributors_data = Request.new(REPOS_PATH, @gh_token)
+      contributors_data = Request.new(REPOS_PATH, @place_token)
                                  .get(contributors_url).parse
       contributors_data.map { |account_data| Contributor.new(account_data) }
     end
@@ -42,8 +42,16 @@ module CafeShop
       def repo(username, project_name)
         get(@resource_root + [username, project_name].join('/'))
       end
+      
+      def call_placeapi_url(input)
+        token = get_placeapi_token()
+        HTTP.get("https://maps.googleapis.com/maps/api/place/textsearch/json?query=#{input}&key=#{token}&language=zh-TW")
+     end
+      
+      def get(token_category,name_of_key)
+        token = get_placeapi_token()
+        HTTP.get("https://maps.googleapis.com/maps/api/place/textsearch/json?query=#{input}&key=#{token}&language=zh-TW")
 
-      def get(url)
         http_response = HTTP.headers(
           'Accept' => 'application/vnd.github.v3+json',
           'Authorization' => "token #{@token}"
@@ -53,6 +61,8 @@ module CafeShop
           raise(response.error) unless response.successful?
         end
       end
+
+
     end
 
     # Decorates HTTP responses from Github with success/error reporting

@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'comment'
-
-{"id":"00014645-38c8-4eb4-ad9b-faa871d7e511","name":"R5小餐館","city":"chiayi",
-"wifi":5,"seat":5,"quiet":5,"tasty":5,"cheap":5,"music":5,"url":"https://www.facebook.com/r5.bistro","address":"嘉義市東區忠孝路205號","latitude":"23.48386540","longitude":"120.45358340",
-"limited_time":"maybe","socket":"maybe","standing_desk":"no","mrt":"","open_time":"11:30~21:00"}
+require_relative 'feedback'
 
 module CafeShop
   # Provides access to contributor data
@@ -18,20 +14,38 @@ module CafeShop
       @shop_yaml['id']
     end
 
-    def title
-      @shop_yaml['article'][0]['title']
+    def name
+      @shop_yaml['name']
     end
 
-    def author
-
+    def city
+      @shop_yaml['city']
     end
 
-    def description
-      @content['article'][0]['description']
+    def url
+      @shop_yaml['url']
     end
 
-    def publishedat
-      @content['article'][0]['publishedAt']
+    def limited_time
+      @shop_yaml['limited_time']
+    end
+
+    
+    def socket
+      @shop_yaml['socket']
+    end
+
+    def standing_desk
+      @shop_yaml['standing_desk']
+    end
+
+
+    def mrt
+      @shop_yaml['mrt']
+    end
+
+    def open_time
+      @shop_yaml['open_time']
     end
   end
 end

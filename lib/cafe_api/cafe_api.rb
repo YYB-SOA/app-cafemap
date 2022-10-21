@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require 'http'
+# require 'http' 
+# Because one of out tammate have some unknown issue in his environment
 require 'yaml'
 require 'httparty'
 require 'json'
@@ -27,6 +28,7 @@ def json_array_to_json(cafe_json)
   new_hash = {}
   cafe_json.nil?? new_hash["Status"] = "Fail": new_hash["Status"] = "ok" 
   new_hash['row_data'] = cafe_json
+  new_hash
 end
 
 
@@ -40,8 +42,6 @@ end
 cafe_jarray = call_cafe_url(cafenomad_url)
 cafe_json = json_array_to_json(cafe_jarray)
 save_json(cafe_json,"db/sample/cafe_nomad1.json" )
-
-
 
 # def save_jarr(json_array, output_path)
 #   # Save Parsed Json ARRAY Directly
