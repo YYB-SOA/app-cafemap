@@ -10,6 +10,20 @@ require 'uri'
 
 cafenomad_url = 'https://cafenomad.tw/api/v1.2/cafes'
 
+def cafe_url_concat(token)
+    # "https://newsapi.org/v2/top-headlines?country=tw&apiKey=#{token}"
+    token
+end
+
+def get_full_url(token_category, name_of_key)
+    # Added the folder 'config/secrets.yml' first
+    config = YAML.safe_load(File.read('config/secrets.yml'))
+    token = config[token_category][0][name_of_key]
+    cafe_url_concat(token)
+end
+
+
+
 def call_cafe_url(url)
   uri = URI.parse(url)
   req = Net::HTTP::Get.new(uri.request_uri)
@@ -57,10 +71,11 @@ def save_yaml(yaml_hash, path)
 end
 
 
-def main(cafenomad_url, path)
+def main(token_category, name_of_key, output_path)
+    cafenomad_url = get_full_url(token_category,name_of_key)
     cafe_json = call_cafe_url(cafenomad_url)
     cafe_yaml = json_array_to_yaml(cafe_json)
-    save_yaml(cafe_yaml, path)
+    save_yaml(cafe_yaml, output_path)
 end
 
-main(cafenomad_url,  "db/sample/cafe_nomad.yml")
+main("CAFE_NOMAD","Cafe_api",  "db/sample/cafe_nomad.yml")
