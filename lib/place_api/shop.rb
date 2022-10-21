@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'feedback'
-
 
 # ARTROOM14藝室:
 #   html_attributions: []
@@ -58,7 +56,6 @@ module CafeShop
       @shop_yaml['result']['formatted_address']
     end
 
-
     def location
       @shop_yaml['result']["geometry"]['location']
     end
@@ -66,7 +63,6 @@ module CafeShop
     def icon
       @shop_yaml['result']["icon"]
     end
-
 
   end
 end

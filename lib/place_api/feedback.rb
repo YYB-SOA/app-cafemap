@@ -1,11 +1,16 @@
 # frozen_string_literal: true
 
+require_relative 'shop'
+
 module CafeShop
   # Provides access to contributor data
   class Feedback
-    def initialize(feedback_data)
+      # Model for Feedback
+
+    def initialize(feedback_data, cafe_data)
       # data comes from placeap
       @feedback = feedback_data
+      @cafe = cafe_data # ?我不知道能不能接另一個api的東西進來，架構上這樣是不是很怪
     end
 
     def name
