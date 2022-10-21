@@ -9,17 +9,17 @@ require_relative 'comment'
 module CafeShop
   # Provides access to contributor data
   class Shop
-    def initialize(shop_data)
+    def initialize(shop_yaml)
       # get data from cafenomad api
-      @shop_array = shop_data
+      @shop_yaml = shop_yaml
     end
 
     def shop_id
-      @shop_array['id']
+      @shop_yaml[]['id']
     end
 
     def title
-      @shop_array['article'][0]['title']
+      @shop_yaml['article'][0]['title']
     end
 
     def author
