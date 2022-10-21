@@ -21,11 +21,20 @@ module CafeShop
       
     end
 
+
+# data.select{ |k| k['key'].map{|k| k['attr']}.filter{}
+# ['attr'] }
+# map{|k, v| k }
+
     def feedback(username, project_name)
       # 目標拿到place_api response
       feedback_response = Request.new(REPOS_PATH, @place_token)
                                 .repo(username, project_name).parse
       Feedback.new(feedback_response, self)
+    end
+
+    def shop()
+
     end
 
     def read_cafe(path = 'lib/sample/cafe_nomad*.json')

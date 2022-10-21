@@ -5,13 +5,15 @@ require "http"
 # copy place_info new
 # json array -> json file
 # place_info_new
+
+# 拿cafe資料
 def read_cafe(path = 'lib/sample/cafe_nomad*.json')
     data_hash = JSON.parse(File.read(path))
     data_hash
 end
 
-
 def read_cafe_attribute(data_hash, attribute = nil)
+    # 選取json欄位，有沒給就直接return json
     box = []
     if attribute.nil?
         box = data_hash
@@ -22,6 +24,7 @@ def read_cafe_attribute(data_hash, attribute = nil)
     return box
 end
 
+# Place_api 開始
 def get_placeapi_token(token_category = 'GOOGLE_MAP', name_of_key = "Place_api")
     config_yaml = YAML.safe_load(File.read('config/secrets.yml'))
     config_yaml[token_category][0][name_of_key]
@@ -36,6 +39,7 @@ end
  
 def noise_filter(name_str)
     # Normalization
+    # gsub(['xxx', 'xxxx'])
     name_str.gsub('暫停營業', '').gsub('()', '').gsub(' ', '').gsub("\b", "")    
 end
 
@@ -64,18 +68,18 @@ def location_filter(input, attribute, word_term)
 end
 
 
-def main(path)
+def main(path, dist)
     # call_place_url
     cafe_raw = read_cafe(path)
-    
+
+##################拿cafenomad json data (jarray)#####################
     # puts "cafe_raw 1#{ puts cafe_raw}"
     regional_cafe = location_filter(cafe_raw, 'address',  "新竹")
     regional_cafe_name = read_cafe_attribute(regional_cafe, "name")
     clean_name = data_clean(regional_cafe_name)
     puts "cafe_all 4#{ clean_name}"
+################# 打place api ##############
     output = {}
-    dist = 'spec/fixtures/cafe_place_api_results.yml'
-
     (0..(clean_name.length()-1)).each do |number|
         key = clean_name[number]
         puts "No: #{number} #{key}"
@@ -83,9 +87,8 @@ def main(path)
     # successful?(res) ? res : raise(HTTP_ERROR[res.code])
         save_to_yaml(output, dist ) # 先在fixture下建立yml檔案
     end
-
 end
-puts main('lib/sample/cafe_nomad1.json')
+puts main('lib/sample/cafe_nomad1.json',  'spec/fixtures/cafe_place_api_results.yml')
 
 # puts main('lib/sample/cafe_nomad.json')
 # puts [1,2,3,4,5,6].select(&:even?)

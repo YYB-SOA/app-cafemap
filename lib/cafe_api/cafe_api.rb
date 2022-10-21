@@ -3,12 +3,12 @@
 # require 'http' 
 # Because one of out tammate have some unknown issue in his environment
 require 'yaml'
-require 'httparty'
+# require 'httparty'
 require 'json'
 require 'net/http'
 require 'uri'
 
-cafenomad_url = 'https://cafenomad.tw/api/v1.2/cafes'
+cafenomad_url = 'https://cafenomad.tw/api/v1.2/cafes' # Call secret.yml
 
 # {"id":"00014645-38c8-4eb4-ad9b-faa871d7e511","name":"R5小餐館","city":"chiayi",
 #"wifi":5,"seat":5,"quiet":5,"tasty":5,"cheap":5,"music":5,

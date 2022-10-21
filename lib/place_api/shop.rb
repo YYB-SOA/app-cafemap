@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-
+require_relative 'feedback'
 # ARTROOM14藝室:
 #   html_attributions: []
 #   results:
@@ -40,8 +40,8 @@
 #     user_ratings_total: 42
 #   status: OK
 
-module CafeShop
-  # Provides access to place_api data/ 
+module Place # 改
+  # Goal: Provides access to place_api data/ 
   # Storage: spec/fixtures/cafe_place_api_results.yml  or spec/fixtures/cafe_place_api_results_hc.yml
   class Shop
     def initialize(shop_yaml)

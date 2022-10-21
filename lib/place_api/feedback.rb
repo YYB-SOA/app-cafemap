@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative 'shop'
+# require_relative 'shop' #不確定
 
-module CafeShop
+module Place # 重取!!!!
   # Provides access to contributor data
   class Feedback
     # Model for Feedback
@@ -12,7 +12,7 @@ module CafeShop
       @cafe = cafe_data # ?我不知道能不能接另一個api的東西進來，架構上這樣是不是很怪
     end
 
-    def name
+    def name # cafeshop name, same as shop.rb
       @feedback['result']['name']
     end
 
@@ -28,5 +28,6 @@ module CafeShop
     # def contributors
     #   @contributors ||= @data_source.contributors(@project['contributors_url'])
     # end
+
   end
 end
