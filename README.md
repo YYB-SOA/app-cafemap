@@ -1,24 +1,36 @@
 # MoneyPlan
 
-1. API relative information
-* Name : News API
-* Url : https://newsapi.org/docs/get-started
-* Description : We adopt Top headlines API for our project.This endpoint provides live top and breaking articles for a country, specific category in a country, single source, or multiple sources. You can also search with keywords. Articles are sorted by the earliest date published first.
+Overview
+--
+Moneyplan is a web service that allows you search the coffee shop near you or the coffee shop located at targeted region.
+We use 3 API to provide you a information integration platform for cafe shop.
+
+1. Short-term usability goals
+Integreted cafe nomad and the data of place api
 
 
-2. Data elements
+2. API  information
+* Name : Cafe nomad
+* Url : https://cafenomad.tw/api/v1.2/cafes
+* Description : 
 
-* status : If the request was successful or not. Options: ok, error. In the case of error a code and message property will be populated. 
-* totalResults : The total number of results available for your request.
-* articles :The results of the request.  
-* source : The identifier id and a display name name for the source this article came from. 
-* author : The author of the article 
-* title : The title of the article web page. 
-* content : The unformatted content of the article, where available. This is truncated to 200 chars.
-* description : A description or snippet from the article. 
-* url : The direct URL to the article.  
-* urlToImage : The URL to a relevant image for the article.  
-* publishedAt : The date and time that the article was published, in UTC (+000)   
-* content : The unformatted content of the article, where available. This is truncated to 200 chars.
+Open-source Cafe platform. No need for the token.
 
-3. Entities : ![ERD](https://user-images.githubusercontent.com/103323426/195989801-fdff892f-ee32-4d46-b479-c91d2713b0b5.png)
+* Name : place api
+* Url : https://maps.googleapis.com/maps/api/place/textsearch/json?query=#{input}&key=#{token}&language=zh-TW
+
+* Description : 
+We use the place api, which is supported by Google, to search regional cafe shop information on google map. However, due to this api is charable, we saved it in out database as cache and use vcr package to lower the request sending demand for our platform.
+
+3. Long-term usability goals
+
+Added addtional api for locate the user without loggin required.
+It haven't been built yet. We will build this function in the future.
+
+* Name : google map
+* Url : https://developers.google.com/maps?hl=zh-tw
+* Description : 
+
+Get the users location. We will use the longitude and latitude of user to caculate the distance of the cofffee shops to recommended.
+
+

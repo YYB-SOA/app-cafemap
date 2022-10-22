@@ -3,14 +3,20 @@
 # require 'http' 
 # Because one of out tammate have some unknown issue in his environment
 require 'yaml'
-require 'httparty'
+# require 'httparty'
 require 'json'
 require 'net/http'
 require 'uri'
 
-cafenomad_url = 'https://cafenomad.tw/api/v1.2/cafes'
 
-def call_cafe_url(url)
+
+# {"id":"00014645-38c8-4eb4-ad9b-faa871d7e511","name":"R5小餐館","city":"chiayi",
+#"wifi":5,"seat":5,"quiet":5,"tasty":5,"cheap":5,"music":5,
+# "url":"https://www.facebook.com/r5.bistro","address":"嘉義市東區忠孝路205號",
+# "latitude":"23.48386540","longitude":"120.45358340","limited_time":"maybe",
+# "socket":"maybe","standing_desk":"no","mrt":"","open_time":"11:30~21:00"}
+
+def call_cafe_url(url) # 抓 cafe api
   # input url; output JSON Array
   uri = URI.parse(url)
   req = Net::HTTP::Get.new(uri.request_uri)
@@ -22,11 +28,12 @@ def call_cafe_url(url)
 end
 
 def json_array_to_json(cafe_json)
-  headers = cafe_json[0].keys
+  headers = cafe_json[0].keys #第一個裡面的 keys 就會是全部人的 keys
   puts "headers: #{headers}"
 
   new_hash = {}
-  cafe_json.nil?? new_hash["Status"] = "Fail": new_hash["Status"] = "ok" 
+  # 如果叫進來的 cafe_json 沒東西，把 new_hash 的 status 設為 fail；有東西則設為 ok 
+  cafe_json.nil?? new_hash["status"] = "Fail": new_hash["status"] = "ok" 
   new_hash['row_data'] = cafe_json
   new_hash
 end
@@ -38,10 +45,28 @@ def save_json(json_hash, path )
   end
 end
 
-
+cafenomad_url = 'https://cafenomad.tw/api/v1.2/cafes' # Call secret.yml
 cafe_jarray = call_cafe_url(cafenomad_url)
 cafe_json = json_array_to_json(cafe_jarray)
-save_json(cafe_json,"db/sample/cafe_nomad1.json" )
+# puts cafe_json["row_data"].length
+
+cafe_response = {}
+cafe_results = {}
+cafe_response["status"] = cafe_json["status"]
+cafe_response["cafe_data"] = cafe_json["row_data"]
+
+cafe_results["api_quantity"] = cafe_response["cafe_data"] .length
+# should be 3488
+
+cafe_results["status"] = cafe_response["status"]
+# should be ok
+
+cafe_results["header"] = cafe_response["cafe_data"][0].keys
+# should be ["id", "name", "city", "wifi", "seat", "quiet", "tasty", "cheap", "music", "url", "address", "latitude", "longitude", "limited_time", "socket", "standing_desk", "mrt", "open_time"]
+
+File.write('db/sample/cafe_nomad1.yml', cafe_results.to_yaml)
+
+# save_json(cafe_json,"db/sample/cafe_nomad1.json" )
 
 # def save_jarr(json_array, output_path)
 #   # Save Parsed Json ARRAY Directly

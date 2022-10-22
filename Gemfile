@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 # Networking
 gem 'http', '~> 5'
-gem 'httparty'
+# gem 'httparty'
 
 # Testing
 gem 'minitest'
