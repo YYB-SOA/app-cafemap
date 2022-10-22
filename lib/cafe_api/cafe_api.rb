@@ -33,7 +33,7 @@ def json_array_to_json(cafe_json)
 
   new_hash = {}
   # 如果叫進來的 cafe_json 沒東西，把 new_hash 的 status 設為 fail；有東西則設為 ok 
-  cafe_json.nil?? new_hash["Status"] = "Fail": new_hash["Status"] = "ok" 
+  cafe_json.nil?? new_hash["status"] = "Fail": new_hash["status"] = "ok" 
   new_hash['row_data'] = cafe_json
   new_hash
 end
@@ -52,13 +52,13 @@ cafe_json = json_array_to_json(cafe_jarray)
 
 cafe_response = {}
 cafe_results = {}
-cafe_response["Status"] = cafe_json["Status"]
+cafe_response["status"] = cafe_json["status"]
 cafe_response["cafe_data"] = cafe_json["row_data"]
 
 cafe_results["api_quantity"] = cafe_response["cafe_data"] .length
 # should be 3488
 
-cafe_results["Status"] = cafe_response["Status"]
+cafe_results["status"] = cafe_response["status"]
 # should be ok
 
 cafe_results["header"] = cafe_response["cafe_data"][0].keys

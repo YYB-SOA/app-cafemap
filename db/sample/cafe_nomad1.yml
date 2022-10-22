@@ -1,6 +1,6 @@
 ---
 api_quantity: 3488
-Status: ok
+status: ok
 header:
 - id
 - name
