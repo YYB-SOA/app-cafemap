@@ -12,8 +12,8 @@ require 'yaml'
 
 require_relative '../lib/place_api/place_api'
 
-STORE_NAME = "ARTROOM14藝室"
-FILTER_KEYWORD =  ["東區"]
+STORE_NAME = 'ARTROOM14藝室'
+FILTER_KEYWORD = ['東區'].freeze
 FIRST_KEYWORD = FILTER_KEYWORD[0]
 
 CONFIG = YAML.safe_load(File.read('config/secrets.yml'))

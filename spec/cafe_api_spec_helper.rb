@@ -16,8 +16,8 @@ require_relative '../lib/place_api/place_api'
 # PROJECT_NAME = 'YPBT-app'
 CONFIG = YAML.safe_load(File.read('config/secrets.yml'))
 
-PLACE_TOKEN = CONFIG['CAFE_NOMAD'][0]['Cafe_api']
-CORRECT = YAML.safe_load(File.read('spec/fixtures/place_results.yml'))
+CAFE_TOKEN = CONFIG['CAFE_NOMAD'][0]['Cafe_api']
+CORRECT = YAML.safe_load(File.read('../db/sample/cafe_nomad1.yml'))
 
 CASSETTES_FOLDER = 'spec/fixtures/cassettes'
 CASSETTE_FILE = 'cafe_api'
