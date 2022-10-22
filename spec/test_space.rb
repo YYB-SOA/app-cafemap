@@ -4,4 +4,3 @@ require_relative 'news_spec_helper'
 p @article_hash['status']
 
 
-select{ |elel| } 
