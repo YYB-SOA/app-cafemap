@@ -1,0 +1,22 @@
+---
+api_quantity: 3488
+Status: ok
+header:
+- id
+- name
+- city
+- wifi
+- seat
+- quiet
+- tasty
+- cheap
+- music
+- url
+- address
+- latitude
+- longitude
+- limited_time
+- socket
+- standing_desk
+- mrt
+- open_time
