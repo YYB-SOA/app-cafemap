@@ -1,53 +1,42 @@
 # frozen_string_literal: true
 
-# require_relative 'feedback'
+require_relative 'reviews'
 
 module PlaceInfo
-  # Provides access to cafe data
+  # Provides access to cafe store data from google api
   class Store
-    def initialize(store_yaml)
-      # get data from cafenomad api
-      @store_yaml = store_yaml
+    def initialize(store_data)
+      @store_data = store_data
     end
 
-    def store_id
-      @store_yaml['id']
+    def place_id
+      @store_data['results']['place_id']
     end
 
-    def name
-      @store_yaml['name']
-    end
-
-    def city
-      @store_yaml['city']
+    def business_status
+      @store_data['results']['business_status']
     end
 
     def address
-      @store_yaml['address']
+      @store_data['results']['formatted_address']
     end
 
-    def url
-      @store_yaml['url']
+    def location_lat
+      @store_data['results']['geometry']['location']['lat']
     end
 
-    def limited_time
-      @store_yaml['limited_time']
+    def location_lng
+      @store_data['results']['geometry']['location']['lng']
     end
 
-    def socket
-      @store_yaml['socket']
-    end
 
-    def standing_desk
-      @store_yaml['standing_desk']
-    end
+    # def owner
+    #   @owner ||= Contributor.new(@project['owner'])
+    # end
 
-    def mrt
-      @store_yaml['mrt']
-    end
+    # def contributors
+    #   @contributors ||= @data_source.contributors(@project['contributors_url'])
+    # end
 
-    def open_time
-      @store_yaml['open_time']
-    end
   end
 end

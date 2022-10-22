@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module PlaceInfo
-  # Provides access to Store reviews data
-  class Reviews
+  # Provides access to Store Review data
+  class Review
     def initialize(reviews_data)
       @reviews = reviews_data
     end
@@ -11,8 +11,8 @@ module PlaceInfo
       @reviews['results']['place_id']
     end
 
-    def business_status
-      @reviews['results']['business_status']
+    def address
+      @reviews['results']['formatted_address']
     end
 
     def rating

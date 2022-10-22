@@ -70,4 +70,7 @@ def main(path, dist)
   end
 end
 
-puts main('db/sample/cafe_nomad9.json', 'spec/fixtures/cafe_place_api_results.yml')
+puts main('db/sample/cafe_nomad9.json', 'spec/fixtures/cafe_place_api_results_new.yml')
+
+
+

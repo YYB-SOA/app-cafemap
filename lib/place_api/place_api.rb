@@ -2,56 +2,61 @@
 
 require 'yaml'
 require 'json'
-require 'net/http'
 require 'http'
 
 require_relative 'store'
 require_relative 'reviews'
+require_relative 'cafefilter'
 
-module CafeShop
+module PlaceInfo
   # Library for Place API
   class PlaceApi
-    token_category = 'GOOGLE_MAP' # rubocop:disable Lint/UselessAssignment
-    name_of_key = 'Place_api' # rubocop:disable Lint/UselessAssignment
 
-    def initialize(token)
-      @place_token = token
+    def initialize(word_term,token_category,token_name)
+      # word_term是指地址的keyword(例如新竹)
+      @word_term = word_term
+      @token_category = token_category
+      @token_name = token_name # @place_token ＝'Place_api'
     end
 
-    def reviews(address)
-      data = call_placeapi_url(address).parse
-      Reviews.new(data)
+    def store(word_term,token_category,token_name) 
+      store_response = Request.new(word_term,token_category,token_name)#.parse # 傳入token
+      Store.new(store_response, self)
     end
 
-    def store(store_yaml)
-      Store.new(store_yaml)
+    def reviews(word_term,token_name)
+      review_response = Request.new(word_term,token_category,token_name)#.parse # 傳入token
+      Reviews.new(review_response, self)
     end
-
-    # def store(username, project_name)
-    #   project_response = Request.new(REPOS_PATH, @place_token)
-    #                             .repo(username, project_name).parse
-    #   Project.new(project_response, self)
-    # end
 
     # Sends out HTTP requests to Google Place API
     class Request
-      def initialize(token)
-        @token = token
+      def initialize(word_term,token_category,token_name)
+        @word_term = word_term
+        @token_category = token_category
+        @token_name = token_name # @token_name ＝'Place_api' #要改 #之後需要從spec_helper直接取token
       end
 
-      def get_placeapi_token(token_category, name_of_key)
+      def get_placeapi_token(token_category = 'GOOGLE_MAP', name_of_key = @token_name)
         config_yaml = YAML.safe_load(File.read('config/secrets.yml'))
         config_yaml[token_category][0][name_of_key]
       end
 
-      def call_placeapi_url(input)
-        token = get_placeapi_token
-        result =
+      def call_placeapi_url(input,token)
+        http_response =
           HTTP.get("https://maps.googleapis.com/maps/api/place/textsearch/json?query=#{input}&key=#{token}&language=zh-TW")
 
-        Response.new(result).tap do |response|
+        Response.new(http_response).tap do |response|
           raise(response.error) unless response.successful?
         end
+
+        http_response
+      end
+
+      def request_main(word_term = @word_term, token_category = 'GOOGLE_MAP', name_of_key = @token_name)
+        cafe_filter_array = PlaceInfo::CafeFilter.new.main(word_term)
+        cafe_filter_str = cafe_filter_array[0] 
+        call_placeapi_url(cafe_filter_str, get_placeapi_token(token_category, name_of_key))
       end
     end
 

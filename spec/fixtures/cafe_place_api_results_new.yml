@@ -1,0 +1,41 @@
+---
+WHO'S喜象CAFE:
+  html_attributions: []
+  results:
+  - business_status: CLOSED_PERMANENTLY
+    formatted_address: 300台灣新竹市東區寶山路438號300
+    geometry:
+      location:
+        lat: 24.7847091
+        lng: 120.9901702
+      viewport:
+        northeast:
+          lat: 24.78616667989272
+          lng: 120.9915314798927
+        southwest:
+          lat: 24.78346702010727
+          lng: 120.9888318201073
+    icon: https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/cafe-71.png
+    icon_background_color: "#FF9E67"
+    icon_mask_base_uri: https://maps.gstatic.com/mapfiles/place_api/icons/v2/cafe_pinlet
+    name: WHO'S CAFE
+    permanently_closed: true
+    photos:
+    - height: 3468
+      html_attributions:
+      - <a href="https://maps.google.com/maps/contrib/101154546347312496566">芸漀吳</a>
+      photo_reference: AcYSjRjXkywugwt1sV864qeDHgr1eeqX5g9FPysH1zCoGSjovTtakSHwt1eiYzO0sbinx1wCVcEbZKzNjYgtyPnl_mEiY5lL0rUfzCSs4PzzifwhZbAtYGD_qxqrFjk1zv2wjC5p-zFvCXfJajYpLWYT93h-DRVLlVrp_7kQQH9ZafLBSIkA
+      width: 4624
+    place_id: ChIJnyawAAc2aDQRsweZWTh80d8
+    plus_code:
+      compound_code: QXMR+W3 東區 新竹市
+      global_code: 7QP2QXMR+W3
+    rating: 4.3
+    reference: ChIJnyawAAc2aDQRsweZWTh80d8
+    types:
+    - cafe
+    - food
+    - point_of_interest
+    - establishment
+    user_ratings_total: 52
+  status: OK
