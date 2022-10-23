@@ -16,30 +16,37 @@ require_relative 'cafefilter'
 CORRECT = YAML.safe_load(File.read('spec/fixtures/cafe_place_api_results_new.yml'))
 token = 'Place_api'
 
-# place_hash = PlaceInfo::PlaceApi::Request.new("新竹",token).request_main("新竹",'GOOGLE_MAP',token)
+#測試
+# place_hash = PlaceInfo::PlaceApi::Request.new("新竹",token).request_main("新竹",token)
+# place_hash = PlaceInfo::PlaceApi::Request.new("新竹",token).request_main
+# puts place_hash.class
 
+#測試
+# place_hash = PlaceInfo::PlaceApi.new("新竹",token).store("新竹",token)
 # puts place_hash
 
-place_hash = PlaceInfo::PlaceApi.new("新竹",'GOOGLE_MAP',token).store("新竹",'GOOGLE_MAP',token)
-#.new("新竹",'GOOGLE_MAP',token)
-#.store("新竹",'GOOGLE_MAP',token)
-puts place_hash
+# place_hash = PlaceInfo::PlaceApi.new("新竹",token).reviews("新竹",token)
+# puts place_hash
 
-#token = 'Place_api'
+#測試
+instance = PlaceInfo::PlaceApi.new("新竹",token)
+instance.store("新竹",token)
+instance.printout
+
+
 
 #place_hash = PlaceInfo::PlaceApi.new(token).store
 
 # place_hash = PlaceInfo::PlaceApi.new("WHO'S喜象CAFE",token)
 
 # place_hash = PlaceInfo::Request.new(token)
-# .place_hash_generator
-
 #puts place_hash
+
+
+# call API test
 
 # input = "WHO'S喜象CAFE"
 # token = "AIzaSyDn1SNO-unHl8mSu2u3ZQ7dzfab4Y5bOZ0"
-
-
 # puts HTTP.get("https://maps.googleapis.com/maps/api/place/textsearch/json?query=#{input}&key=#{token}&language=zh-TW").class
 
 

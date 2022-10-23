@@ -5,8 +5,9 @@ require_relative 'reviews'
 module PlaceInfo
   # Provides access to cafe store data from google api
   class Store
-    def initialize(store_data)
+    def initialize(store_data,data_source)
       @store_data = store_data
+      @data_source = data_source
     end
 
     def place_id
@@ -27,6 +28,10 @@ module PlaceInfo
 
     def location_lng
       @store_data['results']['geometry']['location']['lng']
+    end
+
+    def printout
+      puts @store_data
     end
 
 

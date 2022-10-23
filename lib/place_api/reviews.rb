@@ -2,7 +2,8 @@
 
 module PlaceInfo
   # Provides access to Store Review data
-  class Review
+  class Reviews
+
     def initialize(reviews_data)
       @reviews = reviews_data
     end
