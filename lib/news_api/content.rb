@@ -9,20 +9,24 @@ module AritcleInfo
       @content = content_data
     end
 
-    def title
-      @content['title']
+    def status
+      @content['status']
     end
 
-    def auther
-      @content['auther']
+    def title
+      @content['article'][0]['title']
+    end
+
+    def author
+      @auther ||= Issuer.new(@content['article'][0]['author'])
     end
 
     def description
-      @content['description']
+      @content['article'][0]['description']
     end
 
     def publishedat
-      @content['publishedAt']
+      @content['article'][0]['publishedAt']
     end
   end
 end

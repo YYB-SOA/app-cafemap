@@ -1,0 +1,8 @@
+# Logfile created on 2022-10-17 18:12:01 +0800 by logger.rb/v1.5.0
+I, [2022-10-17T18:12:01.798709 #1896]  INFO -- : /mnt/c/Users/LeoShr/p_space/NTHU/2022_SOA/group_proj/MoneyPlan/Notify/line_official_notify.rb#call_line_api response: {"status":401,"message":"Missing Bearer"}
+I, [2022-10-17T18:15:01.956519 #1969]  INFO -- : /mnt/c/Users/LeoShr/p_space/NTHU/2022_SOA/group_proj/MoneyPlan/Notify/line_official_notify.rb#call_line_api response: {"status":401,"message":"Missing Bearer"}
+I, [2022-10-17T18:47:11.633935 #3373]  INFO -- : /mnt/c/Users/LeoShr/p_space/NTHU/2022_SOA/group_proj/MoneyPlan/Notify/line_official_notify.rb#call_line_api response: {"status":200,"message":"ok"}
+I, [2022-10-17T18:47:43.051630 #3400]  INFO -- : /mnt/c/Users/LeoShr/p_space/NTHU/2022_SOA/group_proj/MoneyPlan/Notify/line_official_notify.rb#call_line_api response: {"status":200,"message":"ok"}
+I, [2022-10-17T18:48:16.428803 #3436]  INFO -- : /mnt/c/Users/LeoShr/p_space/NTHU/2022_SOA/group_proj/MoneyPlan/Notify/line_official_notify.rb#call_line_api response: {"status":200,"message":"ok"}
+I, [2022-10-17T18:53:19.057000 #3476]  INFO -- : /mnt/c/Users/LeoShr/p_space/NTHU/2022_SOA/group_proj/MoneyPlan/Notify/line_official_notify.rb#call_line_api response: {"status":200,"message":"ok"}
+I, [2022-10-17T20:04:52.092387 #3937]  INFO -- : /mnt/c/Users/LeoShr/p_space/NTHU/2022_SOA/group_proj/MoneyPlan/Notify/line_official_notify.rb#call_line_api response: {"status":200,"message":"ok"}
