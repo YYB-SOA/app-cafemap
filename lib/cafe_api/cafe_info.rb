@@ -63,9 +63,9 @@ def main(token_category, name_of_key, output_path)
   cafe_yaml
 end
 
-# cafenomad_url = get_full_url("CAFE_NOMAD", "Cafe_api")
-# cafe_json = call_cafe_url(cafenomad_url) # return a json array
-# puts "API 裡有的資料數：#{cafe_json.length}" 
+cafenomad_url = get_full_url("CAFE_NOMAD", "Cafe_api")
+cafe_json = call_cafe_url(cafenomad_url) # return a json array
+puts "API 裡有的資料數：#{cafe_json.length}" 
 
 cafe_response = main('CAFE_NOMAD', 'Cafe_api', 'db/sample/cafe_nomad3.yml')
 
@@ -80,5 +80,5 @@ cafe_results["amount"] = cafe_response["amount"]
 cafe_results["header"] = cafe_response['header']
 # should be ["id", "name", "city", "wifi", "seat", "quiet", "tasty", "cheap", "music", "url", "address", "latitude", "longitude", "limited_time", "socket", "standing_desk", "mrt", "open_time"]
 
-File.write('db/sample/cafe_nomad1.yml', cafe_results.to_yaml)
+File.write('db/sample/cafe_nomad1.yml', cafe_results.to_yaml) # 移動到 fixture 裏面
 #
