@@ -30,8 +30,11 @@ token = 'Place_api'
 
 #測試
 instance = PlaceInfo::PlaceApi.new("新竹",token)
-puts instance.store("新竹",token).place_id
-
+puts "place_id : #{instance.store("新竹",token).place_id}"
+puts "business_status : #{instance.store("新竹",token).business_status}"
+puts "address : #{instance.store("新竹",token).address}"
+puts "location_lat : #{instance.store("新竹",token).location_lat}"
+puts "location_lng : #{instance.store("新竹",token).location_lng}"
 
 
 #place_hash = PlaceInfo::PlaceApi.new(token).store
