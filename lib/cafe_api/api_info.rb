@@ -16,7 +16,7 @@ module CafeNomad
     def city
         @cofanomad_data['city']
     end
-    def wifi_score
+    def wifi
       @cofanomad_data['wifi']
     end
 

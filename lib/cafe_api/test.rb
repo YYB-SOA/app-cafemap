@@ -12,17 +12,16 @@ require_relative 'api_status'
 
 module CafeNomad
   class CafeApi
-    def initialize(token) # token 這邊要 call "Cafe_api"，後面透過這個 token 去 secret.yml 抓資料
+    def initialize(token_category, token) # token 這邊要 call "Cafe_api"，後面透過這個 token 去 secret.yml 抓資料
         @token = token
+        @cafenomaf_api = Request.new(token_category, @token).call_cafe_url
     end
-    def api_status(token_category = 'CAFE_NOMAD', token = @token)
-        cafenomaf_api = Request.new(token_category, token).call_cafe_url
-        Apistatus.new(Cafeyaml.new(cafenomaf_api).json_array_to_yaml)
+    def api_status()
+        
+        Apistatus.new(Cafeyaml.new(@cafenomaf_api).json_array_to_yaml)
     end
-    def api_info(token_category = 'CAFE_NOMAD', token = @token)
-        cafenomaf_api = Request.new(token_category, token).call_cafe_url # 這裡是一個 json array(上面還沒有 st)
-        cafenomaf_api
-        # cafenomaf_api.keys[3..-1].map{|each_store| ApiInfo.new(cafenomaf_api[each_store])}
+    def api_info()
+        @cafenomaf_api.map{|each_store| ApiInfo.new(each_store)}
     end
   end
   
@@ -64,10 +63,9 @@ module CafeNomad
   end
 end
 
-a = CafeNomad::CafeApi.new("Cafe_api").api_status("CAFE_NOMAD", @token)
+a = CafeNomad::CafeApi.new("CAFE_NOMAD", "Cafe_api").api_info
 
-puts a.header
-
+puts a[100].name
 # b = CafeNomad::Request.new("CAFE_NOMAD", "Cafe_api").call_cafe_url
 # c = CafeNomad::Cafeyaml.new(b).json_array_to_yaml
-# puts c["amount"]
+# puts c["header"]
