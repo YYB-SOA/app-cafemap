@@ -2,9 +2,7 @@
 
 # frozen_string_literal: true
 
-require 'http'
 require 'yaml'
-require 'httparty'
 require 'json'
 require 'net/http'
 require 'uri'

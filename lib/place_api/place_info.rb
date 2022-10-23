@@ -2,7 +2,7 @@
 
 require 'yaml'
 require 'json'
-require 'http'
+require 'http' # We use HTTP here cuz we solve the environment issue
 
 class Placeinfo # rubocop:disable Style/Documentation
   def initialize(token_name, path, dist)

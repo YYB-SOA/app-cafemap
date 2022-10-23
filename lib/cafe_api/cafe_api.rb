@@ -1,13 +1,10 @@
 # frozen_string_literal: true
 
-# require 'http' 
 # Because one of out tammate have some unknown issue in his environment
 require 'yaml'
-# require 'httparty'
 require 'json'
 require 'net/http'
 require 'uri'
-<<<<<<< HEAD
 require_relative 'api_info'
 require_relative 'api_status'
 
@@ -79,7 +76,6 @@ end
 # def json_array_to_json(cafe_json)
 #   headers = cafe_json[0].keys #第一個裡面的 keys 就會是全部人的 keys
 #   puts "headers: #{headers}"
-=======
 
 
 
@@ -99,7 +95,6 @@ def call_cafe_url(url) # 抓 cafe api
   # return a JSON ARRAY!!
   JSON.parse(res.body)
 end
->>>>>>> cb73f9d327532236ecbb8fee901d990fa3276ff2
 
 def json_array_to_json(cafe_json)
   headers = cafe_json[0].keys #第一個裡面的 keys 就會是全部人的 keys

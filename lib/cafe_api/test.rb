@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
-# require 'http' 
-# Because one of out tammate have some unknown issue in his environment
+# Because one of out tammate have some unknown issue in his environment, we use net/http instead of HTTP
 require 'yaml'
-# require 'httparty'
 require 'json'
 require 'net/http'
 require 'uri'
