@@ -30,8 +30,7 @@ token = 'Place_api'
 
 #測試
 instance = PlaceInfo::PlaceApi.new("新竹",token)
-instance.store("新竹",token)
-instance.printout
+puts instance.store("新竹",token).place_id
 
 
 

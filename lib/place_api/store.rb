@@ -11,29 +11,25 @@ module PlaceInfo
     end
 
     def place_id
-      @store_data['results']['place_id']
+      # uts @store_data.class
+      @store_data['results'].map{ |item|  item['place_id']}
     end
 
     def business_status
-      @store_data['results']['business_status']
+      @store_data['results'].map{ |item|  item['business_status']}
     end
 
     def address
-      @store_data['results']['formatted_address']
+      @store_data['results'].map{ |item|  item['formatted_address']}
     end
 
     def location_lat
-      @store_data['results']['geometry']['location']['lat']
+      @store_data['results'].map{ |item|  item['geometry']['location']['lat']}
     end
 
     def location_lng
-      @store_data['results']['geometry']['location']['lng']
+      @store_data['results'].map{ |item|  item['geometry']['location']['lng']}
     end
-
-    def printout
-      puts @store_data
-    end
-
 
     # def owner
     #   @owner ||= Contributor.new(@project['owner'])
@@ -42,6 +38,5 @@ module PlaceInfo
     # def contributors
     #   @contributors ||= @data_source.contributors(@project['contributors_url'])
     # end
-
   end
 end
