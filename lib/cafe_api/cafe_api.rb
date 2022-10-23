@@ -17,7 +17,6 @@ module CafeNomad
         @cafenomaf_api = Request.new(token_category, @token).call_cafe_url
     end
     def api_status()
-        
         Apistatus.new(Cafeyaml.new(@cafenomaf_api).json_array_to_yaml)
     end
     def api_info()
@@ -64,19 +63,6 @@ module CafeNomad
 end
 
 
-
-
-
-
-
-
-
-
-# {"id":"00014645-38c8-4eb4-ad9b-faa871d7e511","name":"R5小餐館","city":"chiayi",
-#"wifi":5,"seat":5,"quiet":5,"tasty":5,"cheap":5,"music":5,
-# "url":"https://www.facebook.com/r5.bistro","address":"嘉義市東區忠孝路205號",
-# "latitude":"23.48386540","longitude":"120.45358340","limited_time":"maybe",
-# "socket":"maybe","standing_desk":"no","mrt":"","open_time":"11:30~21:00"}
 
 # def call_cafe_url(url) # 抓 cafe api
 #   # input url; output JSON Array
