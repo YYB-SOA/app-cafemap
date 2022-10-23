@@ -11,7 +11,6 @@ require_relative 'cafefilter'
 module PlaceInfo
   # Library for Place API
   class PlaceApi
-
     def initialize(word_term, token_name)
       # word_term是指地址的keyword(例如新竹)
       @word_term = word_term
@@ -23,14 +22,14 @@ module PlaceInfo
       Store.new(store_response, self)
     end
 
-    def reviews(word_term,token_name)
+    def reviews(word_term, token_name)
       review_response = Request.new(word_term, token_name).request_main # 傳入token
       Reviews.new(review_response)
     end
 
     # Sends out HTTP requests to Google Place API
     class Request
-      def initialize(word_term,token_name)
+      def initialize(word_term, token_name)
         @word_term = word_term
         @token_name = token_name # @token_name ＝'Place_api' #要改 #之後需要從spec_helper直接取token
       end
@@ -40,7 +39,7 @@ module PlaceInfo
         config_yaml['GOOGLE_MAP'][0][name_of_key]
       end
 
-      def call_placeapi_url(input,token)
+      def call_placeapi_url(input, token)
         http_response =
           HTTP.get("https://maps.googleapis.com/maps/api/place/textsearch/json?query=#{input}&key=#{token}&language=zh-TW")
 

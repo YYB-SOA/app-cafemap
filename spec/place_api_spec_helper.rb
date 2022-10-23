@@ -24,5 +24,3 @@ CORRECT_STORE = CORRECT.keys
 # puts CORRECT
 CASSETTES_FOLDER = 'spec/fixtures/cassettes'
 CASSETTE_FILE = 'place_api' # ??? need?
-
-

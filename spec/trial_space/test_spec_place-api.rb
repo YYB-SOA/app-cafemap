@@ -21,7 +21,6 @@ require 'yaml'
 ## test code 
 # avc = array_hash.map{|item|item.map{|i| i['place_id']} }[0][0]
 # puts avc.class
-# array_hash.map{|item|item.map{|i| i['location_lat']} }[0][0]
 
 ############ DEMO Code
 # store = PlaceInfo::PlaceApi.new(KEYWORD_FILTER, TOKEN_NAME).store(KEYWORD_FILTER,TOKEN_NAME)
