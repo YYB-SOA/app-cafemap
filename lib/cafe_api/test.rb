@@ -63,9 +63,9 @@ module CafeNomad
   end
 end
 
-a = CafeNomad::CafeApi.new("CAFE_NOMAD", "Cafe_api").api_info
+a = CafeNomad::CafeApi.new("CAFE_NOMAD", "cafe_api")
 
-puts a[100].name
+
 # b = CafeNomad::Request.new("CAFE_NOMAD", "Cafe_api").call_cafe_url
 # c = CafeNomad::Cafeyaml.new(b).json_array_to_yaml
 # puts c["header"]
