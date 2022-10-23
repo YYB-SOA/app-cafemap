@@ -39,12 +39,12 @@ module PlaceInfo
     def correct_token?
       # 若place_id這個唯一鍵沒有任何值，則代表根本沒有call到東西
       # ? raise "Fail Token" if place_id.nil
-      raise StandardError, 'PlaceInfo::PlaceApi::Response::NotFound' if place_id.nil?
+      raise StandardError, 'PlaceInfo::PlaceApi::Response::NotFound' if place_id.empty?
     end
 
     def response_nil?
       # 若place_id這個唯一鍵沒有任何值，則代表根本沒有call到東西
-      place_id.nil?
+      place_id.empty?
     end
 
     # def owner

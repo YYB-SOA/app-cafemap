@@ -15,7 +15,7 @@ module PlaceInfo
 
     def read_cafe_attribute(data_hash, attribute = nil)
       box = []
-      if attribute.nil?
+      if attribute.empty?
         box = data_hash
       else
         data_hash.select { |ele| box << ele[attribute] }
@@ -52,7 +52,7 @@ module PlaceInfo
       first_element_array = []
       first_element_array.append(cafe_clean_name[0])
       # puts "第一筆 #{first_element_array}"
-      word_term.nil? ? first_element_array : cafe_clean_name # 這邊之後要加上raise error
+      word_term.empty? ? first_element_array : cafe_clean_name # 這邊之後要加上raise error
     end
   end
 end

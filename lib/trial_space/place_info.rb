@@ -5,7 +5,7 @@ require 'json'
 require 'http'
 
 # Get Cafe data
-def read_cafe(path = 'db/sample/cafe_nomad9.json')
+def read_cafe(path)
   JSON.parse(File.read(path))
 end
 
@@ -15,7 +15,8 @@ end
 
 def read_cafe_attribute(data_hash, attribute = nil)
   box = []
-  if attribute.nil?
+  # if attribute.nil?
+  if attribute.empty?
     box = data_hash
   else
     data_hash.select { |ele| box << ele[attribute] }
@@ -33,14 +34,25 @@ def data_clean(box)
   box.map { |name_str| noise_filter(name_str) }
 end
 
-def get_placeapi_token(token_category = 'GOOGLE_MAP', name_of_key = 'Place_api')
+def get_placeapi_token(token_name)
   config_yaml = YAML.safe_load(File.read('config/secrets.yml'))
-  config_yaml[token_category][0][name_of_key]
+  config_yaml['GOOGLE_MAP'][0][token_name]
 end
 
-def call_placeapi_url(input)
-  token = get_placeapi_token
+def call_placeapi_url(input, token_name)
+  token = get_placeapi_token(token_name)
   HTTP.get("https://maps.googleapis.com/maps/api/place/textsearch/json?query=#{input}&key=#{token}&language=zh-TW")
+end
+
+def call_placeapi_storename(token_name, clean_name, dist)
+  # call google place api
+  output = {} # 回傳符合資格資料(可能多筆)
+
+  (0..(clean_name.length - 1)).each do |number|
+    key = clean_name[number]
+    output[key] = call_placeapi_url(key, token_name).parse
+    save_to_yaml(output, dist) # 先在fixture下建立yml檔案
+  end
 end
 
 def save_to_yaml(json_file, dist)
@@ -50,7 +62,7 @@ def save_to_yaml(json_file, dist)
   end
 end
 
-def main(path, dist)
+def main(token_name, path, dist)
   # call_place_url
   cafe_raw = read_cafe(path)
   # filter by location
@@ -59,15 +71,8 @@ def main(path, dist)
   regional_cafe_name = read_cafe_attribute(regional_cafe, 'name')
   # data_cleaning
   clean_name = data_clean(regional_cafe_name)
-
-  # call google place api
-  output = {}
-
-  (0..(clean_name.length - 1)).each do |number|
-    key = clean_name[number]
-    output[key] = call_placeapi_url(key).parse
-    save_to_yaml(output, dist) # 先在fixture下建立yml檔案
-  end
+  # call api with name and store as yml
+  call_placeapi_storename(token_name, clean_name, dist)
 end
 
-puts main('db/sample/cafe_nomad9.json', 'spec/fixtures/cafe_place_api_results_new.yml')
+puts main('Place_api', 'db/sample/cafe_nomad9.json', 'spec/fixtures/cafe_place_api_results_new.yml')
