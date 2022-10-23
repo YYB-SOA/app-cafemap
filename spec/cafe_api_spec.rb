@@ -45,7 +45,8 @@ describe 'Tests Cafe Nomad API library' do
 
   describe 'Reviews information' do
     before do
-      @store = PlaceInfo::PlaceApi.new(CAFE_TOKEN).store(STORE_NAME, FILTER_KEYWORD)
+      @review = PlaceInfo::PlaceApi.new(KEYWORD_FILTER, TOKEN_NAME).reviews(KEYWORD_FILTER,TOKEN_NAME)
+
     end
     ##   Owner Role we don't have this kind of role
     # it 'HAPPY: should recognize owner' do
@@ -57,9 +58,9 @@ describe 'Tests Cafe Nomad API library' do
     #   _(@store.owner.storename).must_equal CORRECT['results']['name']
     # end
     #--------------------------review/feedback-----------
-    it 'HAPPY: should identify reviews number' do
-      reviews = @store.reviews
-      _(reviews.count).must_equal CORRECT['reviews'].count
+    it 'HAPPY: should identify reviews rating' do
+      reviews = @review.rating[0]
+      _(reviews).must_equal CORRECT['result']['header']
 
       review = reviews.map(&:review)
       correct_reviews = CORRECT['result']['reviews'].count
