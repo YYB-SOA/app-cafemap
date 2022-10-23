@@ -3,18 +3,18 @@
 require 'minitest/autorun'
 require 'minitest/rg'
 require 'yaml'
-require_relative '../place_api/place_api'
+require_relative '../place_api/place_api_backup'
 require 'http'
 require 'json'
 
-require_relative 'store'
-require_relative 'reviews'
-require_relative 'cafefilter'
+require_relative '../place_api/store'
+require_relative '../place_api/reviews'
+require_relative '../place_api/cafefilter'
 
 
 # api跑完後的結果
 CORRECT = YAML.safe_load(File.read('spec/fixtures/cafe_place_api_results_new.yml'))
-token = 'Place_api'
+token_name = 'Place_api'
 
 #測試
 # place_hash = PlaceInfo::PlaceApi::Request.new("新竹",token).request_main("新竹",token)
@@ -29,13 +29,17 @@ token = 'Place_api'
 # puts place_hash
 
 #測試
-instance = PlaceInfo::PlaceApi.new("新竹",token)
-puts "place_id : #{instance.store("新竹",token).place_id}"
-puts "business_status : #{instance.store("新竹",token).business_status}"
-puts "address : #{instance.store("新竹",token).address}"
-puts "location_lat : #{instance.store("新竹",token).location_lat}"
-puts "location_lng : #{instance.store("新竹",token).location_lng}"
-
+instance = PlaceInfo::PlaceApi.new("新竹",token_name)
+puts "place_id : #{instance.store("新竹",token_name).place_id}"
+puts "business_status : #{instance.store("新竹",token_name).business_status}"
+puts "address : #{instance.store("新竹",token_name).address}"
+puts "location_lat : #{instance.store("新竹",token_name).location_lat}"
+puts "location_lng : #{instance.store("新竹",token_name).location_lng}"
+puts "/n"
+puts "place_id : #{instance.reviews("新竹",token_name).place_id}"
+puts "address : #{instance.reviews("新竹",token_name).address}"
+puts "rating : #{instance.reviews("新竹",token_name).rating}"
+puts "user_ratings_total : #{instance.reviews("新竹",token_name).user_ratings_total}"
 
 #place_hash = PlaceInfo::PlaceApi.new(token).store
 

@@ -45,9 +45,28 @@ require_relative 'cafe_api_spec_helper'
   end
   describe 'cafe nomad  information' do
     before do
+<<<<<<< HEAD
       @api_info = CafeNomad::CafeApi.new("CAFE_NOMAD", CAFE_TOKEN).api_info
       @cafe_yaml_keys = CORRECT.keys[3..-1] 
     end
+=======
+      @review = PlaceInfo::PlaceApi.new(KEYWORD_FILTER, TOKEN_NAME).reviews(KEYWORD_FILTER,TOKEN_NAME)
+
+    end
+    ##   Owner Role we don't have this kind of role
+    # it 'HAPPY: should recognize owner' do
+    #   _(@store.owner).must_be_kind_of PlaceInfo::Reviews
+    # end
+
+    # it 'HAPPY: should identify owner' do
+    #   _(@store.owner.storename).wont_be_nil
+    #   _(@store.owner.storename).must_equal CORRECT['results']['name']
+    # end
+    #--------------------------review/feedback-----------
+    it 'HAPPY: should identify reviews rating' do
+      reviews = @review.rating[0]
+      _(reviews).must_equal CORRECT['result']['header']
+>>>>>>> cb73f9d327532236ecbb8fee901d990fa3276ff2
 
     it 'HAPPY: should recognize owner' do
       _(@api_info.map{|item| item.id}).must_equal @cafe_yaml_keys.map{|item| CORRECT[item]["id"]} 

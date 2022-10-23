@@ -1,25 +1,31 @@
 # frozen_string_literal: true
 
-# require 'simplecov'
-# SimpleCov.start
+require 'simplecov'
+SimpleCov.start
 
 require 'yaml'
 
-# require 'minitest/autorun'
-# require 'minitest/rg'
-# require 'vcr'
-# require 'webmock'
+require 'minitest/autorun'
+require 'minitest/rg'
+require 'vcr'
+require 'webmock'
 
 require_relative '../lib/place_api/place_api'
 
-STORE_NAME = 'ARTROOM14藝室'
-FILTER_KEYWORD = ['東區'].freeze
-FIRST_KEYWORD = FILTER_KEYWORD[0]
-
+KEYWORD_FILTER = '新竹'
+# FIRST_KEYWORD = FILTER_KEYWORD[0]
 CONFIG = YAML.safe_load(File.read('config/secrets.yml'))
+TOKEN_NAME = 'Place_api'
 
+<<<<<<< HEAD
 PLACE_TOKEN = CONFIG['GOOGLE_MAP'][0]['Place_api']
 # CORRECT = YAML.safe_load(File.read('spec/fixtures/place_results.yml'))
+=======
+PLACE_TOKEN = CONFIG['GOOGLE_MAP'][0][TOKEN_NAME]
+>>>>>>> cb73f9d327532236ecbb8fee901d990fa3276ff2
 
+CORRECT = YAML.safe_load(File.read('spec/fixtures/cafe_place_api_results_new.yml'))
+CORRECT_STORE = CORRECT.keys
+# puts CORRECT
 CASSETTES_FOLDER = 'spec/fixtures/cassettes'
-CASSETTE_FILE = 'place_api'
+CASSETTE_FILE = 'place_api' # ??? need?

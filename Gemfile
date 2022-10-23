@@ -8,7 +8,7 @@ gem 'http', '~> 5'
 
 # Testing
 gem 'minitest'
-gem 'minitest-rg', '~> 5'
+gem 'minitest-rg', '~> 5' # Don't upgrade to 6 , just don't
 gem 'simplecov', '~> 0'
 gem 'vcr', '~> 6'
 gem 'webmock', '~> 3'
