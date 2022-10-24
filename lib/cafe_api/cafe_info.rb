@@ -67,7 +67,7 @@ end
 # cafe_json = call_cafe_url(cafenomad_url) # return a json array
 # puts "API 裡有的資料數：#{cafe_json.length}" 
 
-cafe_response = main('CAFE_NOMAD', 'Cafe_api', 'db/sample/cafe_nomad3.yml')
+cafe_response = main('CAFE_NOMAD', 'Cafe_api', 'spec/fixtures/cafe_nomad3.yml')
 
 cafe_results = {}
 
