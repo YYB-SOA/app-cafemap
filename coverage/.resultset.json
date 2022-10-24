@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/twohorse/Desktop/ISS|SOA/team project/MoneyPlan/lib/place_api/place_api.rb": {
+      "/home/timbclin/MoneyPlan/lib/place_api/place_api.rb": {
         "lines": [
           null,
           null,
@@ -82,7 +82,7 @@
           null
         ]
       },
-      "/Users/twohorse/Desktop/ISS|SOA/team project/MoneyPlan/lib/place_api/store.rb": {
+      "/home/timbclin/MoneyPlan/lib/place_api/store.rb": {
         "lines": [
           null,
           null,
@@ -147,7 +147,7 @@
           null
         ]
       },
-      "/Users/twohorse/Desktop/ISS|SOA/team project/MoneyPlan/lib/place_api/reviews.rb": {
+      "/home/timbclin/MoneyPlan/lib/place_api/reviews.rb": {
         "lines": [
           null,
           null,
@@ -177,7 +177,7 @@
           null
         ]
       },
-      "/Users/twohorse/Desktop/ISS|SOA/team project/MoneyPlan/lib/place_api/cafefilter.rb": {
+      "/home/timbclin/MoneyPlan/lib/place_api/cafefilter.rb": {
         "lines": [
           null,
           null,
@@ -219,6 +219,13 @@
           null,
           null,
           null,
+          1,
+          3,
+          3,
+          null,
+          3,
+          null,
+          null,
           null,
           1,
           null,
@@ -229,10 +236,6 @@
           3,
           null,
           3,
-          null,
-          3,
-          3,
-          null,
           3,
           null,
           null,
@@ -240,6 +243,6 @@
         ]
       }
     },
-    "timestamp": 1666616355
+    "timestamp": 1666625488
   }
 }
