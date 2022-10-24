@@ -65,29 +65,6 @@ end
 
 
 
-# def call_cafe_url(url) # 抓 cafe api
-#   # input url; output JSON Array
-#   uri = URI.parse(url)
-#   req = Net::HTTP::Get.new(uri.request_uri)
-#   https = Net::HTTP.new(uri.host, uri.port)
-#   https.use_ssl = true
-#   res = https.request(req)
-#   # return a JSON ARRAY!!
-#   JSON.parse(res.body)
-# end
-
-# def json_array_to_json(cafe_json)
-#   headers = cafe_json[0].keys #第一個裡面的 keys 就會是全部人的 keys
-#   puts "headers: #{headers}"
-
-
-
-# {"id":"00014645-38c8-4eb4-ad9b-faa871d7e511","name":"R5小餐館","city":"chiayi",
-#"wifi":5,"seat":5,"quiet":5,"tasty":5,"cheap":5,"music":5,
-# "url":"https://www.facebook.com/r5.bistro","address":"嘉義市東區忠孝路205號",
-# "latitude":"23.48386540","longitude":"120.45358340","limited_time":"maybe",
-# "socket":"maybe","standing_desk":"no","mrt":"","open_time":"11:30~21:00"}
-
 def call_cafe_url(url) # 抓 cafe api
   # input url; output JSON Array
   uri = URI.parse(url)
@@ -105,7 +82,7 @@ def json_array_to_json(cafe_json)
 
   new_hash = {}
   # 如果叫進來的 cafe_json 沒東西，把 new_hash 的 status 設為 fail；有東西則設為 ok 
-  cafe_json.nil?? new_hash["status"] = "Fail": new_hash["status"] = "ok" 
+  cafe_json.nil?? new_hash["status"] = "Fail": new_hash["status"] = "ok"  # rubocop:disable Lint/Syntax
   new_hash['row_data'] = cafe_json
   new_hash
 end
