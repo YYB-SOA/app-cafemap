@@ -10,7 +10,8 @@ end
 
 desc 'run tests'
 task :spec do
-  sh 'ruby spec/github_api_spec.rb'
+  sh 'ruby spec/cafe_api_spec.rb'
+  sh 'ruby spec/place_api_spec.rb'
 end
 
 namespace :vcr do
@@ -40,3 +41,4 @@ namespace :quality do
   task :flog do
     sh "flog #{CODE}"
   end
+end
