@@ -115,27 +115,4 @@ cafe_results["header"] = cafe_response["cafe_data"][0].keys
 
 File.write('db/sample/cafe_nomad1.yml', cafe_results.to_yaml)
 
-# save_json(cafe_json,"db/sample/cafe_nomad1.json" )
-
-# def save_jarr(json_array, output_path)
-#   # Save Parsed Json ARRAY Directly
-#   # It's not working
-#   File.write(output_path, JSON.dump(json_array))
-# end 
-
-
-# def jArraytoCsv(json_array_path, csv_path)
-#   csv_string = CSV.generate do |csv|
-#     JSON.parse(File.read(json_array_path)).each do |hash|
-#       csv << hash.values
-#     File.write(csv_path, csv_string)
-#     end
-#     # No test Demo for this API
-#   end
-# end
-
-# cafe_json = call_cafe_url(cafenomad_url)
-# puts cafe_json[0]
-# save_arr(cafe_json, 'lib/sample/cafe_nomad.json' )
-# # jArraytoCsv("db/sample/cafe_nomad.json","db/sample/cafe_nomad.csv" )
 
