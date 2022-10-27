@@ -13,7 +13,7 @@ module PlaceInfo
       input['row_data'].select! { |key| key[attribute].include? word_term }
     end
 
-    def read_cafe_attribute(data_hash, attribute = nil)
+    def read_cafe_attribute(data_hash, attribute = empty)
       box = []
       if attribute.empty?
         box = data_hash
@@ -38,6 +38,13 @@ module PlaceInfo
     #     input.select { |key| key.include? keyword}
     # end
 
+    def result_array(word_term, cafe_clean_name)
+      first_element_array = []
+      first_element_array.append(cafe_clean_name[0])
+      # puts "第一筆 #{first_element_array}"
+      word_term.empty? ? first_element_array : cafe_clean_name # 這邊之後要加上raise error
+    end
+
     # word_term一定要給
     def main(word_term)
       # call_place_url
@@ -48,11 +55,7 @@ module PlaceInfo
       regional_cafe_name = read_cafe_attribute(regional_cafe, 'name')
       # data_cleaning
       cafe_clean_name = data_clean(regional_cafe_name)
-
-      first_element_array = []
-      first_element_array.append(cafe_clean_name[0])
-      # puts "第一筆 #{first_element_array}"
-      word_term.empty? ? first_element_array : cafe_clean_name # 這邊之後要加上raise error
+      result_array(word_term, cafe_clean_name)
     end
   end
 end

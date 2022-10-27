@@ -23,3 +23,7 @@ gem 'rubocop'
 
 # Parsing
 gem 'json'
+
+# Validation
+gem 'dry-struct', '~> 1'
+gem 'dry-types', '~> 1'

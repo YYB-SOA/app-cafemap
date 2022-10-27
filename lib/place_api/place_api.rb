@@ -17,13 +17,13 @@ module PlaceInfo
       @token_name = token_name # @place_token ＝'Place_api'
     end
 
-    def store(word_term, token_name)
-      store_response = Request.new(word_term, token_name).request_main # 傳入token
-      Store.new(store_response, self)
+    def store(word_term = @word_term, token_name = @token_name)
+      response = Request.new(word_term, token_name).request_main # 傳入token
+      Store.new(response, self)
     end
 
-    def reviews(word_term, token_name)
-      review_response = Request.new(word_term, token_name).request_main # 傳入token
+    def reviews(wordterm = @word_term, tokenname = @token_name)
+      review_response = Request.new(wordterm, tokenname).request_main # 傳入token
       Reviews.new(review_response)
     end
 
