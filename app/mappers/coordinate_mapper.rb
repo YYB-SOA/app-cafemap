@@ -1,7 +1,7 @@
 # frozen_string_literal: false
 
-require_relative ''
-require_relative ''
+require_relative '' # 要require 元詰的mapper
+require_relative '' # 要require Tim的mapper
 
 module Transfer
   # Provides access to contributor data
@@ -17,7 +17,6 @@ module Transfer
         @word_term
       end
 
-
       def get_nomad
         # return string array
         CafeNomad::ApiInfo.new(@word_term).get_store_name
@@ -25,18 +24,18 @@ module Transfer
     end
 
     class Data_Output
-        filter_store = Transfer::Store.Data_Input.get_nomad
+        nomad_store = Transfer::Store.Data_Input.get_nomad
         user_wordterm = Transfer::Store.Data_Input.get_wordterm
-        def initialize(filter_store, user_wordterm)
-            @filter_store = filter_store 
+        def initialize(nomad_store, user_wordterm)
+            @nomad_store = nomad_store 
             @user_wordterm = user_wordterm 
         end    
 
         def filterArray
-            @filter_store
+            @nomad_store
         end
 
-        def filtered_data(word_term =  @user_wordterm, filterArray = @filter_store)
+        def filterData(word_term =  @user_wordterm, filterArray = @nomad_store)
             filterArray.includes?? (word_term) == true, word_term : "Warming: It's not ligit word term."        
         end
     end
