@@ -9,7 +9,7 @@ module PlaceInfo
     class Store < Dry::Struct
       include Dry.Types
 
-      attribute :place_id, Strict::String  
+      attribute :place_id, Strict::String  # Coercible
       attribute :name, Strict::String
       attribute :formatted_address, Strict::String
       attribute :location_lat,  Strict::Float
