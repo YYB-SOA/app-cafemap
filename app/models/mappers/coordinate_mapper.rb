@@ -3,48 +3,41 @@ require_relative "../gateways/cafe_api.rb"
 # require_relative 'status_mapper'
 require_relative 'info_mapper' 
 
-word_term = '新竹市'
 
 module Transfer
   # Provides access to contributor data
   module StoreMapper
-    class Data_Input
-    # 拉user input word term 資料
+    class DataInput
+    # Get the store name array inside
       def initialize(wordterm)
         @wordterm = wordterm
       end
       
-      def get_wordterm()
+      def wordterm()
         @wordterm
       end
 
-      def get_nomad()
+      def nomad()
         CafeMap::CafeNomad::InfoMapper.new("Cafe_api").load_several
       end
     end
-    class Data_Output      
+    class DataOutput
       def initialize(wordterm)
-          @@nomad_obj = Transfer::StoreMapper::Data_Input.new(wordterm).get_nomad 
-          @@user_wordterm = Transfer::StoreMapper::Data_Input.new(wordterm).get_wordterm
+          @nomad_obj = Transfer::StoreMapper::DataInput.new(wordterm).nomad 
+          @user_wordterm = Transfer::StoreMapper::DataInput.new(wordterm).wordterm
       end
 
       def filtered_store
-        @store_array = @@nomad_obj.select { |obj| obj.address.include?  @@user_wordterm }.map(&:name)
-        @store_array.empty?? "Warming: It's not ligit word term." : @store_array 
-      end
-
-      def output_filtered_store()
-        @store_array = filtered_store()
+        store_array = @nomad_obj.select { |obj| obj.address.include?  @user_wordterm }.map(&:name)
+        store_array.empty? ? "Warming: It's not ligit word term." : store_array
       end
     end
   end
 end
 
 
-token_name = "Cafe_api"
-word_term = "嘉義"
-temp1 = Transfer::StoreMapper::Data_Output.new(word_term)
-puts temp1.output_filtered_store
-
+# word_term = "嘉義"
+# temp1 = Transfer::StoreMapper::DataOutput.new(word_term)
+# puts temp1.filtered_store
 
 
