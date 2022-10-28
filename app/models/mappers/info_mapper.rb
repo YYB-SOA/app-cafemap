@@ -129,6 +129,3 @@ module CafeMap
   end
 end
 
-a = CafeMap::CafeNomad::InfoMapper.new('Cafe_api').load_several
-b = a.select { |x| x.address.include? '新竹' }.map(&:name)
-puts b
