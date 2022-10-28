@@ -1,7 +1,7 @@
 # frozen_string_literal: false
 
-require_relative '../models//gateways/place_api'
-require_relative '../models/entities/store'
+require_relative '../gateways/place_api'
+require_relative '../entities/store'
 
 module PlaceInfo
   # Provides access to contributor data
