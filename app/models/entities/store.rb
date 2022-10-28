@@ -3,7 +3,7 @@
 require 'dry-types'
 require 'dry-struct'
 
-module PlaceInfo
+module CafeMap
   module Entity
     # Domain entity for stores
     class Store < Dry::Struct

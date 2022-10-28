@@ -29,16 +29,15 @@ module Transfer
             city_arr = ['新竹', '台北', '宜蘭', '臺北', '新北', '桃園', '苗栗', '台中']
             region.halt 400 unless (city_arr.any?(region) )  &&
                                     (region.split('').count >= 2)
-            owner, project = gh_url.split('/')[-2..]
 
-            routing.redirect "CafeNomad/#{owner}/#{project}"
+            routing.redirect "CafeNomad/#{region}/"
           end
         end
 
         routing.on String, String do |owner, project|
           # GET /project/owner/project
           routing.get do
-            github_project = Github::ProjectMapper
+            github_project = CafeMap::StatusMapper
               .new(GH_TOKEN)
               .find(owner, project)
 

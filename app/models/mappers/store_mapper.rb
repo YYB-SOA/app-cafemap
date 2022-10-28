@@ -3,13 +3,13 @@
 require_relative '../gateways/place_api'
 require_relative '../entities/store'
 
-module PlaceInfo
+module CafeMap
   # Provides access to contributor data
   module Place
     # Data Mapper: Place store -> store entity
     class StoreMapper
       def initialize(token_name, gateway_class = Place::PlaceApi)
-        @token_name = token_name # @place_token ＝'Place_api'
+        @token_name = token_name 
         @gateway_class = gateway_class
         @gateway = @gateway_class.new(@token_name)
       end
@@ -33,7 +33,7 @@ module PlaceInfo
         end
 
         def build_entity
-          PlaceInfo::Entity::Store.new(
+          CafeMap::Entity::Store.new(
             place_id:,
             name:,
             formatted_address:,
