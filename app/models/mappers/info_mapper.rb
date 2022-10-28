@@ -6,11 +6,11 @@ require_relative '../entities/info'
 module CafeMap
   module CafeNomad
     class InfoMapper
-      # token will be "Cafe_api"
-      def initialize(token, gateway_class = CafeNomad::Api)
-        @token = token
+      # tokename will be "Cafe_api"
+      def initialize(tokename, gateway_class = CafeNomad::Api)
+        @tokename = tokename
         @gateway_class = gateway_class
-        @gateway = gateway_class.new(@token)
+        @gateway = gateway_class.new(@tokename)
       end
 
       def load_several

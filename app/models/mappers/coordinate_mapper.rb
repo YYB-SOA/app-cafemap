@@ -34,10 +34,3 @@ module Transfer
     end
   end
 end
-
-
-# word_term = "嘉義"
-# temp1 = Transfer::StoreMapper::DataOutput.new(word_term)
-# puts temp1.filtered_store
-
-

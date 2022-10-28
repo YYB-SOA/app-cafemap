@@ -3,7 +3,7 @@
 require 'yaml'
 require 'http'
 
-module PlaceInfo
+module CafeMap
   module Place
     # Library for Place API
     class PlaceApi
@@ -46,7 +46,6 @@ module PlaceInfo
         end
 
         def request_main(name_of_key = @token_name, name_array = ["WHO'S 喜象 CAFE", 'ARTROOM14藝室'])
-          # PlaceInfo::CafeFilter.new.main(word_term) # mapper
           cafe_clean_name = data_clean(name_array)
           cafe_clean_name.map do |eachstore|
             call_placeapi_url(eachstore, get_placeapi_token(name_of_key)).parse

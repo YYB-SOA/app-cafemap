@@ -7,10 +7,10 @@ require_relative '../entities/status.rb'
 module CafeMap
   module CafeNomad
     class StatusMapper
-      def initialize(token, gateway_class = CafeNomad::Api)
-        @token = token
+      def initialize(tokename, gateway_class = CafeNomad::Api)
+        @tokename = tokename
         @gateway_class = gateway_class
-        @gateway = gateway_class.new(@token) # will be a json array.
+        @gateway = gateway_class.new(@tokename) # will be a json array.
       end
 
       def find

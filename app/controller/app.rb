@@ -20,23 +20,24 @@ module Transfer
         view 'home'
       end
 
-      routing.on 'project' do
+      routing.on 'CafeNomad' do
         routing.is do
           # POST /project/
           routing.post do
-            gh_url = routing.params['github_url'].downcase
-            routing.halt 400 unless (gh_url.include? 'github.com') &&
-                                    (gh_url.split('/').count >= 3)
-            owner, project = gh_url.split('/')[-2..]
+            wordterm = routing.params
+            region = routing.params[0]#.downcase
+            city_arr = ['新竹', '台北', '宜蘭', '臺北', '新北', '桃園', '苗栗', '台中']
+            region.halt 400 unless (city_arr.any?(region) )  &&
+                                    (region.split('').count >= 2)
 
-            routing.redirect "project/#{owner}/#{project}"
+            routing.redirect "CafeNomad/#{region}/"
           end
         end
 
         routing.on String, String do |owner, project|
           # GET /project/owner/project
           routing.get do
-            github_project = Github::ProjectMapper
+            github_project = CafeMap::StatusMapper
               .new(GH_TOKEN)
               .find(owner, project)
 

@@ -8,9 +8,9 @@ module CafeMap
   module CafeNomad
     class Api
       # Take the tokem to get the api. should be "Cafe_api" here.
-      def initialize(token)
-        @token = token
-        @cafenomaf_api = Request.new(@token).get # return will be jason array.
+      def initialize(tokename)
+        @tokename = tokename
+        @cafenomaf_api = Request.new(@tokename).get # return will be jason array.
       end
       def cafe_status
         CafeYaml.new(@cafenomaf_api).jsonarray_to_ymal
@@ -23,11 +23,11 @@ module CafeMap
 
     class Request    
       # should be 'Cafe_api'
-      def initialize(token)
-        @token = token
+      def initialize(tokename)
+        @tokename = tokename
         @token_category = 'CAFE_NOMAD'
         @config = YAML.safe_load(File.read('config/secrets.yml'))
-        @full_url = @config[@token_category][0][@token] # total url
+        @full_url = @config[@token_category][0][@tokename] # total url
       end
 
       def get(url = @full_url)
