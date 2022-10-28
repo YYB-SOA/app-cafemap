@@ -2,26 +2,22 @@
 
 require 'yaml'
 require 'http'
-require_relative 'cafefilter'
 
 module PlaceInfo
   module Place
     # Library for Place API
     class PlaceApi
-      def initialize(word_term, token_name)
-        # word_term是指地址的keyword(例如新竹)
-        @word_term = word_term
+      def initialize(token_name)
         @token_name = token_name # @place_token ＝'Place_api'
       end
 
-      def store(word_term = @word_term, token_name = @token_name)
-        Request.new(word_term, token_name).request_main # 傳入token
+      def store(token_name = @token_name)
+        Request.new(token_name).request_main # Array
       end
 
       # Sends out HTTP requests to Google Place API
       class Request
-        def initialize(word_term, token_name)
-          @word_term = word_term
+        def initialize(token_name)
           @token_name = token_name # @token_name ＝'Place_api'
         end
 
@@ -39,10 +35,22 @@ module PlaceInfo
           end
         end
 
-        def request_main(word_term = @word_term, name_of_key = @token_name)
-          cafe_filter_array = PlaceInfo::CafeFilter.new.main(word_term) # mapper???????
-          cafe_filter_str = cafe_filter_array[0]
-          call_placeapi_url(cafe_filter_str, get_placeapi_token(name_of_key)).parse
+        def noise_filter(name_str)
+          # Normalization
+          name_str.gsub('()', '').gsub(' ', '').gsub("\b", '')
+        end
+
+        def data_clean(box)
+          # Input: string array of cafe name
+          box.map { |name_str| noise_filter(name_str) }
+        end
+
+        def request_main(name_of_key = @token_name, name_array = ["WHO'S 喜象 CAFE", 'ARTROOM14藝室'])
+          # PlaceInfo::CafeFilter.new.main(word_term) # mapper
+          cafe_clean_name = data_clean(name_array)
+          cafe_clean_name.map do |eachstore|
+            call_placeapi_url(eachstore, get_placeapi_token(name_of_key)).parse
+          end
         end
       end
 
