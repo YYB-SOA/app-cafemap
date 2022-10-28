@@ -1,5 +1,8 @@
 # frozen_string_literal: false
 
+require_relative '../gateways/cafe_api'
+require_relative '../entities/info'
+
 module CafeMap
   module CafeNomad
     class InfoMapper
@@ -10,7 +13,7 @@ module CafeMap
         @gateway = gateway_class.new(@token)
       end
 
-      def load_several()
+      def load_several
         @gateway.cafe_info.map do |each_store|
           InfoMapper.build_entity(each_store)
         end
@@ -125,3 +128,7 @@ module CafeMap
     end
   end
 end
+
+a = CafeMap::CafeNomad::InfoMapper.new('Cafe_api').load_several
+b = a.select { |x| x.address.include? '新竹' }.map(&:name)
+puts b

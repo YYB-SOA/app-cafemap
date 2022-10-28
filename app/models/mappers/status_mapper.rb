@@ -1,6 +1,8 @@
 # frozen_string_literal: false
 
 require_relative 'info_mapper'
+require_relative '../gateways/cafe_api.rb'
+require_relative '../entities/status.rb'
 
 module CafeMap
   module CafeNomad

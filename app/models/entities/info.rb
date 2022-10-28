@@ -11,24 +11,24 @@ module CafeMap
     class Info < Dry::Struct
       include Dry.Types
 
-      attribute :id,          Strict::String
-      attribute :name,        Strict::String
-      attribute :city,        Strict::String
-      attribute :wifi,        Strict::Integer
-      attribute :seat,        Strict::Integer
-      attribute :quiet,       Strict::Integer
-      attribute :tasty,       Strict::Integer
-      attribute :cheap,       Strict::Integer
-      attribute :music,       Strict::Integer
-      attribute :url,         Strict::String
-      attribute :address,     Strict::String
-      attribute :latitude,            Integer
-      attribute :longitude,           Integer
-      attribute :limited_time,        String
-      attribute :socket,              String
-      attribute :standing_desk,       String
-      attribute :mrt,                 String
-      attribute :open_time,           String
+      attribute :id,                  Coercible::String
+      attribute :name,                Coercible::String
+      attribute :city,                Coercible::String
+      attribute :wifi,                Coercible::String
+      attribute :seat,                Coercible::String
+      attribute :quiet,               Coercible::String
+      attribute :tasty,               Coercible::String
+      attribute :cheap,               Coercible::String
+      attribute :music,               Coercible::String
+      attribute :url,                 Coercible::String
+      attribute :address,             Coercible::String
+      attribute :latitude,            Coercible::String
+      attribute :longitude,           Coercible::String
+      attribute :limited_time,        Coercible::String
+      attribute :socket,              Coercible::String
+      attribute :standing_desk,       Coercible::String
+      attribute :mrt,                 Coercible::String
+      attribute :open_time,           Coercible::String
     end
   end
 end
