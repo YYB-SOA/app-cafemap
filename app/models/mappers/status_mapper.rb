@@ -50,5 +50,3 @@ module CafeMap
     end
   end
 end
-
-a = CafeMap::CafeNomad::StatusMapper.new()

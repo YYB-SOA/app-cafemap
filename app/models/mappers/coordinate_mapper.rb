@@ -1,43 +1,43 @@
 # frozen_string_literal: false
+require_relative "../gateways/cafe_api.rb"
+# require_relative 'status_mapper'
+require_relative 'info_mapper' 
 
-require_relative '' # 要require 元詰的mapper
-require_relative '' # 要require Tim的mapper
 
 module Transfer
   # Provides access to contributor data
-  module Store
-    # 資料Entity類別名為module
-    class Data_Input
-    # 拉資料
-      def initialize(word_term)
-        @word_term = word_term
+  module StoreMapper
+    class DataInput
+    # Get the store name array inside
+      def initialize(wordterm)
+        @wordterm = wordterm
+      end
+      
+      def wordterm()
+        @wordterm
       end
 
-      def get_wordterm(@word_term)
-        @word_term
-      end
-
-      def get_nomad
-        # return string array
-        CafeNomad::ApiInfo.new(@word_term).get_store_name
+      def nomad()
+        CafeMap::CafeNomad::InfoMapper.new("Cafe_api").load_several
       end
     end
+    class DataOutput
+      def initialize(wordterm)
+          @nomad_obj = Transfer::StoreMapper::DataInput.new(wordterm).nomad 
+          @user_wordterm = Transfer::StoreMapper::DataInput.new(wordterm).wordterm
+      end
 
-    class Data_Output
-        nomad_store = Transfer::Store.Data_Input.get_nomad
-        user_wordterm = Transfer::Store.Data_Input.get_wordterm
-        def initialize(nomad_store, user_wordterm)
-            @nomad_store = nomad_store 
-            @user_wordterm = user_wordterm 
-        end    
-
-        def filterArray
-            @nomad_store
-        end
-
-        def filterData(word_term =  @user_wordterm, filterArray = @nomad_store)
-            filterArray.includes?? (word_term) == true, word_term : "Warming: It's not ligit word term."        
-        end
+      def filtered_store
+        store_array = @nomad_obj.select { |obj| obj.address.include?  @user_wordterm }.map(&:name)
+        store_array.empty? ? "Warming: It's not ligit word term." : store_array
+      end
     end
   end
 end
+
+
+# word_term = "嘉義"
+# temp1 = Transfer::StoreMapper::DataOutput.new(word_term)
+# puts temp1.filtered_store
+
+
