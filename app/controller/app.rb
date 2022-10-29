@@ -3,7 +3,7 @@
 require 'roda'
 require 'slim'
 
-module Transfer
+module CafeMap
   # Web App
   class App < Roda
     plugin :render, engine: 'slim', views: 'app/views'
@@ -20,28 +20,28 @@ module Transfer
         view 'home'
       end
 
-      routing.on 'CafeNomad' do
+      routing.on 'info' do
         routing.is do
-          # POST /project/
+          # POST /info/
           routing.post do
-            wordterm = routing.params
-            region = routing.params[0]#.downcase
-            city_arr = ['新竹', '台北', '宜蘭', '臺北', '新北', '桃園', '苗栗', '台中']
-            region.halt 400 unless (city_arr.any?(region) )  &&
-                                    (region.split('').count >= 2)
-
-            routing.redirect "CafeNomad/#{region}/"
+            city_ch = routing.params['address'][0..2]
+            city_en = routing.params['city']
+            store_names =  routing.params['name']
+            routing.halt 400 unless (city_ch.include? "市" ) &&
+                                    (city_en.split('').count >= 4) &&
+                                    (! store_names.nil?)
+          
+            routing.redirect "info/#{city_en}/#{store_names}"
           end
         end
 
-        routing.on String, String do |owner, project|
-          # GET /project/owner/project
+        routing.on String, String do |city_en, store_names|
+          # GET /city_en/stores
           routing.get do
-            github_project = CafeMap::StatusMapper
-              .new(GH_TOKEN)
-              .find(owner, project)
+            self.build_entity
+            cafe_status = CafeNomad::StatusMapper.new(NOMAD_TOKEN_NAME).find()
 
-            view 'project', locals: { project: github_project }
+            view 'status', locals: { stores: cafe_status }
           end
         end
       end
