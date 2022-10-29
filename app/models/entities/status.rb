@@ -9,9 +9,9 @@ module CafeMap
     class Status < Dry::Struct
       include Dry.Types
 
-      attribute :status, Strict::String
-      attribute :amount, Strict::Integer
-      attribute :header, Strict::Array
+      attribute :status, String.optional #Strict::String #String.optional
+      attribute :amount, Integer.optional # Strict::Integer #Integer.optional
+      attribute :header, Array.optional # Strict::Array # Array.optional
     end
   end
 end

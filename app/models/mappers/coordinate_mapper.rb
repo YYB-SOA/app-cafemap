@@ -1,34 +1,33 @@
 # frozen_string_literal: false
-require_relative "../gateways/cafe_api.rb"
+
+require_relative '../gateways/cafe_api'
 # require_relative 'status_mapper'
-require_relative 'info_mapper' 
+require_relative 'info_mapper'
 
-
-module Transfer
+module CafeMap
   # Provides access to contributor data
-  module StoreMapper
-    class DataInput
-    # Get the store name array inside
+  module StorenameMapper
+    class DataInput # rubocop:disable Style/Documentation
+      # Get the store name array inside
       def initialize(wordterm)
         @wordterm = wordterm
       end
-      
-      def wordterm()
-        @wordterm
-      end
 
-      def nomad()
-        CafeMap::CafeNomad::InfoMapper.new("Cafe_api").load_several
+      attr_reader :wordterm
+
+      def nomad
+        CafeMap::CafeNomad::InfoMapper.new('Cafe_api').load_several
       end
     end
-    class DataOutput
+
+    class DataOutput # rubocop:disable Style/Documentation
       def initialize(wordterm)
-          @nomad_obj = Transfer::StoreMapper::DataInput.new(wordterm).nomad 
-          @user_wordterm = Transfer::StoreMapper::DataInput.new(wordterm).wordterm
+        @nomad_obj = CafeMap::StorenameMapper::DataInput.new(wordterm).nomad
+        @user_wordterm = CafeMap::StorenameMapper::DataInput.new(wordterm).wordterm
       end
 
       def filtered_store
-        store_array = @nomad_obj.select { |obj| obj.address.include?  @user_wordterm }.map(&:name)
+        store_array = @nomad_obj.select { |obj| obj.address.include? @user_wordterm }.map(&:name)
         store_array.empty? ? "Warming: It's not ligit word term." : store_array
       end
     end

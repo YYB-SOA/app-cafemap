@@ -6,4 +6,3 @@ def require_app
     require file
   end
 end
-

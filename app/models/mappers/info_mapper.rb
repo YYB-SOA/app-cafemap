@@ -7,7 +7,7 @@ module CafeMap
   module CafeNomad
     class InfoMapper
       # tokename will be "Cafe_api"
-      def initialize(tokename = 'Cafe_api', gateway_class = CafeNomad::Api)
+      def initialize(tokename, gateway_class = CafeNomad::Api)
         @tokename = tokename
         @gateway_class = gateway_class
         @gateway = gateway_class.new(@tokename)
@@ -128,4 +128,3 @@ module CafeMap
     end
   end
 end
-
