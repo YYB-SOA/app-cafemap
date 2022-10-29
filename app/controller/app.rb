@@ -47,8 +47,10 @@ module CafeMap
         routing.is do
           # GET /cafe/storename
           routing.get do
-
-            view 'storelist' #, locals: { storelist: region }
+            cafe_storename = CafeMap::InfoMapper
+                             .new(CAFE_TOKEN_NAME)
+                             .load_several
+            view 'storelist', locals: { storelist: region }
 
           end
         end
