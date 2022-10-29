@@ -1,8 +1,8 @@
 # frozen_string_literal: false
 
-require_relative '../gateways/cafe_api'
+require_relative '../models/gateways/cafe_api'
 # require_relative 'status_mapper'
-require_relative 'info_mapper'
+require_relative '../models/mappers/info_mapper'
 
 module CafeMap
   # Provides access to contributor data
