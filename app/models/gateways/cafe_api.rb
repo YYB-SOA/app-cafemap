@@ -21,7 +21,7 @@ module CafeMap
       end
     end
 
-    class Request    
+    class Request
       # should be 'Cafe_api'
       def initialize(tokename)
         @tokename = tokename

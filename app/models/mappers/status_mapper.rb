@@ -45,7 +45,7 @@ module CafeMap
       end
 
       def header
-        @datap['header']
+        @data['header']
       end
     end
   end

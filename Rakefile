@@ -8,10 +8,24 @@ task :default do
   puts `rake -T`
 end
 
-desc 'run tests'
-task :spec do
-  sh 'ruby spec/cafe_api_spec.rb'
-  sh 'ruby spec/place_api_spec.rb'
+# test尚未確認
+# desc 'run tests'
+# task :spec do
+#   sh 'ruby spec/cafe_api_spec.rb'
+#   sh 'ruby spec/place_api_spec.rb'
+# end
+
+desc 'Keep rerunning tests upon changes'
+task :respec do
+  sh "rerun -c 'rake spec' --ignore 'coverage/*'"
+end
+
+task :run do
+  sh 'bundle exec puma'
+end
+
+task :rerun do
+  sh "rerun -c --ignore 'coverage/*' -- bundle exec puma"
 end
 
 namespace :vcr do

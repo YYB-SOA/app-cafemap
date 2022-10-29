@@ -3,7 +3,7 @@
 require 'roda'
 require 'slim'
 
-module Transfer
+module CafeMap
   # Web App
   class App < Roda
     plugin :render, engine: 'slim', views: 'app/views'
@@ -15,33 +15,34 @@ module Transfer
       routing.assets # load CSS
       response['Content-Type'] = 'text/html; charset=utf-8'
 
+      stores_data = CafeMap::CafeNomad::InfoMapper
+
       # GET /
       routing.root do
         view 'home'
       end
 
-      routing.on 'CafeNomad' do
+      routing.on 'project' do
         routing.is do
           # POST /project/
           routing.post do
-            wordterm = routing.params
-            region = routing.params[0]#.downcase
-            city_arr = ['新竹', '台北', '宜蘭', '臺北', '新北', '桃園', '苗栗', '台中']
-            region.halt 400 unless (city_arr.any?(region) )  &&
-                                    (region.split('').count >= 2)
-
-            routing.redirect "CafeNomad/#{region}/"
+           
+            region=routing.params['region']
+            # city_arr = %w[新竹 台北 宜蘭 臺北 新北 桃園 苗栗 台中]
+            # region.halt 400 unless city_arr.any?(region) &&
+            #                        (region.split(/ /).count >= 2)
+            routing.redirect "yyb/#{region}/"
+            end
           end
-        end
 
-        routing.on String, String do |owner, project|
-          # GET /project/owner/project
+        routing.is do
+          # GET /cafe/storename
           routing.get do
-            github_project = CafeMap::StatusMapper
-              .new(GH_TOKEN)
-              .find(owner, project)
+            # cafe_storename = CafeMap::InfoMapper
+            #                  .new(CAFE_TOKEN_NAME)
+            #                  .load_several
+            # view 'project', locals: { project: region }
 
-            view 'project', locals: { project: github_project }
           end
         end
       end
