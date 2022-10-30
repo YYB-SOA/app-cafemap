@@ -1,17 +1,18 @@
 # frozen_string_literal: true
 
 require 'net/http'
-require "yaml"
-require "json"
+require 'yaml'
+require 'json'
 
 module CafeMap
   module CafeNomad
     class Api
-      # Take the tokem to get the api. should be "Cafe_api" here.
+      # tokename =  "Cafe_api"
       def initialize(tokename)
         @tokename = tokename
         @cafenomaf_api = Request.new(@tokename).get # return will be jason array.
       end
+
       def cafe_status
         CafeYaml.new(@cafenomaf_api).jsonarray_to_ymal
       end
@@ -42,19 +43,22 @@ module CafeMap
     end
 
     class CafeYaml
-      # 這邊丟進來的東西應該要是一個 json array
+      # Input: json array
       def initialize(data)
         @data = data
       end
-      def jsonarray_to_ymal()
+
+      def jsonarray_to_ymal
         @store = {}
         @store['status'] = 'ok' unless @data.nil?
         @store['amount'] = @data.length
         @store['header'] = @data[0].keys
+
         @data.each do |each_store|
           cafe_name = "#{each_store['name']}{#{each_store['id'].split('-')[0]}"
           @store[cafe_name] = each_store
         end
+
         @store
       end
     end

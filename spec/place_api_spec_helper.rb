@@ -18,8 +18,6 @@ KEYWORD_FILTER = '新竹'
 # FIRST_KEYWORD = FILTER_KEYWORD[0]
 CONFIG = YAML.safe_load(File.read('config/secrets.yml'))
 TOKEN_NAME = 'Place_api'
-
-PLACE_TOKEN = CONFIG['GOOGLE_MAP'][0]['Place_api']
 # CORRECT = YAML.safe_load(File.read('spec/fixtures/place_results.yml'))
 PLACE_TOKEN = CONFIG['GOOGLE_MAP'][0][TOKEN_NAME]
 
