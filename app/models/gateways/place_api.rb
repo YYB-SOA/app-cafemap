@@ -7,18 +7,20 @@ module CafeMap
   module Place
     # Library for Place API
     class PlaceApi
-      def initialize(token_name)
-        @token_name = token_name # @place_token ＝'Place_api'
+      def initialize(token_name,store_namearr)
+        @token_name = token_name
+        @store_namearr = store_namearr
       end
 
-      def store(token_name = @token_name)
-        Request.new(token_name).request_main # Array
+      def store(token_name = @token_name, name_arr = @store_namearr)
+        Request.new(token_name, name_arr).request_main # Array
       end
 
       # Sends out HTTP requests to Google Place API
       class Request
-        def initialize(token_name)
-          @token_name = token_name # @token_name ＝'Place_api'
+        def initialize(token_name,store_namearr)
+          @token_name = token_name
+          @store_namearr = store_namearr
         end
 
         def get_placeapi_token(name_of_key = @token_name)
@@ -45,7 +47,7 @@ module CafeMap
           box.map { |name_str| noise_filter(name_str) }
         end
 
-        def request_main(name_of_key = @token_name, name_array = ["WHO'S 喜象 CAFE", 'ARTROOM14藝室'])
+        def request_main(name_of_key = @token_name, name_array = @store_namearr)  # ["WHO'S 喜象 CAFE", 'ARTROOM14藝室']
           cafe_clean_name = data_clean(name_array)
           cafe_clean_name.map do |eachstore|
             call_placeapi_url(eachstore, get_placeapi_token(name_of_key)).parse

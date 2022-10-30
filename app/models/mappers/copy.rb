@@ -8,15 +8,14 @@ module CafeMap
   module Place
     # Data Mapper: Place store -> store entity
     class StoreMapper
-      def initialize(token_name,store_namearr, gateway_class = Place::PlaceApi)
-        @token_name = token_name
-        @store_namearr = store_namearr
+      def initialize(token_name, gateway_class = Place::PlaceApi)
+        @token_name = token_name 
         @gateway_class = gateway_class
-        @gateway = @gateway_class.new(@token_name,@store_namearr)
+        @gateway = @gateway_class.new(@token_name)
       end
 
       def load_several
-        @gateway.store(@token_name,@store_namearr).map do |each_store|
+        @gateway.store(@token_name).map do |each_store|
           data = each_store['results'][0]
           StoreMapper.build_entity(data)
         end

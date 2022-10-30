@@ -15,12 +15,13 @@ module CafeMap
     status_handler(404) do
       view('404')
     end
+
     route do |routing|
       routing.assets # load CSS
       response['Content-Type'] = 'text/html; charset=utf-8'
 
       stores_data = CafeMap::CafeNomad::InfoMapper.new(CAFE_TOKEN_NAME).load_several
-      
+
       # GET /
       routing.root do
         view 'home' # , locals: { store_name: stores_data }
@@ -28,24 +29,26 @@ module CafeMap
 
       routing.on 'region' do
         routing.is do
-          # POST /storelist/
-
+          # POST /region/
           routing.post do
-            user_wordterm = routing.params['欲查詢的地區']
-            filtered_store = stores_data.find { |store| store.address.include?user_wordterm}
+            @user_wordterm = routing.params['欲查詢的地區']
+            filtered_store = stores_data.find { |store| store.address.include? @user_wordterm }
             routing.halt 404 unless filtered_store
             routing.redirect "region/#{filtered_store.city}"
-            end
-          
           end
-        
+        end
+
         routing.on String do |city|
           # GET /cafe/region
           routing.get do
-            filtered_city = stores_data.find { |store| store.city.include? city}
+            filtered_city = stores_data.find { |store| store.city.include? city }
             routing.halt 404 unless filtered_city
-            filtered_stores_data = stores_data.select { |filter| filter.city.include? city }
-            view 'region', locals: { info: filtered_stores_data}
+            filtered_stores_data = stores_data.select { |filter| filter.city.include? city }.shuffle
+            # limitation for Google Api 
+            random_stores_data = filtered_stores_data[1..1]
+            store_namearr = random_stores_data.map(&:name)
+            google_data = CafeMap::Place::StoreMapper.new('Place_api',store_namearr).load_several
+            view 'region', locals: { info: random_stores_data, reviews: google_data }
           end
         end
       end
