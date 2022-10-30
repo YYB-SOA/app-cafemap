@@ -10,7 +10,7 @@ require 'minitest/rg'
 require 'vcr'
 require 'webmock'
 
-require_relative '../lib/mappers/info_mapper'
+require_relative '../app/models/mappers/info_mapper'
 CONFIG = YAML.safe_load(File.read('config/secrets.yml'))
 
 CAFE_TOKEN = CONFIG['CAFE_NOMAD'][0]['Cafe_api']
