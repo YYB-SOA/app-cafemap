@@ -32,28 +32,20 @@ module CafeMap
 
           routing.post do
             user_wordterm = routing.params['欲查詢的地區']
-            city = stores_data.find { |store| store.address.include?user_wordterm}
-            routing.halt 404 unless city
-            routing.redirect "region/#{city.city}"
-            # city_arr = %w[新竹 台北 宜蘭 臺北 新北 桃園 苗栗 台中 嘉義 台南 台東 花蓮 南投]
-            # routing.halt 404 unless city_arr.any?(user_wordterm) &&
-            #                        (user_wordterm.split(/ /).count >= 2)
-                   
-            # Filtered
-            # region = city_arr.select{ |city| city== user_wordterm}
-
-            # stores_list = stores_data.select { |obj| obj.address.include? user_wordterm }.map(&:name)
-            
-            # routing.redirect "Cafe-Map/region"
+            filtered_store = stores_data.find { |store| store.address.include?user_wordterm}
+            routing.halt 404 unless filtered_store
+            routing.redirect "region/#{filtered_store.city}"
             end
           
           end
+        
         routing.on String do |city|
           # GET /cafe/region
           routing.get do
-            city = stores_data.find { |store| store.address.include? "新竹" }
-            stores_data1 = CafeMap::CafeNomad::InfoMapper.new(CAFE_TOKEN_NAME).load_several[0]
-            view 'region', locals: { info: stores_data1 }
+            filtered_city = stores_data.find { |store| store.city.include? city}
+            routing.halt 404 unless filtered_city
+            filtered_stores_data = stores_data.select { |filter| filter.city.include? city }
+            view 'region', locals: { info: filtered_stores_data}
           end
         end
       end
