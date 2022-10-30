@@ -6,15 +6,28 @@
   .container
     .row
       - info.each do |store|
-        .col-lg-11.col-md-10.col-sm-2
-          span.project.attribute #{store.name}
-        .col-lg-11.col-md-10.col-sm-6
+        .col-lg-4.col-md-6.col-sm-6
+          span.project.attribute 店名：#{store.name}
+        .col-lg-8.col-md-6.col-sm-6
           .row
-          a.store.name #{store.name}
-            .row
-              .col-sm-12
-                a.store.address #{store.address}
-              .col-sm-12
-                a.store.wifi wifi 評分： #{store.wifi}
-              .col-sm-12
-                a.store.seat seat 評分 #{store.seat}
+            .col-sm-12
+              a 地址：  #{store.address}
+            .col-sm-12
+              a Wifi穩定度：  #{store.wifi}
+            .col-sm-12
+              a 通常有位：  #{store.seat}
+            .col-sm-12
+              a 咖啡好喝：  #{store.tasty}
+            .col-sm-12
+              a 價格便宜：  #{store.cheap}
+    .row
+      - reviews.each do |review|
+        .col-lg-4.col-md-6.col-sm-6
+        .col-lg-8.col-md-6.col-sm-6
+          .row
+            .col-sm-12
+              a Google平均評分：#{review.rating}
+            .col-sm-12
+              a 多少人評分：#{review.user_ratings_total}
+
+              

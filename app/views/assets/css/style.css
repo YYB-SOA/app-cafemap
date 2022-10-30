@@ -11,6 +11,11 @@ h1 {
   .posting.body {
     font-size: 1.2em;
   }
+
+.hr-dotted {
+    border: 0;
+    border-top: 1px dotted #a2a9b6;
+}
   
   /* .project.attribute {
     font-weight: bold;
