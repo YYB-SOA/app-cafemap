@@ -1,0 +1,126 @@
+---
+陶匠咖啡:
+  html_attributions: []
+  results:
+  - business_status: OPERATIONAL
+    formatted_address: 300台灣新竹市東區鐵道路一段58號
+    geometry:
+      location:
+        lat: 24.8122699
+        lng: 120.9838891
+      viewport:
+        northeast:
+          lat: 24.81356757989272
+          lng: 120.9851825298927
+        southwest:
+          lat: 24.81086792010728
+          lng: 120.9824828701073
+    icon: https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png
+    icon_background_color: "#FF9E67"
+    icon_mask_base_uri: https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet
+    name: 陶匠咖啡
+    opening_hours:
+      open_now: false
+    photos:
+    - height: 1170
+      html_attributions:
+      - <a href="https://maps.google.com/maps/contrib/103156373009133710115">A Google
+        User</a>
+      photo_reference: AcYSjRhCdQBmq2e-idwxSymdPThon5rlI-cp3Q9kcyz_NgOzYF_eTaRZLWyBTa9GmUXxut9FNOxeVzO6eqZgnliT9-ikR6BfIpU4Cyl9z946H6j_YgxfrnzC9b6zPvnSvusCVl6GglT1f8bvR7r-JLcYKG99_fydFLbSDwVo_BaVLyH4Od9u
+      width: 1170
+    place_id: ChIJ5SyyUww1aDQRYK3J10BtkeQ
+    plus_code:
+      compound_code: RX6M+WH 東區 新竹市
+      global_code: 7QP2RX6M+WH
+    rating: 5
+    reference: ChIJ5SyyUww1aDQRYK3J10BtkeQ
+    types:
+    - restaurant
+    - point_of_interest
+    - food
+    - establishment
+    user_ratings_total: 285
+  status: OK
+過日子咖啡館:
+  html_attributions: []
+  results:
+  - business_status: OPERATIONAL
+    formatted_address: 330台灣桃園市桃園區大業路二段27號
+    geometry:
+      location:
+        lat: 25.0167144
+        lng: 121.3111041
+      viewport:
+        northeast:
+          lat: 25.01807592989272
+          lng: 121.3125069298927
+        southwest:
+          lat: 25.01537627010728
+          lng: 121.3098072701073
+    icon: https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png
+    icon_background_color: "#FF9E67"
+    icon_mask_base_uri: https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet
+    name: 過日子咖啡
+    opening_hours:
+      open_now: true
+    photos:
+    - height: 2269
+      html_attributions:
+      - <a href="https://maps.google.com/maps/contrib/110317295362536887425">A Google
+        User</a>
+      photo_reference: AcYSjRhrtO1f3nD49IXuRGLLDFHq5Lkgs5-TWnKxNecMpPDK8-YIYeyYaSvnoEv3hhOPtHPpi5jqfW70vk7cQE7bS8FHGqVvudT2lrus6S2RtCytu77wtHeOvV7Wy82Up53cO77cheoJPxxtsTh3cMS6GNMFxnkACgJ-cs28kCaMf1gDw9k2
+      width: 4032
+    place_id: ChIJKe_Vf0seaDQRmeTe9mzHmXE
+    plus_code:
+      compound_code: 2886+MC 桃園區 桃園市
+      global_code: 7QQ32886+MC
+    price_level: 2
+    rating: 4.4
+    reference: ChIJKe_Vf0seaDQRmeTe9mzHmXE
+    types:
+    - restaurant
+    - food
+    - point_of_interest
+    - establishment
+    user_ratings_total: 295
+  status: OK
+WHO'S喜象CAFE:
+  html_attributions: []
+  results:
+  - business_status: CLOSED_PERMANENTLY
+    formatted_address: 300台灣新竹市東區寶山路438號300
+    geometry:
+      location:
+        lat: 24.7847091
+        lng: 120.9901702
+      viewport:
+        northeast:
+          lat: 24.78616667989272
+          lng: 120.9915314798927
+        southwest:
+          lat: 24.78346702010727
+          lng: 120.9888318201073
+    icon: https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/cafe-71.png
+    icon_background_color: "#FF9E67"
+    icon_mask_base_uri: https://maps.gstatic.com/mapfiles/place_api/icons/v2/cafe_pinlet
+    name: WHO'S CAFE
+    permanently_closed: true
+    photos:
+    - height: 3468
+      html_attributions:
+      - <a href="https://maps.google.com/maps/contrib/101154546347312496566">芸漀吳</a>
+      photo_reference: AcYSjRjZb0KXCVcSryKLfeebJw_47h8Sd14hE1Emi8MMsfTiQHfvH23IiyVK0KkPamv4F-afmGE-c38c4Y2L8ccNVmwSV1dqMDPnU5ZwHppxuNE0zuP16qNg48rdWOeP-aD3bcvzKXxonROhmC7THvUCxF-DcD7Prfi0K6keQmO8tycwbR-f
+      width: 4624
+    place_id: ChIJnyawAAc2aDQRsweZWTh80d8
+    plus_code:
+      compound_code: QXMR+W3 東區 新竹市
+      global_code: 7QP2QXMR+W3
+    rating: 4.3
+    reference: ChIJnyawAAc2aDQRsweZWTh80d8
+    types:
+    - cafe
+    - food
+    - point_of_interest
+    - establishment
+    user_ratings_total: 52
+  status: OK
