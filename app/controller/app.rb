@@ -23,35 +23,29 @@ module CafeMap
       
       # GET /
       routing.root do
-        view 'home' #, locals: { topics: stores_data }
+        view 'home' # , locals: { store_name: stores_data }
       end
 
-      routing.on 'storelist' do
+      routing.on 'region' do
         routing.is do
           # POST /storelist/
+
           routing.post do
-            # Show error 400 if the  user input is illigal
-            user_wordterm =routing.params['region']
-            city_arr = %w[新竹 台北 宜蘭 臺北 新北 桃園 苗栗 台中 嘉義 台南 台東 花蓮 南投]
-            routing.halt 404 unless city_arr.any?(wordterm) &&
-                                   (wordterm.split(/ /).count >= 2)
-            
-            # Filtered
-            region = city_arr.select{ |city| city== user_wordterm}
-
-            # stores_list = stores_data.select { |obj| obj.address.include? user_wordterm }.map(&:name)
-            
-            routing.redirect "Cafe-Map/regional"
+            user_wordterm = routing.params['欲查詢的地區']
+            filtered_store = stores_data.find { |store| store.address.include?user_wordterm}
+            routing.halt 404 unless filtered_store
+            routing.redirect "region/#{filtered_store.city}"
             end
+          
           end
-        routing.is do
-          # GET /cafe/storename
+        
+        routing.on String do |city|
+          # GET /cafe/region
           routing.get do
-            cafe_storename = CafeMap::InfoMapper
-                             .new(CAFE_TOKEN_NAME)
-                             .load_several
-            view 'storelist', locals: { storelist: region }
-
+            filtered_city = stores_data.find { |store| store.city.include? city}
+            routing.halt 404 unless filtered_city
+            filtered_stores_data = stores_data.select { |filter| filter.city.include? city }
+            view 'region', locals: { info: filtered_stores_data}
           end
         end
       end
