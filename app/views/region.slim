@@ -5,8 +5,16 @@
         = info[0].city + "市咖啡廳推薦❤️"
   .container
     .row
-      .col-lg-11.col-md-10.col-sm-6
-        .row
-          - info.each do |store|
-            .col-sm-12
-              a.store.name #{store.name}
+      - info.each do |store|
+        .col-lg-11.col-md-10.col-sm-2
+          span.project.attribute #{store.name}
+        .col-lg-11.col-md-10.col-sm-6
+          .row
+          a.store.name #{store.name}
+            .row
+              .col-sm-12
+                a.store.address #{store.address}
+              .col-sm-12
+                a.store.wifi wifi 評分： #{store.wifi}
+              .col-sm-12
+                a.store.seat seat 評分 #{store.seat}
