@@ -8,12 +8,12 @@ task :default do
   puts `rake -T`
 end
 
-# test尚未確認
-# desc 'run tests'
-# task :spec do
-#   sh 'ruby spec/cafe_api_spec.rb'
-#   sh 'ruby spec/place_api_spec.rb'
-# end
+
+desc 'run tests'
+task :spec do
+  sh 'ruby spec/cafe_api_spec.rb'
+  sh 'ruby spec/place_api_spec.rb'
+end
 
 desc 'Keep rerunning tests upon changes'
 task :respec do

@@ -267,4 +267,104 @@ http_interactions:
            "status" : "REQUEST_DENIED"
         }
   recorded_at: Sun, 23 Oct 2022 06:34:29 GMT
+- request:
+    method: get
+    uri: https://maps.googleapis.com/maps/api/place/textsearch/json?key=<Place_TOKEN>&language=zh-TW&query=ARTROOM14%E8%97%9D%E5%AE%A4
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Connection:
+      - close
+      Host:
+      - maps.googleapis.com
+      User-Agent:
+      - http.rb/5.1.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - scaffolding on HTTPServer2
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Server-Timing:
+      - gfet4t7; dur=323
+      Date:
+      - Mon, 31 Oct 2022 18:22:13 GMT
+      Expires:
+      - Mon, 31 Oct 2022 18:27:13 GMT
+      Cache-Control:
+      - public, max-age=300
+      Content-Type:
+      - application/json; charset=UTF-8
+      Age:
+      - '204'
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+      Accept-Ranges:
+      - none
+      Vary:
+      - Accept-Encoding
+      Connection:
+      - close
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "html_attributions" : [],
+           "results" : [
+              {
+                 "business_status" : "OPERATIONAL",
+                 "formatted_address" : "300台灣新竹市北區勝利路300號",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 24.8020889,
+                       "lng" : 120.9637683
+                    },
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 24.80342682989272,
+                          "lng" : 120.9650957298928
+                       },
+                       "southwest" : {
+                          "lat" : 24.80072717010728,
+                          "lng" : 120.9623960701073
+                       }
+                    }
+                 },
+                 "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+                 "icon_background_color" : "#7B9EB0",
+                 "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+                 "name" : "ARTROOM14 藝室",
+                 "photos" : [
+                    {
+                       "height" : 3900,
+                       "html_attributions" : [
+                          "\u003ca href=\"https://maps.google.com/maps/contrib/105668604756257969526\"\u003e陳承志\u003c/a\u003e"
+                       ],
+                       "photo_reference" : "AcYSjRjMgwPBzshDgcEdI_dLfIGeQbfPnrFvW02r1VjZFIsJjd6Qr3Iz451xRy3T7GFZkd0iFtOwfRHwaWmEmDN54j6eSqwav1-tyuElapwgGdcUOzZgPJP_Af7Q85viYbulO0qaJeV9GAwT8NU15vLt62uasCHGM9m9kZnguBq7CkaS1si8",
+                       "width" : 6298
+                    }
+                 ],
+                 "place_id" : "ChIJC2c7HFc1aDQRdtptswP3kko",
+                 "plus_code" : {
+                    "compound_code" : "RX27+RG 北區 新竹市",
+                    "global_code" : "7QP2RX27+RG"
+                 },
+                 "rating" : 4.7,
+                 "reference" : "ChIJC2c7HFc1aDQRdtptswP3kko",
+                 "types" : [ "hair_care", "point_of_interest", "establishment" ],
+                 "user_ratings_total" : 42
+              }
+           ],
+           "status" : "OK"
+        }
+  recorded_at: Mon, 31 Oct 2022 18:25:37 GMT
 recorded_with: VCR 6.1.0

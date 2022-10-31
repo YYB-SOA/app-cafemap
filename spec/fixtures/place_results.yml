@@ -1,0 +1,79 @@
+---
+WHO'S喜象CAFE:
+  html_attributions: []
+  results:
+  - business_status: CLOSED_PERMANENTLY
+    formatted_address: 300台灣新竹市東區寶山路438號300
+    geometry:
+      location:
+        lat: 24.7847091
+        lng: 120.9901702
+      viewport:
+        northeast:
+          lat: 24.78616667989272
+          lng: 120.9915314798927
+        southwest:
+          lat: 24.78346702010727
+          lng: 120.9888318201073
+    icon: https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/cafe-71.png
+    icon_background_color: "#FF9E67"
+    icon_mask_base_uri: https://maps.gstatic.com/mapfiles/place_api/icons/v2/cafe_pinlet
+    name: WHO'S CAFE
+    permanently_closed: true
+    photos:
+    - height: 3468
+      html_attributions:
+      - <a href="https://maps.google.com/maps/contrib/101154546347312496566">芸漀吳</a>
+      photo_reference: AcYSjRhNlGJQCkZHHaSAhBVFs0PRmoxYAXUxBzs0MDvbM4rwUCiUCLEbd8HZor9Lwq22PMNIoFB_lXauOktTSZJHqkJVlQ05qyC9bUW1GWV5UVkIhuc2VSo_BlE21apeENtuxD3do-RNctdk-EjZCPvUtlW4eWdRMN4O7ub7JjVi5Yc5o2qs
+      width: 4624
+    place_id: ChIJnyawAAc2aDQRsweZWTh80d8
+    plus_code:
+      compound_code: QXMR+W3 東區 新竹市
+      global_code: 7QP2QXMR+W3
+    rating: 4.3
+    reference: ChIJnyawAAc2aDQRsweZWTh80d8
+    types:
+    - cafe
+    - point_of_interest
+    - food
+    - establishment
+    user_ratings_total: 52
+  status: OK
+ARTROOM14藝室:
+  html_attributions: []
+  results:
+  - business_status: OPERATIONAL
+    formatted_address: 300台灣新竹市北區勝利路300號
+    geometry:
+      location:
+        lat: 24.8020889
+        lng: 120.9637683
+      viewport:
+        northeast:
+          lat: 24.80342682989272
+          lng: 120.9650957298928
+        southwest:
+          lat: 24.80072717010728
+          lng: 120.9623960701073
+    icon: https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png
+    icon_background_color: "#7B9EB0"
+    icon_mask_base_uri: https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet
+    name: ARTROOM14 藝室
+    photos:
+    - height: 3900
+      html_attributions:
+      - <a href="https://maps.google.com/maps/contrib/105668604756257969526">陳承志</a>
+      photo_reference: AcYSjRjMgwPBzshDgcEdI_dLfIGeQbfPnrFvW02r1VjZFIsJjd6Qr3Iz451xRy3T7GFZkd0iFtOwfRHwaWmEmDN54j6eSqwav1-tyuElapwgGdcUOzZgPJP_Af7Q85viYbulO0qaJeV9GAwT8NU15vLt62uasCHGM9m9kZnguBq7CkaS1si8
+      width: 6298
+    place_id: ChIJC2c7HFc1aDQRdtptswP3kko
+    plus_code:
+      compound_code: RX27+RG 北區 新竹市
+      global_code: 7QP2RX27+RG
+    rating: 4.7
+    reference: ChIJC2c7HFc1aDQRdtptswP3kko
+    types:
+    - hair_care
+    - point_of_interest
+    - establishment
+    user_ratings_total: 42
+  status: OK
