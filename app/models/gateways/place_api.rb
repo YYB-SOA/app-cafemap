@@ -37,13 +37,19 @@ module CafeMap
           end
         end
 
+        def noise_filter(name_str)
+          # Normalization
+          name_str.gsub('()', '').gsub(' ', '').gsub("\b", '')
+        end
+
         def data_clean(box)
           # Input: string array of cafe name
-          box.map { |name_str| name_str.gsub('()', '').gsub(' ', '').gsub("\b", '') }
+          box.map { |name_str| noise_filter(name_str) }
         end
 
         def request_main(name_of_key = @token_name, name_array = @store_namearr)
-          data_clean(name_array).map do |eachstore|
+          cafe_clean_name = data_clean(name_array)
+          cafe_clean_name.map do |eachstore|
             call_placeapi_url(eachstore, get_placeapi_token(name_of_key)).parse
           end
         end

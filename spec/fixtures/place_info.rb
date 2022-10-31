@@ -48,7 +48,7 @@ def place_api_ans_sheet(source, dist , limit = true)
   filtered_store = location_filter(cafe_raw, "city", "hsinchu")
 
   # Caution We set it for avoid overcharging from placeAPI
-  filtered_store =  ["陶匠咖啡", "過日子咖啡館"]  if limit == true
+  filtered_store = ["WHO'S 喜象 CAFE", 'ARTROOM14藝室'] if limit == true
 
   # data_cleaning
   clean_name = data_clean(filtered_store)

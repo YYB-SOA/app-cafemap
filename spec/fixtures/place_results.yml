@@ -1,89 +1,4 @@
 ---
-陶匠咖啡:
-  html_attributions: []
-  results:
-  - business_status: OPERATIONAL
-    formatted_address: 300台灣新竹市東區鐵道路一段58號
-    geometry:
-      location:
-        lat: 24.8122699
-        lng: 120.9838891
-      viewport:
-        northeast:
-          lat: 24.81356757989272
-          lng: 120.9851825298927
-        southwest:
-          lat: 24.81086792010728
-          lng: 120.9824828701073
-    icon: https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png
-    icon_background_color: "#FF9E67"
-    icon_mask_base_uri: https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet
-    name: 陶匠咖啡
-    opening_hours:
-      open_now: false
-    photos:
-    - height: 1170
-      html_attributions:
-      - <a href="https://maps.google.com/maps/contrib/103156373009133710115">A Google
-        User</a>
-      photo_reference: AcYSjRhCdQBmq2e-idwxSymdPThon5rlI-cp3Q9kcyz_NgOzYF_eTaRZLWyBTa9GmUXxut9FNOxeVzO6eqZgnliT9-ikR6BfIpU4Cyl9z946H6j_YgxfrnzC9b6zPvnSvusCVl6GglT1f8bvR7r-JLcYKG99_fydFLbSDwVo_BaVLyH4Od9u
-      width: 1170
-    place_id: ChIJ5SyyUww1aDQRYK3J10BtkeQ
-    plus_code:
-      compound_code: RX6M+WH 東區 新竹市
-      global_code: 7QP2RX6M+WH
-    rating: 5
-    reference: ChIJ5SyyUww1aDQRYK3J10BtkeQ
-    types:
-    - restaurant
-    - point_of_interest
-    - food
-    - establishment
-    user_ratings_total: 285
-  status: OK
-過日子咖啡館:
-  html_attributions: []
-  results:
-  - business_status: OPERATIONAL
-    formatted_address: 330台灣桃園市桃園區大業路二段27號
-    geometry:
-      location:
-        lat: 25.0167144
-        lng: 121.3111041
-      viewport:
-        northeast:
-          lat: 25.01807592989272
-          lng: 121.3125069298927
-        southwest:
-          lat: 25.01537627010728
-          lng: 121.3098072701073
-    icon: https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png
-    icon_background_color: "#FF9E67"
-    icon_mask_base_uri: https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet
-    name: 過日子咖啡
-    opening_hours:
-      open_now: true
-    photos:
-    - height: 2269
-      html_attributions:
-      - <a href="https://maps.google.com/maps/contrib/110317295362536887425">A Google
-        User</a>
-      photo_reference: AcYSjRhrtO1f3nD49IXuRGLLDFHq5Lkgs5-TWnKxNecMpPDK8-YIYeyYaSvnoEv3hhOPtHPpi5jqfW70vk7cQE7bS8FHGqVvudT2lrus6S2RtCytu77wtHeOvV7Wy82Up53cO77cheoJPxxtsTh3cMS6GNMFxnkACgJ-cs28kCaMf1gDw9k2
-      width: 4032
-    place_id: ChIJKe_Vf0seaDQRmeTe9mzHmXE
-    plus_code:
-      compound_code: 2886+MC 桃園區 桃園市
-      global_code: 7QQ32886+MC
-    price_level: 2
-    rating: 4.4
-    reference: ChIJKe_Vf0seaDQRmeTe9mzHmXE
-    types:
-    - restaurant
-    - food
-    - point_of_interest
-    - establishment
-    user_ratings_total: 295
-  status: OK
 WHO'S喜象CAFE:
   html_attributions: []
   results:
@@ -109,7 +24,7 @@ WHO'S喜象CAFE:
     - height: 3468
       html_attributions:
       - <a href="https://maps.google.com/maps/contrib/101154546347312496566">芸漀吳</a>
-      photo_reference: AcYSjRjZb0KXCVcSryKLfeebJw_47h8Sd14hE1Emi8MMsfTiQHfvH23IiyVK0KkPamv4F-afmGE-c38c4Y2L8ccNVmwSV1dqMDPnU5ZwHppxuNE0zuP16qNg48rdWOeP-aD3bcvzKXxonROhmC7THvUCxF-DcD7Prfi0K6keQmO8tycwbR-f
+      photo_reference: AcYSjRhNlGJQCkZHHaSAhBVFs0PRmoxYAXUxBzs0MDvbM4rwUCiUCLEbd8HZor9Lwq22PMNIoFB_lXauOktTSZJHqkJVlQ05qyC9bUW1GWV5UVkIhuc2VSo_BlE21apeENtuxD3do-RNctdk-EjZCPvUtlW4eWdRMN4O7ub7JjVi5Yc5o2qs
       width: 4624
     place_id: ChIJnyawAAc2aDQRsweZWTh80d8
     plus_code:
@@ -119,8 +34,46 @@ WHO'S喜象CAFE:
     reference: ChIJnyawAAc2aDQRsweZWTh80d8
     types:
     - cafe
-    - food
     - point_of_interest
+    - food
     - establishment
     user_ratings_total: 52
+  status: OK
+ARTROOM14藝室:
+  html_attributions: []
+  results:
+  - business_status: OPERATIONAL
+    formatted_address: 300台灣新竹市北區勝利路300號
+    geometry:
+      location:
+        lat: 24.8020889
+        lng: 120.9637683
+      viewport:
+        northeast:
+          lat: 24.80342682989272
+          lng: 120.9650957298928
+        southwest:
+          lat: 24.80072717010728
+          lng: 120.9623960701073
+    icon: https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png
+    icon_background_color: "#7B9EB0"
+    icon_mask_base_uri: https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet
+    name: ARTROOM14 藝室
+    photos:
+    - height: 3900
+      html_attributions:
+      - <a href="https://maps.google.com/maps/contrib/105668604756257969526">陳承志</a>
+      photo_reference: AcYSjRjMgwPBzshDgcEdI_dLfIGeQbfPnrFvW02r1VjZFIsJjd6Qr3Iz451xRy3T7GFZkd0iFtOwfRHwaWmEmDN54j6eSqwav1-tyuElapwgGdcUOzZgPJP_Af7Q85viYbulO0qaJeV9GAwT8NU15vLt62uasCHGM9m9kZnguBq7CkaS1si8
+      width: 6298
+    place_id: ChIJC2c7HFc1aDQRdtptswP3kko
+    plus_code:
+      compound_code: RX27+RG 北區 新竹市
+      global_code: 7QP2RX27+RG
+    rating: 4.7
+    reference: ChIJC2c7HFc1aDQRdtptswP3kko
+    types:
+    - hair_care
+    - point_of_interest
+    - establishment
+    user_ratings_total: 42
   status: OK

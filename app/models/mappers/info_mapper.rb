@@ -128,5 +128,3 @@ module CafeMap
     end
   end
 end
-# stores_data = CafeMap::CafeNomad::InfoMapper.new("Cafe_api").load_several
-# puts stores_data[4].address

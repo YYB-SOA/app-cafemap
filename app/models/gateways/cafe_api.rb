@@ -6,8 +6,8 @@ require 'json'
 
 module CafeMap
   module CafeNomad
-    class Api
-      # tokename =  "Cafe_api"
+    class Api # rubocop:disable Style/Documentation
+      # Take the tokem to get the api. should be "Cafe_api" here.
       def initialize(tokename)
         @tokename = tokename
         @cafenomaf_api = Request.new(@tokename).get # return will be jason array.
@@ -22,7 +22,7 @@ module CafeMap
       end
     end
 
-    class Request
+    class Request # rubocop:disable Style/Documentation
       # should be 'Cafe_api'
       def initialize(tokename)
         @tokename = tokename
@@ -42,7 +42,7 @@ module CafeMap
       end
     end
 
-    class CafeYaml
+    class CafeYaml # rubocop:disable Style/Documentation
       # Input: json array
       def initialize(data)
         @data = data
@@ -53,12 +53,10 @@ module CafeMap
         @store['status'] = 'ok' unless @data.nil?
         @store['amount'] = @data.length
         @store['header'] = @data[0].keys
-
         @data.each do |each_store|
           cafe_name = "#{each_store['name']}{#{each_store['id'].split('-')[0]}"
           @store[cafe_name] = each_store
         end
-
         @store
       end
     end

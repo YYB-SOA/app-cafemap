@@ -21,23 +21,31 @@ describe 'Tests Place API library' do
   end
 
   describe 'Store information' do
+    before do
+      # test_store = ["WHO'S 喜象 CAFE", 'ARTROOM14藝室']
+      @store = CafeMap::Place::StoreMapper.new(TOKEN_NAME, TEST_STORE).load_several
+      @yaml_keys = CORRECT_STORE[0..].map { |key| CORRECT[key]['results'] }
+    end
+
     it 'HAPPY: should provide correct Store attributes' do
-      store = PlaceInfo::PlaceApi.new(KEYWORD_FILTER, TOKEN_NAME).store(KEYWORD_FILTER, TOKEN_NAME)
-      array_hash = CORRECT_STORE[0..].map { |key| CORRECT[key]['results'] }
+      _(@store.map { |item| item }[0].place_id.must_equal(@yaml_keys.map do |item|
+                                                            item.map do |i|
+                                                              i['place_id']
+                                                            end
+                                                          end[0][0]))
+    end
 
-      _(store.place_id.must_equal(array_hash.map { |item| item.map { |i| i['place_id'] } }[0][0]))
-      _(store.business_status.must_equal(array_hash.map { |item| item.map { |i| i['business_status'] } }[0][0]))
+    it 'HAPPY: should provide correct Store attributes' do
+      _(@store.map { |item| item }[0].rating.must_equal(@yaml_keys.map do |item|
+                                                          item.map do |i|
+                                                            i['rating']
+                                                          end
+                                                        end[0][0]))
+    end
 
-      _(store.location_lat.must_equal(array_hash.map do |item|
-                                        item.map do |i|
-                                          i['geometry']['location']['lat']
-                                        end
-                                      end[0][0]))
-      _(store.location_lng.must_equal(array_hash.map do |item|
-                                        item.map do |i|
-                                          i['geometry']['location']['lng']
-                                        end
-                                      end[0][0]))
+    it 'BAD: should raise exception on incorrect invalid result' do
+      bad = CafeMap::Place::StoreMapper.new(TOKEN_NAME, FAKE_TEST_STORE).bad_request
+      _(bad).must_equal INCORRECT['INVALID_REQUEST']['status']
     end
   end
 end
