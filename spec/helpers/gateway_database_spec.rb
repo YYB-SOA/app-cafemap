@@ -21,7 +21,7 @@ describe 'Integration Tests of Cafe API and Database' do
     end
 
     it 'HAPPY: should be able to save Info from CafeNomad to database' do
-      project = CafeMap::CafeNomad::InfoMapper
+    info = CafeMap::CafeNomad::InfoMapper
         .new(CAFE_TOKEN) # 原先為Incorrect design -> 應當傳入token而非token name
         .load_several
 ## unfinished
@@ -49,9 +49,9 @@ describe 'Integration Tests of Cafe API and Database' do
 
     #   _(rebuilt.contributors.count).must_equal(project.contributors.count)
     #   _(rebuilt.contributors.count).must_equal(project.contributors.count)
-    
+
 # Pending for furthering disscussion
-      project.contributors.each do |member|
+      info.contributors.each do |member|
         found = rebuilt.contributors.find do |potential|
           potential.origin_id == member.origin_id
         end

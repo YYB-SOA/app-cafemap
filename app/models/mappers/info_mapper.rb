@@ -7,10 +7,10 @@ module CafeMap
   module CafeNomad
     class InfoMapper
       # tokename will be "Cafe_api"
-      def initialize(tokename, gateway_class = CafeNomad::Api)
-        @tokename = tokename
+      def initialize(cafe_token, gateway_class = CafeNomad::Api)
+        @cafe_token = cafe_token
         @gateway_class = gateway_class
-        @gateway = gateway_class.new(@tokename)
+        @gateway = gateway_class.new(@cafe_token)
       end
 
       def load_several
@@ -19,13 +19,13 @@ module CafeMap
         end
       end
 
-      def self.build_entity(data)
+      def self.build_entity(data,@token) #若要一次call store_mapper應該傳入token
         DataMapper.new(data).build_entity
       end
     end
 
     class DataMapper
-      def initialize(data)
+      def initialize(data, token, gateway_class)
         @data = data
       end
 
@@ -124,6 +124,10 @@ module CafeMap
 
       def open_time
         @data['open_time']
+      end
+      
+      def storename
+        @member_mapper.load_several(@data['contributors_url'])
       end
     end
   end
