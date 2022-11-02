@@ -11,8 +11,9 @@ end
 
 desc 'run tests'
 task :spec do
-  sh 'ruby spec/cafe_api_spec.rb'
-  sh 'ruby spec/place_api_spec.rb'
+  # sh 'ruby spec/cafe_api_spec.rb'
+  sh 'ruby spec/gateway_cafe_spec.rb'
+  sh 'ruby spec/gateway_place_spec.rb'
 end
 
 desc 'Keep rerunning tests upon changes'
@@ -38,6 +39,8 @@ namespace :vcr do
 end
 
 namespace :quality do
+  only_app = 'config/ app/'
+  
   desc 'run all static-analysis quality checks'
   task all: %i[rubocop reek flog]
 
@@ -53,6 +56,6 @@ namespace :quality do
 
   desc 'complexiy analysis'
   task :flog do
-    sh "flog #{CODE}"
+    sh "flog -m #{only_app}"
   end
 end
