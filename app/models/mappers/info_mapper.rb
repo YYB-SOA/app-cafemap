@@ -1,31 +1,31 @@
 # frozen_string_literal: false
 
-require_relative '../gateways/cafe_api'
+require_relative '../../infrastructure/gateways/cafe_api'
 require_relative '../entities/info'
 
 module CafeMap
   module CafeNomad
     class InfoMapper
       # tokename will be "Cafe_api"
-      def initialize(cafe_token, gateway_class = CafeNomad::Api)
+      def initialize(cafe_token, gateway_class = CafeNomad::Api) # cafe_token should be a url from secrets.yml
         @cafe_token = cafe_token
         @gateway_class = gateway_class
         @gateway = gateway_class.new(@cafe_token)
       end
 
       def load_several
-        @gateway.cafe_info.map do |each_store|
+        @gateway.info_data.map do |each_store|
           InfoMapper.build_entity(each_store)
         end
       end
 
-      def self.build_entity(data,@token) #若要一次call store_mapper應該傳入token
+      def self.build_entity(data)
         DataMapper.new(data).build_entity
       end
     end
 
     class DataMapper
-      def initialize(data, token, gateway_class)
+      def initialize(data)
         @data = data
       end
 

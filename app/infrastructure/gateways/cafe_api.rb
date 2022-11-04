@@ -17,7 +17,7 @@ module CafeMap
         Api.jarray_to_yml(jarray_temp)
       end
 
-      def nomad_data
+      def info_data
         Request.new(@cafe_token).get
       end
 
@@ -36,8 +36,8 @@ module CafeMap
     end
 
     class Request # rubocop:disable Style/Documentation
-      def initialize(cafe_token)
-        @cafe_token = cafe_token
+      def initialize(cafe_token) # token here would be a cafe_api url 
+        @cafe_token = cafe_token 
       end
 
       def get()
