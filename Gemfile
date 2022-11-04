@@ -41,8 +41,6 @@ group :test do
     gem 'rerun', '~> 0'
   end
 
-# Utility Tools
-gem 'rake'
 
 # Code Quality
 group :development do

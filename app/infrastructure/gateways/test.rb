@@ -40,8 +40,8 @@ module CafeMap
         @cafe_token = cafe_token
       end
 
-      def get(url)
-        uri = URI.parse(url)
+      def get
+        uri = URI.parse(@cafe_token)
         req = Net::HTTP::Get.new(uri.request_uri)
         https = Net::HTTP.new(uri.host, uri.port)
         https.use_ssl = true
@@ -50,22 +50,26 @@ module CafeMap
       end
     end
 
-    class Response < SimpleDelegator
-      Unauthorized = Class.new(StandardError)
-      NotFound = Class.new(StandardError)
+    # class Response < SimpleDelegator
+    #   Unauthorized = Class.new(StandardError)
+    #   NotFound = Class.new(StandardError)
 
-      HTTP_ERROR = {
-        401 => Unauthorized,
-        404 => NotFound
-      }.freeze
+    #   HTTP_ERROR = {
+    #     401 => Unauthorized,
+    #     404 => NotFound
+    #   }.freeze
 
-      def successful?
-        HTTP_ERROR.keys.none?(code)
-      end
+    #   def successful?
+    #     HTTP_ERROR.keys.none?(code)
+    #   end
 
-      def error
-        HTTP_ERROR[code]
-      end
-    end
+    #   def error
+    #     HTTP_ERROR[code]
+    #   end
+    # end
   end
 end
+
+token = 'https://cafenomad.tw/api/v1.2/cafes'
+a = CafeMap::CafeNomad::Api.new(token)
+puts a.nomad_data[0]
