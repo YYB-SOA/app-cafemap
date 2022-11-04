@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require 'sequel'
 
 Sequel.migration do
   change do
     create_table(:info) do
-      primary_key :name
+      primary_key :id
+      foreign_key :name
 
-      String      :id
       String      :city
       String      :wifi
       String      :seat
@@ -23,7 +25,6 @@ Sequel.migration do
       String      :mrt
       String      :open_time
 
-      
       DateTime :created_at
       DateTime :updated_at
     end

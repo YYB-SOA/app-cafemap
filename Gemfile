@@ -41,7 +41,6 @@ group :test do
     gem 'rerun', '~> 0'
   end
 
-
 # Code Quality
 group :development do
     gem 'flog'
