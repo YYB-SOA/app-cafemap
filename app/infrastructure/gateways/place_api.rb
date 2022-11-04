@@ -24,7 +24,7 @@ module CafeMap
         end
 
         def get
-          clean_list = data_clean(@store_list)
+          clean_list = Request.data_clean(@store_list)
 
           clean_list.map do |store|
             http_response =
@@ -38,8 +38,8 @@ module CafeMap
 
           end
         end
-
-        def data_clean(box)
+        private
+        def self.data_clean(box)
           # Input: string array of cafe name
           box.map { |name_str| name_str.gsub('()', '').gsub(' ', '').gsub("\b", '') }
         end
