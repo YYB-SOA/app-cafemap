@@ -50,23 +50,23 @@ module CafeMap
       end
     end
 
-    # class Response < SimpleDelegator
-    #   Unauthorized = Class.new(StandardError)
-    #   NotFound = Class.new(StandardError)
+    class Response < SimpleDelegator
+      Unauthorized = Class.new(StandardError)
+      NotFound = Class.new(StandardError)
 
-    #   HTTP_ERROR = {
-    #     401 => Unauthorized,
-    #     404 => NotFound
-    #   }.freeze
+      HTTP_ERROR = {
+        401 => Unauthorized,
+        404 => NotFound
+      }.freeze
 
-    #   def successful?
-    #     HTTP_ERROR.keys.none?(code)
-    #   end
+      def successful?
+        HTTP_ERROR.keys.none?(code)
+      end
 
-    #   def error
-    #     HTTP_ERROR[code]
-    #   end
-    # end
+      def error
+        HTTP_ERROR[code]
+      end
+    end
   end
 end
 

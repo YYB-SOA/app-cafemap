@@ -38,7 +38,7 @@ module CafeMap
 
           end
         end
-
+        private
         def self.data_clean(box)
           # Input: string array of cafe name
           box.map { |name_str| name_str.gsub('()', '').gsub(' ', '').gsub("\b", '') }
