@@ -46,8 +46,7 @@ module CafeMap
             info = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
 
             # Add project to database
-            Repository::For.entity(info).create(info)
-
+            info.map{ |obj| Repository::For.entity(obj).create(obj)}
 
             routing.redirect "region/#{filtered_store.city}"
           end
@@ -56,6 +55,10 @@ module CafeMap
         routing.on String do |city|
           # GET /cafe/region
           routing.get do
+            # Get 
+            info = Repository::For.klass(Entity::Info)
+            .find_full_name(owner_name, project_name)
+            # This must be true
             filtered_city = infos_data.find { |store| store.city.include? city }
             routing.halt 404 unless filtered_city
 
@@ -64,6 +67,7 @@ module CafeMap
             random_infos_data = filtered_infos_data[1..1]
             store_list = random_infos_data.map(&:name)
 
+            # Call place_api
             google_data = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN,store_list).load_several
             view 'region', locals: { info: random_infos_data, reviews: google_data }
           end
