@@ -20,7 +20,7 @@ module CafeMap
       routing.assets # load CSS
       response['Content-Type'] = 'text/html; charset=utf-8'
 
-      stores_data = CafeMap::CafeNomad::InfoMapper.new(CAFE_TOKEN_NAME).load_several
+      stores_data = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
 
       # GET /
       routing.root do
@@ -46,8 +46,8 @@ module CafeMap
             filtered_stores_data = stores_data.select { |filter| filter.city.include? city }.shuffle
             # limitation for Google Api 
             random_stores_data = filtered_stores_data[1..1]
-            store_namearr = random_stores_data.map(&:name)
-            google_data = CafeMap::Place::StoreMapper.new('Place_api',store_namearr).load_several
+            store_list = random_stores_data.map(&:name)
+            google_data = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN,store_list).load_several
             view 'region', locals: { info: random_stores_data, reviews: google_data }
           end
         end
