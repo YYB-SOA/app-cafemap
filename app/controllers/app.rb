@@ -38,17 +38,20 @@ module CafeMap
         routing.is do
           # POST /region/
           routing.post do
-            @user_wordterm = routing.params['The regional keyword you want to search']
-            filtered_store = infos_data.find { |store| store.address.include? @user_wordterm }
-            routing.halt 404 unless filtered_store
+            user_wordterm = routing.params['The regional keyword you want to search']
+            infos_data = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
+            filtered_infos_data = infos_data.select { |filter| filter.address.include? user_wordterm }.shuffle
+            routing.halt 404 unless filtered_infos_data[0]
+            
+            info = filtered_infos_data[1..1]
 
             # Get info from CafeNomad API
-            info = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
+            # info = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
 
             # Add project to database
             info.map{ |obj| Repository::For.entity(obj).create(obj)}
 
-            routing.redirect "region/#{filtered_store.city}"
+            routing.redirect "region/#{info[0].city}"
           end
         end
 

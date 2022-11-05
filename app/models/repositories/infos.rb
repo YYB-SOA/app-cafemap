@@ -3,7 +3,7 @@
 module CafeMap
   module Repository
     # Repository for Info
-    class Info
+    class Infos
       def self.find_id(id)
         rebuild_entity Database::InfoOrm.first(id:)
       end
@@ -39,7 +39,7 @@ module CafeMap
 
       def self.rebuild_many(db_records) # 對應到 infomapper 的 load_several
         db_records.map do |db_member|
-          Info.rebuild_entity(db_member)
+          Infos.rebuild_entity(db_member)
         end
       end
 
