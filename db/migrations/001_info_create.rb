@@ -7,7 +7,6 @@ Sequel.migration do
     create_table(:info) do
       primary_key :id
       # foreign_key :name
-
       String      :name
       String      :city
       String      :wifi

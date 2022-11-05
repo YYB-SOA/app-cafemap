@@ -2,6 +2,7 @@
 
 require 'sequel'
 
+
 Sequel.migration do
   change do
     create_table(:store) do

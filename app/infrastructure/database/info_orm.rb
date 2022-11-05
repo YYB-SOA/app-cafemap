@@ -25,3 +25,8 @@ end
 # CafeMap::Database::InfoOrm.new(name: 'R5小餐館',  city: 'chiayi')
 # CafeMap::Database::InfoOrm.create(name: 'ARTROOM14 藝室',  city: 'hsinchu')
 
+# require_app
+a = CafeMap::Database::InfoOrm.create()
+a.name = '123'
+a.save
+puts CafeMap::Database::InfoOrm.all

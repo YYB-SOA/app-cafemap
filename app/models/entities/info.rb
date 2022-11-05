@@ -29,6 +29,10 @@ module CafeMap
       attribute :standing_desk,       Coercible::String
       attribute :mrt,                 Coercible::String
       attribute :open_time,           Coercible::String
+
+      def to_attr_hash
+        to_hash.except(:id) # except:remove keys from hash
+      end
     end
   end
 end
