@@ -15,3 +15,5 @@ module CafeMap
     end
   end
 end
+
+# CafeMap::Database::StoreOrm.create(name: 'ARTROOM14 藝室',  user_ratings_total: 42)

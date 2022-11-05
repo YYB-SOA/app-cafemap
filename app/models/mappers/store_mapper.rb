@@ -1,26 +1,27 @@
 # frozen_string_literal: false
 
-require_relative '../gateways/place_api'
+require_relative '../../infrastructure/gateways/place_api.rb'
 require_relative '../entities/store'
+
 
 module CafeMap
   # Provides access to contributor data
   module Place
     # Data Mapper: Place store -> store entity
     class StoreMapper
-      def initialize(token_name, store_namearr, gateway_class = Place::PlaceApi)
+      def initialize(token_name, store_list, gateway_class = Place::PlaceApi)
         @token_name = token_name
-        @store_namearr = store_namearr
+        @store_list = store_list
         @gateway_class = gateway_class
         @gateway = @gateway_class.new(@token_name, @store_namearr)
       end
 
       def bad_request
-        @gateway.store(@token_name, @store_namearr)[0]['status']
+        @gateway.store_data(@token_name, @store_namearr)[0]['status']
       end
 
       def load_several
-        @gateway.store(@token_name, @store_namearr).map do |each_store|
+        @gateway.store_data(@token_name, @store_namearr).map do |each_store|
           data = each_store['results'][0]
           StoreMapper.build_entity(data)
         end

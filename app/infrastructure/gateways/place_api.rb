@@ -8,12 +8,12 @@ module CafeMap
     # Library for Place API
     class PlaceApi
       def initialize(place_token, store_list)
-        @place_token = palce_token
+        @place_token = place_token
         @store_list = store_list
       end
 
       def store_data
-        Request.new(@palce_token, @store_list).get
+        Request.new(@place_token, @store_list).get
       end
 
       # Sends out HTTP requests to Google Place API

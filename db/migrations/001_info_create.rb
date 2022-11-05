@@ -6,8 +6,9 @@ Sequel.migration do
   change do
     create_table(:info) do
       primary_key :id
-      foreign_key :name
+      # foreign_key :name
 
+      String      :name
       String      :city
       String      :wifi
       String      :seat
