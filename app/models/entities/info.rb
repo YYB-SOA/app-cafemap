@@ -21,7 +21,7 @@ module CafeMap
       attribute :cheap,               Nominal::Float
       attribute :music,               Nominal::Float
       attribute :url,                 Strict::String
-      attribute :address,             Strict::String
+      attribute :address,             Coercible::String
       attribute :latitude,            Strict::String
       attribute :longitude,           Strict::String
       attribute :limited_time,        Strict::String

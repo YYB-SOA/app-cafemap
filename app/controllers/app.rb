@@ -22,14 +22,14 @@ module CafeMap
       routing.assets # load CSS
       response['Content-Type'] = 'text/html; charset=utf-8'
 
-      # infos_data = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
+      infos_data = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
       routing.public #?
       
       # GET /
       routing.root do
 
-      infos = Repository::For.klass(Entity::Info).all
-        view 'home', locals: { infos: }
+      # infos = Repository::For.klass(Entity::Info).all
+        view 'home' # , locals: { infos: }
 
         # view 'home' # , locals: { store_name: stores_data }
       end
@@ -38,9 +38,9 @@ module CafeMap
         routing.is do
           # POST /region/
           routing.post do
-            user_wordterm = routing.params['The regional keyword you want to search']
+            @user_wordterm = routing.params['The regional keyword you want to search (hsinchu)']
             infos_data = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
-            filtered_infos_data = infos_data.select { |filter| filter.address.include? user_wordterm }.shuffle
+            filtered_infos_data = infos_data.select { |filter| filter.address.include? @user_wordterm }.shuffle
             routing.halt 404 unless filtered_infos_data[0]
             
             info = filtered_infos_data[1..1]
@@ -49,7 +49,7 @@ module CafeMap
             # info = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
 
             # Add project to database
-            info.map{ |obj| Repository::For.entity(obj).create(obj)}
+            info.each{ |obj| Repository::For.entity(obj).create(obj)}
 
             routing.redirect "region/#{info[0].city}"
           end
@@ -59,20 +59,14 @@ module CafeMap
           # GET /cafe/region
           routing.get do
             # Get 
-            info = Repository::For.klass(Entity::Info)
-            .find_full_name(owner_name, project_name)
-            # This must be true
             filtered_city = infos_data.find { |store| store.city.include? city }
             routing.halt 404 unless filtered_city
-
+            filtered_stores_data = infos_data.select { |filter| filter.city.include? city }.shuffle
             # limitation for Google Api 
-            filtered_infos_data = infos_data.select { |filter| filter.city.include? city }.shuffle
-            random_infos_data = filtered_infos_data[1..1]
-            store_list = random_infos_data.map(&:name)
-
-            # Call place_api
-            google_data = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN,store_list).load_several
-            view 'region', locals: { info: random_infos_data, reviews: google_data }
+            random_stores_data = filtered_stores_data[1..1]
+            store_namearr = random_stores_data.map(&:name)
+            google_data = CafeMap::Place::StoreMapper.new(PLACE_TOKEN, store_namearr).load_several
+            view 'region', locals: { info: random_stores_data, reviews: google_data }
           end
         end
       end

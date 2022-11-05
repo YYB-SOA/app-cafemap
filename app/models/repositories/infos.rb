@@ -7,9 +7,22 @@ module CafeMap
       def self.find_id(id)
         rebuild_entity Database::InfoOrm.first(id:)
       end
+      
+      def self.find(entity)
+        find_name(entity.name)
+      end
 
       def self.find_name(name)
         rebuild_entity Database::InfoOrm.first(name:)
+      end
+
+      def self.find_all_name(name)
+        rebuild_entity Database::InfoOrm.all(name:)
+      end
+
+      def self.create(entity)
+        raise 'Project already exists' if find(entity)
+        rebuild_entity(entity)
       end
 
       def self.rebuild_entity(db_record)
