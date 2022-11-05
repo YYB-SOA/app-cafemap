@@ -7,27 +7,39 @@
     .row
       - info.each do |store|
         .col-lg-4.col-md-6.col-sm-6
-          span.project.attribute 店名：#{store.name}
+          span.project.attribute Store Name 店名：#{store.name}
         .col-lg-8.col-md-6.col-sm-6
           .row
             .col-sm-12
-              a 地址：  #{store.address}
+              a Address 地址：  #{store.address}
             .col-sm-12
-              a Wifi穩定度：  #{store.wifi}
+              a open_time：  #{store.open_time}
             .col-sm-12
-              a 通常有位：  #{store.seat}
+              a Wifi 網路:  #{store.wifi}
             .col-sm-12
-              a 咖啡好喝：  #{store.tasty}
+              a Seat 座位：  #{store.seat}
             .col-sm-12
-              a 價格便宜：  #{store.cheap}
+              a Tasty 可口：  #{store.tasty}
+            .col-sm-12
+              a Cheap 價廉：  #{store.cheap}
+            .col-sm-12
+              a Music 音樂品味:  #{store.music}
+            .col-sm-12
+              a Quiet 安靜與否:  #{store.quiet}
+      
     .row
       - reviews.each do |review|
         .col-lg-4.col-md-6.col-sm-6
         .col-lg-8.col-md-6.col-sm-6
           .row
             .col-sm-12
-              a Google平均評分：#{review.rating}
+              a GoogleMap Average Rank 平均評分：#{review.rating}
             .col-sm-12
-              a 多少人評分：#{review.user_ratings_total}
+              a Amount of reviewers 評分人數：#{review.user_ratings_total}
+    .row
+      .col-lg-4.col-md-6.col-sm-6
 
-              
+      - info.each do |store|
+        .col-lg-8.col-md-6.col-sm-6
+            .col-sm-12
+              a 📍 lat & long: #{store.latitude} , #{store.longitude} 
