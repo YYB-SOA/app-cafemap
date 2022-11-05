@@ -45,4 +45,4 @@ def ans_sheet(target_attr, data_keys, correct)
   data_keys.map do |item|
     correct[item][target_attr]
   end
-end
+  -end
