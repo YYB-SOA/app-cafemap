@@ -11,24 +11,24 @@ module CafeMap
     class Info < Dry::Struct
       include Dry.Types
 
-      attribute :id,                  Coercible::String
-      attribute :name,                Coercible::String
-      attribute :city,                Coercible::String
-      attribute :wifi,                Coercible::String
-      attribute :seat,                Coercible::String
-      attribute :quiet,               Coercible::String
-      attribute :tasty,               Coercible::String
-      attribute :cheap,               Coercible::String
-      attribute :music,               Coercible::String
-      attribute :url,                 Coercible::String
-      attribute :address,             Coercible::String
-      attribute :latitude,            Coercible::String
-      attribute :longitude,           Coercible::String
-      attribute :limited_time,        Coercible::String
-      attribute :socket,              Coercible::String
-      attribute :standing_desk,       Coercible::String
-      attribute :mrt,                 Coercible::String
-      attribute :open_time,           Coercible::String
+      attribute :infoid,                  Strict::String
+      attribute :name,                Strict::String
+      attribute :city,                Strict::String
+      attribute :wifi,                Nominal::Float
+      attribute :seat,                Nominal::Float
+      attribute :quiet,               Nominal::Float
+      attribute :tasty,               Nominal::Float
+      attribute :cheap,               Nominal::Float
+      attribute :music,               Nominal::Float
+      attribute :url,                 Strict::String
+      attribute :address,             Strict::String
+      attribute :latitude,            Strict::String
+      attribute :longitude,           Strict::String
+      attribute :limited_time,        Strict::String
+      attribute :socket,              Strict::String
+      attribute :standing_desk,       Strict::String
+      attribute :mrt,                 Strict::String
+      attribute :open_time,           Strict::String
 
       def to_attr_hash
         to_hash.except(:id) # except:remove keys from hash

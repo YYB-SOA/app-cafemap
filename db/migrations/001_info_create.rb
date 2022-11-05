@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'sequel'
 
 Sequel.migration do
@@ -7,6 +5,7 @@ Sequel.migration do
     create_table(:info) do
       primary_key :id
       # foreign_key :name
+      String      :infoid
       String      :name
       String      :city
       String      :wifi

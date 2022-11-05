@@ -21,7 +21,6 @@ module CafeMap
 end
 
 
-# CafeMap::Database::InfoOrm.create(id: '00014645-38c8-4eb4-ad9b-faa871d7e511', name: 'R5小餐館',  city: 'chiayi')
+# CafeMap::Database::InfoOrm.create(infoid: '00014645-38c8-4eb4-ad9b-faa871d7e511', name: 'R5小餐館',  city: 'chiayi')
 # CafeMap::Database::InfoOrm.new(name: 'R5小餐館',  city: 'chiayi')
 # CafeMap::Database::InfoOrm.create(name: 'ARTROOM14 藝室',  city: 'hsinchu')
-

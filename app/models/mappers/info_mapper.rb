@@ -31,7 +31,7 @@ module CafeMap
 
       def build_entity
         Entity::Info.new(
-          id:,
+          infoid:,
           name:,
           city:,
           wifi:,
@@ -54,7 +54,7 @@ module CafeMap
 
       private
 
-      def id
+      def infoid
         @data['id']
       end
 
@@ -126,9 +126,11 @@ module CafeMap
         @data['open_time']
       end
       
-      def storename
-        @member_mapper.load_several(@data['contributors_url'])
-      end
+      # def storename
+      #   @member_mapper.load_several(@data['contributors_url'])
+      # end
     end
   end
 end
+
+test = CafeMap::CafeNomad::InfoMapper.new('https://cafenomad.tw/api/v1.2/cafes').load_several
