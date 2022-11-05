@@ -16,7 +16,7 @@ module CafeMap
         return nil unless db_record
 
         Entity::Info.new(
-          id: db_record.id,
+          infoid: db_record.infoid,
           name: db_record.name,
           city: db_record.city,
           wifi: db_record.wifi,
@@ -39,12 +39,12 @@ module CafeMap
 
       def self.rebuild_many(db_records) # 對應到 infomapper 的 load_several
         db_records.map do |db_member|
-          Members.rebuild_entity(db_member)
+          Info.rebuild_entity(db_member)
         end
       end
 
       def self.db_find_or_create(entity)
-        Database::MemberOrm.find_or_create(entity.to_attr_hash)
+        Database::InfoOrm.find_or_create(entity.to_attr_hash)
       end
     end
   end
