@@ -83,3 +83,9 @@ module CafeMap
     end
   end
 end
+token, store_list =  "AIzaSyDn1SNO-unHl8mSu2u3ZQ7dzfab4Y5bOZ0", ["ARTROOM14藝室"]
+puts token
+puts store_list
+obj = CafeMap::Place::StoreMapper.new(token, store_list).load_several
+
+p obj[0].place_id
