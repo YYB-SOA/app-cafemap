@@ -43,7 +43,7 @@ module CafeMap
             filtered_infos_data = infos_data.select { |filter| filter.address.include? @user_wordterm }.shuffle
             routing.halt 404 unless filtered_infos_data[0]
             
-            info = filtered_infos_data[1..1]
+            info = filtered_infos_data[1..2]
 
             # Get info from CafeNomad API
             # info = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
@@ -65,7 +65,7 @@ module CafeMap
             # limitation for Google Api 
             random_stores_data = filtered_stores_data[1..1]
             store_namearr = random_stores_data.map(&:name)
-            google_data = CafeMap::Place::StoreMapper.new(PLACE_TOKEN, store_namearr).load_several
+            google_data = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN, store_namearr).load_several
             view 'region', locals: { info: random_stores_data, reviews: google_data }
           end
         end

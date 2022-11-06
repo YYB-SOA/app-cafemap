@@ -22,7 +22,9 @@ module CafeMap
 
       def self.create(entity)
         raise 'Project already exists' if find(entity)
-        rebuild_entity(entity)
+
+        db_info = PersistMember.new(entity).create_info
+        rebuild_entity(db_info)
       end
 
       def self.rebuild_entity(db_record)
@@ -58,6 +60,16 @@ module CafeMap
 
       def self.db_find_or_create(entity)
         Database::InfoOrm.find_or_create(entity.to_attr_hash)
+      end
+    end
+
+    class PersistMember
+      def initialize(entity)
+        @entity = entity
+      end
+
+      def create_info
+        Database::InfoOrm.create(@entity.to_attr_hash)
       end
     end
   end
