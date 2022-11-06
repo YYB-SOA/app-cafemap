@@ -3,7 +3,6 @@
 require 'sequel'
 require './config/environment'
 
-
 module CafeMap
   module Database
     # Object Relational Mapper for Project Entities
