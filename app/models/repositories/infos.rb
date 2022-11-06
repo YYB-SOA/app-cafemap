@@ -7,7 +7,7 @@ module CafeMap
       def self.find_id(id)
         rebuild_entity Database::InfoOrm.first(id:)
       end
-      
+
       def self.find(entity)
         find_name(entity.name)
       end
@@ -17,13 +17,24 @@ module CafeMap
         rebuild_entity(db_record)
       end
 
-
       def self.all
-        Database::InfoOrm.all.map{|each| rebuild_entity(each)}
+        Database::InfoOrm.all.map { |each| rebuild_entity(each) }
+      end
+
+      def self.all_filtered_name(city)
+        Database::InfoOrm.all.select { |each| each.city.include? city }.map(&:name)
+      end
+
+      def self.all_filtered(city)
+        Database::InfoOrm.all.select { |each| each.city.include? city }
       end
 
       def self.find_all_name
-        Database::InfoOrm.all.map{|each| each.name}
+        Database::InfoOrm.all.map { |each| each.name }
+      end
+
+      def self.find_all_name
+        Database::InfoOrm.all.map { |each| each.name }
       end
 
       def self.create(entity)

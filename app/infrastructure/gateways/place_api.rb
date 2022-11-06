@@ -18,6 +18,7 @@ module CafeMap
 
       # Sends out HTTP requests to Google Place API
       class Request
+        GOOGLEURL = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=%s&key=%s&language=zh-TW"
         def initialize(place_token, store_list)
           @place_token = place_token
           @store_list = store_list
@@ -28,8 +29,7 @@ module CafeMap
 
           clean_list.map do |store|
             http_response =
-            HTTP.get("https://maps.googleapis.com/maps/api/place/textsearch/json?query=#{store}&key=#{@place_token}&language=zh-TW")
-            
+            HTTP.get(GOOGLEURL% [store, @place_token])
             result = Response.new(http_response).tap do |res|
               raise(res.error) unless res.successful?
             end

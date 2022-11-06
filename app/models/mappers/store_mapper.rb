@@ -83,3 +83,4 @@ module CafeMap
     end
   end
 end
+

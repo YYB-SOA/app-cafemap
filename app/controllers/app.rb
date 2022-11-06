@@ -59,9 +59,8 @@ module CafeMap
           # GET /cafe/region
           routing.get do
             # Get
-            store_namearr = Repository::For.klass(Entity::Info).find_all_name
-            random_stores_data = Repository::For.klass(Entity::Info).all[1..1]
-            puts store_namearr.length
+            store_namearr = Repository::For.klass(Entity::Info).find_all_name(city)
+            random_stores_data = Repository::For.klass(Entity::Info).all_filtered(city)
             google_data = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN, store_namearr[1..1]).load_several
             view 'region', locals: { info: random_stores_data, reviews: google_data }
           end
