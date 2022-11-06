@@ -133,6 +133,7 @@ module CafeMap
   end
 end
 
-test = CafeMap::CafeNomad::InfoMapper.new('https://cafenomad.tw/api/v1.2/cafes').load_several
-test1 = test[102]
-puts test1.to_hash.except(:name)
+# test = CafeMap::CafeNomad::InfoMapper.new('https://cafenomad.tw/api/v1.2/cafes').load_several
+# test1 = test[102]
+# puts test1.to_hash.except(:name)
+puts CafeMap::Database::InfoOrm.all

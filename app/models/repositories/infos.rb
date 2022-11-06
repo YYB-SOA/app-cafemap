@@ -13,17 +13,23 @@ module CafeMap
       end
 
       def self.find_name(name)
-        rebuild_entity Database::InfoOrm.first(name:)
+        db_record = Database::InfoOrm.first(name:)
+        rebuild_entity(db_record)
       end
 
-      def self.find_all_name(name)
-        rebuild_entity Database::InfoOrm.all(name:)
+
+      def self.all
+        Database::InfoOrm.all.map{|each| rebuild_entity(each)}
+      end
+
+      def self.find_all_name
+        Database::InfoOrm.all.map{|each| each.name}
       end
 
       def self.create(entity)
         raise 'Project already exists' if find(entity)
 
-        db_info = PersistMember.new(entity).create_info
+        db_info = PersistInfo.new(entity).create_info
         rebuild_entity(db_info)
       end
 
@@ -63,7 +69,7 @@ module CafeMap
       end
     end
 
-    class PersistMember
+    class PersistInfo
       def initialize(entity)
         @entity = entity
       end

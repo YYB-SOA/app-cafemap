@@ -58,14 +58,11 @@ module CafeMap
         routing.on String do |city|
           # GET /cafe/region
           routing.get do
-            # Get 
-            filtered_city = infos_data.find { |store| store.city.include? city }
-            routing.halt 404 unless filtered_city
-            filtered_stores_data = infos_data.select { |filter| filter.city.include? city }.shuffle
-            # limitation for Google Api 
-            random_stores_data = filtered_stores_data[1..1]
-            store_namearr = random_stores_data.map(&:name)
-            google_data = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN, store_namearr).load_several
+            # Get
+            store_namearr = Repository::For.klass(Entity::Info).find_all_name
+            random_stores_data = Repository::For.klass(Entity::Info).all[1..1]
+            puts store_namearr.length
+            google_data = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN, store_namearr[1..1]).load_several
             view 'region', locals: { info: random_stores_data, reviews: google_data }
           end
         end
