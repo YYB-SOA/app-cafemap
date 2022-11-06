@@ -3,7 +3,7 @@
 require 'dry-struct'
 require 'dry-types'
 
-require_relative 'status'
+# require_relative 'status'
 
 module CafeMap
   module Entity

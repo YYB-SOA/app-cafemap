@@ -7,7 +7,6 @@ module CafeMap
   module CafeNomad
     class Api # rubocop:disable Style/Documentation
       def initialize(cafe_token)
-        # Take the token to get the api. should  be the "real token of Cafe_api"
         @cafe_token = cafe_token
       end
 
@@ -47,26 +46,7 @@ module CafeMap
         https.use_ssl = true
         res = https.request(req)
         JSON.parse(res.body)
-      end
-    end
-
-    # HTTP Response ERROR Raised
-    class Response < SimpleDelegator
-      Unauthorized = Class.new(StandardError)
-      NotFound = Class.new(StandardError)
-
-      HTTP_ERROR = {
-        401 => Unauthorized,
-        404 => NotFound
-      }.freeze
-
-      def successful?
-        HTTP_ERROR.keys.none?(code)
-      end
-
-      def error
-        HTTP_ERROR[code]
-      end
+      end   
     end
   end
 end

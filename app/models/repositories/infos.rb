@@ -52,7 +52,7 @@ module CafeMap
         )
       end
 
-      def self.rebuild_many(db_records) # 對應到 infomapper 的 load_several
+      def self.rebuild_many(db_records)
         db_records.map do |db_member|
           Infos.rebuild_entity(db_member)
         end

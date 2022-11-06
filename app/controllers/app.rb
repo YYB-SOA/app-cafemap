@@ -30,8 +30,6 @@ module CafeMap
 
       # infos = Repository::For.klass(Entity::Info).all
         view 'home' # , locals: { infos: }
-
-        # view 'home' # , locals: { store_name: stores_data }
       end
 
       routing.on 'region' do
@@ -44,9 +42,6 @@ module CafeMap
             routing.halt 404 unless filtered_infos_data[0]
             
             info = filtered_infos_data[1..2]
-
-            # Get info from CafeNomad API
-            # info = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
 
             # Add project to database
             info.each{ |obj| Repository::For.entity(obj).create(obj)}
