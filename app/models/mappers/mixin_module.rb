@@ -83,27 +83,32 @@ end
 # Using mixin to avoid rubocop show "Too many method inside a class"
 module StoreMixinAll
   # Infos about  rank
-  def wifi
-    @data['wifi']
+  def place_id
+    @data['place_id']
   end
 
-  def seat
-    @data['seat']
+  def name
+    @data['name']
   end
 
-  def quiet
-    @data['quiet']
+  def formatted_address
+    @data['formatted_address']
   end
 
-  def tasty
-    @data['tasty']
+  def location_lat
+    @data['geometry']['location']['lat']
   end
 
-  def cheap
-    @data['cheap']
+  def location_lng
+    @data['geometry']['location']['lng']
   end
 
-  def music
-    @data['music']
+  def rating
+    @data['rating']
+  end
+
+  def user_ratings_total
+    @data['user_ratings_total']
   end
 end
+

@@ -33,10 +33,6 @@ module CafeMap
         Database::InfoOrm.all.map { |each| each.name }
       end
 
-      def self.find_all_name
-        Database::InfoOrm.all.map { |each| each.name }
-      end
-
       def self.create(entity)
         raise 'Project already exists' if find(entity)
 

@@ -8,7 +8,7 @@ module CafeMap
   class App < Roda
     plugin :render, engine: 'slim', views: 'app/views'
     plugin :public, root: 'app/views/public'
-    plugin :assets, path: 'app/views/assets', css: 'style.css', path: 'app/views/assets'
+    plugin :assets, path: 'app/views/assets', css: 'style.css'
     plugin :common_logger, $stderr
     plugin :halt
     plugin :status_handler
@@ -54,7 +54,7 @@ module CafeMap
           # GET /cafe/region
           routing.get do
             # Get
-            store_namearr = Repository::For.klass(Entity::Info).find_all_name(city)
+            store_namearr = Repository::For.klass(Entity::Info).all_filtered_name(city)
             random_stores_data = Repository::For.klass(Entity::Info).all_filtered(city)
             google_data = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN, store_namearr[1..1]).load_several
             view 'region', locals: { info: random_stores_data, reviews: google_data }
