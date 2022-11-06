@@ -34,10 +34,10 @@ module CafeMap
       end
 
       def self.create(entity)
-        raise 'Project already exists' if find(entity)
-
-        db_info = PersistInfo.new(entity).create_info
-        rebuild_entity(db_info)
+        unless find(entity)
+          db_info = PersistInfo.new(entity).create_info
+          rebuild_entity(db_info)
+        end
       end
 
       def self.rebuild_entity(db_record)
