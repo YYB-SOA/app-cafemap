@@ -27,7 +27,8 @@ module CafeMap
             )
           end
   
-        def self.rebuild_many(db_records) # 對應到 infomapper 的 load_several
+        def self.rebuild_many(db_records) 
+          # Corresponse to the  "load_several" in mappers/info_mapper.rb
           db_records.map do |db_member|
             Stores.rebuild_entity(db_member)
           end

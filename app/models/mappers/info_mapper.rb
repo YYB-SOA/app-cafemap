@@ -125,10 +125,6 @@ module CafeMap
       def open_time
         @data['open_time']
       end
-      
-      # def storename
-      #   @member_mapper.load_several(@data['contributors_url'])
-      # end
     end
   end
 end

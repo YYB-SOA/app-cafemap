@@ -28,22 +28,20 @@ module CafeMap
 
           clean_list.map do |store|
             http_response =
-            HTTP.get("https://maps.googleapis.com/maps/api/place/textsearch/json?query=#{store}&key=#{@place_token}&language=zh-TW")
-            
+              HTTP.get("https://maps.googleapis.com/maps/api/place/textsearch/json?query=#{store}&key=#{@place_token}&language=zh-TW")
+
             result = Response.new(http_response).tap do |res|
               raise(res.error) unless res.successful?
             end
 
             result.parse
-
           end
         end
-        private
+
         def self.data_clean(box)
           # Input: string array of cafe name
           box.map { |name_str| name_str.gsub('()', '').gsub(' ', '').gsub("\b", '') }
         end
-
       end
 
       # Decorates HTTP responses  with success/error reporting
