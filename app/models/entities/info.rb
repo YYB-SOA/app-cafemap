@@ -21,7 +21,7 @@ module CafeMap
       attribute :cheap,               Nominal::Float
       attribute :music,               Nominal::Float
       attribute :url,                 Strict::String
-      attribute :address,             Strict::String
+      attribute :address,             Coercible::String
       attribute :latitude,            Strict::String
       attribute :longitude,           Strict::String
       attribute :limited_time,        Strict::String
@@ -31,7 +31,7 @@ module CafeMap
       attribute :open_time,           Strict::String
 
       def to_attr_hash
-        to_hash.except(:id) # except:remove keys from hash
+        to_hash # except:remove keys from hash
       end
     end
   end

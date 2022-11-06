@@ -1,7 +1,7 @@
 
 # frozen_string_literal: true
 
-require_relative 'info'
+require_relative 'infos'
 require_relative 'stores'
 
 module CafeMap
@@ -10,7 +10,7 @@ module CafeMap
     module For
       ENTITY_REPOSITORY = {
         Entity::Store => Stores,
-        Entity::Info => Info
+        Entity::Info => Infos
       }.freeze
 
       def self.klass(entity_klass)
