@@ -8,7 +8,7 @@ module CafeMap
   class App < Roda
     plugin :render, engine: 'slim', views: 'app/views'
     plugin :public, root: 'app/views/public'
-    plugin :assets, path: 'app/views/assets', css: 'style.css', path: 'app/views/assets'
+    plugin :assets, path: 'app/views/assets', css: 'style.css'
     plugin :common_logger, $stderr
     plugin :halt
     plugin :status_handler
@@ -30,8 +30,6 @@ module CafeMap
 
       # infos = Repository::For.klass(Entity::Info).all
         view 'home' # , locals: { infos: }
-
-        # view 'home' # , locals: { store_name: stores_data }
       end
 
       routing.on 'region' do
@@ -45,9 +43,6 @@ module CafeMap
             
             info = filtered_infos_data[1..2]
 
-            # Get info from CafeNomad API
-            # info = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
-
             # Add project to database
             info.each{ |obj| Repository::For.entity(obj).create(obj)}
 
@@ -58,14 +53,10 @@ module CafeMap
         routing.on String do |city|
           # GET /cafe/region
           routing.get do
-            # Get 
-            filtered_city = infos_data.find { |store| store.city.include? city }
-            routing.halt 404 unless filtered_city
-            filtered_stores_data = infos_data.select { |filter| filter.city.include? city }.shuffle
-            # limitation for Google Api 
-            random_stores_data = filtered_stores_data[1..1]
-            store_namearr = random_stores_data.map(&:name)
-            google_data = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN, store_namearr).load_several
+            # Get
+            store_namearr = Repository::For.klass(Entity::Info).all_filtered_name(city)
+            random_stores_data = Repository::For.klass(Entity::Info).all_filtered(city)
+            google_data = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN, store_namearr[1..1]).load_several
             view 'region', locals: { info: random_stores_data, reviews: google_data }
           end
         end

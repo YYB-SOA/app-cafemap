@@ -2,12 +2,14 @@
 
 require_relative '../../infrastructure/gateways/cafe_api'
 require_relative '../entities/info'
+require_relative 'mixin_module.rb'
 
 module CafeMap
   module CafeNomad
+    # InfoMapper is the mapper deal with CafeNomad API
     class InfoMapper
       # tokename will be "Cafe_api"
-      def initialize(cafe_token, gateway_class = CafeNomad::Api) # cafe_token should be a url from secrets.yml
+      def initialize(cafe_token, gateway_class = CafeNomad::Api)
         @cafe_token = cafe_token
         @gateway_class = gateway_class
         @gateway = gateway_class.new(@cafe_token)
@@ -24,7 +26,10 @@ module CafeMap
       end
     end
 
+    # Map the data comes from gateway into entity
     class DataMapper
+      include InfoMixinRank
+      include InfoMixinGeo
       def initialize(data)
         @data = data
       end
@@ -51,88 +56,6 @@ module CafeMap
           open_time:
         )
       end
-
-      private
-
-      def infoid
-        @data['id']
-      end
-
-      def name
-        @data['name']
-      end
-
-      def city
-        @data['city']
-      end
-
-      def wifi
-        @data['wifi']
-      end
-
-      def seat
-        @data['seat']
-      end
-
-      def quiet
-        @data['quiet']
-      end
-
-      def tasty
-        @data['tasty']
-      end
-
-      def cheap
-        @data['cheap']
-      end
-
-      def music
-        @data['music']
-      end
-
-      def url
-        @data['url']
-      end
-
-      def address
-        @data['address']
-      end
-
-      def latitude
-        @data['latitude']
-      end
-
-      def longitude
-        @data['longitude']
-      end
-
-      def limited_time
-        @data['limited_time']
-      end
-
-      def socket
-        @data['socket']
-      end
-
-      def standing_desk
-        @data['standing_desk']
-      end
-
-      def mrt
-        @data['mrt']
-      end
-
-      def open_time
-        @data['open_time']
-      end
-      
-      # def storename
-      #   @member_mapper.load_several(@data['contributors_url'])
-      # end
     end
   end
 end
-
-test = CafeMap::CafeNomad::InfoMapper.new('https://cafenomad.tw/api/v1.2/cafes').load_several
-test1 = test[102]
-puts test1.to_hash.except(:name)

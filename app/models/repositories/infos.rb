@@ -7,24 +7,37 @@ module CafeMap
       def self.find_id(id)
         rebuild_entity Database::InfoOrm.first(id:)
       end
-      
+
       def self.find(entity)
         find_name(entity.name)
       end
 
       def self.find_name(name)
-        rebuild_entity Database::InfoOrm.first(name:)
+        db_record = Database::InfoOrm.first(name:)
+        rebuild_entity(db_record)
       end
 
-      def self.find_all_name(name)
-        rebuild_entity Database::InfoOrm.all(name:)
+      def self.all
+        Database::InfoOrm.all.map { |each| rebuild_entity(each) }
+      end
+
+      def self.all_filtered_name(city)
+        Database::InfoOrm.all.select { |each| each.city.include? city }.map(&:name)
+      end
+
+      def self.all_filtered(city)
+        Database::InfoOrm.all.select { |each| each.city.include? city }
+      end
+
+      def self.find_all_name
+        Database::InfoOrm.all.map { |each| each.name }
       end
 
       def self.create(entity)
-        raise 'Project already exists' if find(entity)
-
-        db_info = PersistMember.new(entity).create_info
-        rebuild_entity(db_info)
+        unless find(entity)
+          db_info = PersistInfo.new(entity).create_info
+          rebuild_entity(db_info)
+        end
       end
 
       def self.rebuild_entity(db_record)
@@ -52,7 +65,7 @@ module CafeMap
         )
       end
 
-      def self.rebuild_many(db_records) # 對應到 infomapper 的 load_several
+      def self.rebuild_many(db_records)
         db_records.map do |db_member|
           Infos.rebuild_entity(db_member)
         end
@@ -63,7 +76,7 @@ module CafeMap
       end
     end
 
-    class PersistMember
+    class PersistInfo
       def initialize(entity)
         @entity = entity
       end

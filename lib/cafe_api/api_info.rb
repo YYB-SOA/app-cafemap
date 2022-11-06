@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 module CafeNomad
-  # 從 CafeNomad 的 api 從取得每一間咖啡廳的資料
   class ApiInfo
-    # 這邊一樣餵進來已經處理過的 Yaml 檔，從中取得所有的店家資料。
     def initialize(cofanomad_data)
       @cofanomad_data = cofanomad_data
     end

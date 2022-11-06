@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
 require 'net/http'
-# require 'yaml'
 require 'json'
 
 module CafeMap
   module CafeNomad
     class Api # rubocop:disable Style/Documentation
       def initialize(cafe_token)
-        # Take the token to get the api. should  be the "real token of Cafe_api"
         @cafe_token = cafe_token
       end
 
@@ -36,36 +34,19 @@ module CafeMap
     end
 
     class Request # rubocop:disable Style/Documentation
-      def initialize(cafe_token) # token here would be a cafe_api url 
-        @cafe_token = cafe_token 
+      # token here would be a cafe_api url
+      def initialize(cafe_token)
+        @cafe_token = cafe_token
       end
 
-      def get()
+      def get
         uri = URI.parse(@cafe_token)
         req = Net::HTTP::Get.new(uri.request_uri)
         https = Net::HTTP.new(uri.host, uri.port)
         https.use_ssl = true
         res = https.request(req)
         JSON.parse(res.body)
-      end
+      end   
     end
-
-    # class Response < SimpleDelegator
-    #   Unauthorized = Class.new(StandardError)
-    #   NotFound = Class.new(StandardError)
-
-    #   HTTP_ERROR = {
-    #     401 => Unauthorized,
-    #     404 => NotFound
-    #   }.freeze
-
-    #   def successful?
-    #     HTTP_ERROR.keys.none?(code)
-    #   end
-
-    #   def error
-    #     HTTP_ERROR[code]
-    #   end
-    # end
   end
 end

@@ -3,7 +3,7 @@
 require 'dry-struct'
 require 'dry-types'
 
-require_relative 'status'
+# require_relative 'status'
 
 module CafeMap
   module Entity
@@ -21,7 +21,7 @@ module CafeMap
       attribute :cheap,               Nominal::Float
       attribute :music,               Nominal::Float
       attribute :url,                 Strict::String
-      attribute :address,             Coercible::String
+      attribute :address,             Strict::String
       attribute :latitude,            Strict::String
       attribute :longitude,           Strict::String
       attribute :limited_time,        Strict::String
