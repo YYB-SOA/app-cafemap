@@ -5,41 +5,47 @@
         = info[0].city + "市咖啡廳推薦❤️"
   .container
     .row
-      - info.each do |store|
+      - info.each_with_index  do |store, index|
         .col-lg-4.col-md-6.col-sm-6
-          span.project.attribute Store Name 店名：#{store.name}
-        .col-lg-8.col-md-6.col-sm-6
-          .row
-            .col-sm-12
-              a Address：  #{store.address}
-            .col-sm-12
-              a open_time：  #{store.open_time}
-            .col-sm-12
-              a Wifi:  #{store.wifi}
-            .col-sm-12
-              a Seat：  #{store.seat}
-            .col-sm-12
-              a Tasty：  #{store.tasty}
-            .col-sm-12
-              a Cheap：  #{store.cheap}
-            .col-sm-12
-              a Music:  #{store.music}
-            .col-sm-12
-              a Quiet:  #{store.quiet}
+        table.table
+            thead
+                tr
+                th scope="col"  #
+                th scope="col"  Store Name
+                th scope="col"  Wifi
+                th scope="col"  Seat
+                th scope="col"  Tasty
+                th scope="col"  Cheap
+                th scope="col"  music
+                th scope="col"  quiet
+                th scope="col"  open_time
+                th scope="col"  Address
+                th scope="col"  Google Rank
+                th scope="col"  Reviewers
+            tbody
+                tr
+                th scope="row"  #{index+1}
+                td #{store.name}
+                td #{store.wifi}
+                td #{store.seat}
+                td #{store.tasty}
+                td #{store.cheap}
+                td #{store.music}
+                td #{store.quiet}
+                td #{store.open_time}
+                td #{store.address}
+                td #{(place_call_num >= index)? reviews[place_call_num].rating : ''}
+                td #{(place_call_num >=index)? reviews[place_call_num].user_ratings_total : ""}
+            .row               
       
-    .row
-      - reviews.each do |review|
-        .col-lg-4.col-md-6.col-sm-6
-        .col-lg-8.col-md-6.col-sm-6
-          .row
-            .col-sm-12
-              a Google Rank：#{review.rating}
-            .col-sm-12
-              a Reviewers：#{review.user_ratings_total}
+    / .row
+    /   - reviews.each do |review|
+    /     .col-lg-4.col-md-6.col-sm-6
+    /     .col-lg-8.col-md-6.col-sm-6
+    /       .row
+    /         .col-sm-12
+    /           a Google Rank：#{review.rating}
+    /         .col-sm-12
+    /           a Reviewers：#{review.user_ratings_total}
     .row
       .col-lg-4.col-md-6.col-sm-6
-
-      - info.each do |store|
-        .col-lg-8.col-md-6.col-sm-6
-            .col-sm-12
-              a 📍 Location: #{store.latitude} , #{store.longitude} 
