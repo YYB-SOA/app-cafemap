@@ -5,8 +5,8 @@ require 'sequel'
 Sequel.migration do
   change do
     create_table(:store) do
-      # primary_key :name
       primary_key :id
+      foreign_key :info_id, :info
 
       String      :name
       String      :place_id

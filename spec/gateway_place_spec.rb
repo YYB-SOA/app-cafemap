@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
-require_relative 'place_api_spec_helper'
+require_relative 'spec_helper'
+require_relative 'helpers/vcr_helper'
+require_relative 'helpers/database_helper'
+require_relative '../app/models/mappers/store_mapper.rb'
+
 
 describe 'Tests Place API library' do
   before do
-    VcrHelper.configure_vcr_for_palce
+    VcrHelper.configure_vcr_for_place
   end
 
   after do
@@ -13,7 +17,7 @@ describe 'Tests Place API library' do
 
   describe 'Store information' do
     before do
-      @store = CafeMap::CafeNomad::InfoMapper.new(TOKEN_NAME, TEST_STORE).load_several
+      @store =  CafeMap::Place::StoreMapper.new(PLACE_TOKEN, TEST_STORE).load_several
       @yaml_keys = STORE_CORRECT[0..].map { |key| PLACE_CORRECT[key]['results'] }
     end
 
@@ -34,7 +38,7 @@ describe 'Tests Place API library' do
     end
 
     it 'BAD: should raise exception on incorrect invalid result' do
-      bad = CafeMap::Place::StoreMapper.new(TOKEN_NAME, FAKE_TEST_STORE).bad_request
+      bad = CafeMap::Place::StoreMapper.new(PLACE_TOKEN, FAKE_TEST_STORE).bad_request
       _(bad).must_equal INCORRECT['INVALID_REQUEST']['status']
     end
   end

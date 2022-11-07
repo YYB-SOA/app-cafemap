@@ -4,7 +4,7 @@ Sequel.migration do
   change do
     create_table(:info) do
       primary_key :id
-      # foreign_key :name
+
       String      :infoid
       String      :name
       String      :city
