@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require '/home/timbclin/CafeMap/app/infrastructure/database/info_orm.rb'
 
 # Helper to clean database during test runs
 module DatabaseHelper
@@ -6,7 +7,6 @@ module DatabaseHelper
     # Ignore foreign key constraints when wiping tables
     CafeMap::App.DB.run('PRAGMA foreign_keys = OFF')
     CafeMap::Database::InfoOrm.map(&:destroy)
-    CafeMap::Database::StatusOrm.map(&:destroy)
     CafeMap::Database::StoreOrm.map(&:destroy)
     CafeMap::App.DB.run('PRAGMA foreign_keys = ON')
   end

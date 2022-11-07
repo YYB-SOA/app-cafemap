@@ -14,13 +14,13 @@ describe 'Tests Cafe Nomad API library' do
 
   describe 'Cafe Nomad Store Content' do
     before do
-      @cafe_info = CafeMap::CafeNomad:: InfoMapper.new('Cafe_api').load_several
-      @yaml_keys = CORRECT.keys[3..]
+      @cafe_info = CafeMap::CafeNomad:: InfoMapper.new(CAFE_TOKEN).load_several
+      @yaml_keys = CAFE_CORRECT.keys[3..]
     end
 
     #--------------------------Store Content-----------
     it 'HAPPY: should pass corect id' do
-      _(@cafe_info.map(&:id)).must_equal ans_sheet('id', @yaml_keys, CAFE_CORRECT )
+      _(@cafe_info.map(&:infoid)).must_equal ans_sheet('id', @yaml_keys, CAFE_CORRECT )
     end
 
     it 'HAPPY: should pass corect name' do
@@ -71,27 +71,27 @@ describe 'Tests Cafe Nomad API library' do
     #--------------------------Rating Content---------------------------
 
     it 'HAPPY: should pass identitied wifi score' do
-      _(@cafe_info.map(&:wifi)).must_equal ans_sheet('wifi', @yaml_keys,CAFE_CORRECT).map(& :to_s)
+      _(@cafe_info.map(&:wifi)).must_equal ans_sheet('wifi', @yaml_keys,CAFE_CORRECT).map(& :to_f)
     end
 
     it 'HAPPY: should pass identitied seat score' do
-      _(@cafe_info.map(&:seat)).must_equal ans_sheet('seat', @yaml_keys,CAFE_CORRECT).map(& :to_s)
+      _(@cafe_info.map(&:seat)).must_equal ans_sheet('seat', @yaml_keys,CAFE_CORRECT).map(& :to_f)
     end
 
     it 'HAPPY: should pass identitied quiet score' do
-      _(@cafe_info.map(&:quiet)).must_equal ans_sheet('quiet', @yaml_keys,CAFE_CORRECT).map(& :to_s)
+      _(@cafe_info.map(&:quiet)).must_equal ans_sheet('quiet', @yaml_keys,CAFE_CORRECT).map(& :to_f)
     end
 
     it 'HAPPY: should pass identitied tasty score' do
-      _(@cafe_info.map(&:tasty)).must_equal ans_sheet('tasty', @yaml_keys,CAFE_CORRECT).map(& :to_s)
+      _(@cafe_info.map(&:tasty)).must_equal ans_sheet('tasty', @yaml_keys,CAFE_CORRECT).map(& :to_f)
     end
 
     it 'HAPPY: should pass identitied cheap score' do
-      _(@cafe_info.map(&:cheap)).must_equal ans_sheet('cheap', @yaml_keys,CAFE_CORRECT).map(& :to_s)
+      _(@cafe_info.map(&:cheap)).must_equal ans_sheet('cheap', @yaml_keys,CAFE_CORRECT).map(& :to_f)
     end
 
     it 'HAPPY: should pass identitied music score' do
-      _(@cafe_info.map(&:music)).must_equal ans_sheet('music', @yaml_keys,CAFE_CORRECT).map(& :to_s)
+      _(@cafe_info.map(&:music)).must_equal ans_sheet('music', @yaml_keys,CAFE_CORRECT).map(& :to_f)
     end
   end
 end

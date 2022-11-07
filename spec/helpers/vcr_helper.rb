@@ -7,7 +7,7 @@ require 'webmock'
 module VcrHelper
   CASSETTES_FOLDER = 'spec/fixtures/cassettes'
   PLACE_CASSETTE = 'place_api'
-  CAFE_CASSETTE - 'cafe_api'
+  CAFE_CASSETTE = 'cafe_api'
 
   def self.setup_vcr
     VCR.configure do |c|

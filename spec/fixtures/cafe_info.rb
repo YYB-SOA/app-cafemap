@@ -5,6 +5,8 @@ require 'yaml'
 require 'json'
 require 'net/http'
 require 'uri'
+require_relative '../../require_app'
+require_relative '../../config/environment'
 
 def url_concat(token)
   token
@@ -13,7 +15,7 @@ end
 def get_full_url(token_category, name_of_key)
   # Added the folder 'config/secrets.yml' first
   config = YAML.safe_load(File.read('config/secrets.yml'))
-  token = config[token_category][0][name_of_key]
+  token = CafeMap::App.config.CAFE_TOKEN
   url_concat(token)
 end
 
