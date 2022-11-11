@@ -9,7 +9,6 @@ Sequel.migration do
       foreign_key :info_id, :info
 
       String      :name
-      String      :place_id
       String      :formatted_address
       String      :location_lat
       String      :location_lng
@@ -21,3 +20,5 @@ Sequel.migration do
     end
   end
 end
+
+# CafeMap::Database::StoreOrm.create(info_id:1, name:"FongCafe",formatted_address:"清大裡面")

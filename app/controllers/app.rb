@@ -13,7 +13,6 @@ module CafeMap
     plugin :halt
     plugin :status_handler
 
-
     status_handler(404) do
       view('404')
     end
@@ -23,12 +22,11 @@ module CafeMap
       response['Content-Type'] = 'text/html; charset=utf-8'
 
       infos_data = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
-      routing.public #?
-      
+      routing.public # ?
+
       # GET /
       routing.root do
-
-      # infos = Repository::For.klass(Entity::Info).all
+        # infos = Repository::For.klass(Entity::Info).all
         view 'home' # , locals: { infos: }
       end
 
@@ -40,11 +38,11 @@ module CafeMap
             infos_data = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
             filtered_infos_data = infos_data.select { |filter| filter.address.include? @user_wordterm }.shuffle
             routing.halt 404 unless filtered_infos_data[0]
-            
+
             info = filtered_infos_data[1..2]
 
             # Add project to database
-            info.each{ |obj| Repository::For.entity(obj).create(obj)}
+            info.each { |obj| Repository::For.entity(obj).create(obj) }
 
             routing.redirect "region/#{info[0].city}"
           end
@@ -54,11 +52,26 @@ module CafeMap
           # GET /cafe/region
           routing.get do
             # Get
-            store_namearr = Repository::For.klass(Entity::Info).all_filtered_name(city)
-            random_stores_data = Repository::For.klass(Entity::Info).all_filtered(city)
-            num = 1
-            google_data = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN, store_namearr[0..num]).load_several
-            view 'region', locals: { info: random_stores_data, reviews: google_data , place_call_num: num}
+            filtered_store_namearr = Repository::For.klass(Entity::Info).all_filtered_name(city) # get filtered name(array)
+            filtered_stores = Repository::For.klass(Entity::Info).all_filtered(city) # get all filtered city
+            num = 1 # 要改變數名稱
+            all_storedb_names = Repository::For.klass(Entity::Store).all_name # 抓出所有 store.db 的資料
+            if all_storedb_names.any?
+              name_not_in_store_db = all_storedb_names.select { |store| !(filtered_store_namearr.include? store) }
+              puts '123'
+              puts name_not_in_store_db
+              google_data = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN,
+                                                            name_not_in_store_db[0..num]).load_several
+            else
+              puts filtered_store_namearr
+              google_data = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN,
+                                                            filtered_store_namearr[0..num]).load_several
+            end
+            # binding.irb
+            # google_data.each{|google| Repository::For.entity(google)}
+            view 'region', locals: { info: filtered_stores, reviews: google_data, place_call_num: num }
+            # rescue StandardError => e
+            #   puts e.full_message
           end
         end
       end

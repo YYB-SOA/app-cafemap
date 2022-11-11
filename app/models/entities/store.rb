@@ -12,10 +12,14 @@ module CafeMap
       attribute :place_id, Strict::String  # Coercible #Strict
       attribute :name, Strict::String
       attribute :formatted_address, Strict::String
-      attribute :location_lat,  Strict::Float
-      attribute :location_lng,  Strict::Float
+      attribute :location_lat,  Coercible::String
+      attribute :location_lng,  Coercible::String
       attribute :rating, Nominal::Float
       attribute :user_ratings_total, Strict::Integer
+
+      def to_attr_hash
+        to_hash # except:remove keys from hash
+      end
     end
   end
 end

@@ -12,6 +12,20 @@ module CafeMap
           rebuild_entity Database::StoreOrm.first(name:)
         end
         
+        def self.find(entity)
+          find_name(entity.name)
+        end
+
+        def self.create(entity) # check if the data has already in db
+          unless find(entity)
+            db_store = PersistStore.new(entity).create_store
+            rebuild_entity(db_store)
+          end
+        end
+
+        def self.all_name
+          Database::StoreOrm.all.map{|store| store.name}
+        end
   
         def self.rebuild_entity(db_record)
             return nil unless db_record
@@ -36,6 +50,15 @@ module CafeMap
   
         def self.db_find_or_create(entity)
           Database::StoreOrm.find_or_create(entity.to_attr_hash)
+        end
+      end
+      class PersistStore
+        def initialize(entity)
+          @entity = entity
+        end
+  
+        def create_store
+          Database::StoreOrm.create(@entity.to_attr_hash)
         end
       end
     end
