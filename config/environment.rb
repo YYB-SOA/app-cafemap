@@ -1,15 +1,33 @@
 # frozen_string_literal: true
 
+require 'figaro'
 require 'roda'
+require 'sequel'
 require 'yaml'
 
 module CafeMap
   # Configuration for the App
   class App < Roda
-    CONFIG = YAML.safe_load(File.read('config/secrets.yml'))
-    CAFE_TOKEN_NAME = 'Cafe_api'
-    PLACE_TOKEN_NAME = 'Place_api'
-    CAFE_TOKEN = CONFIG['CAFE_NOMAD'][0]['Cafe_api']
-    PLACE_TOKEN = CONFIG['GOOGLE_MAP'][0]['Place_api']
+    plugin :environments
+
+    # rubocop:disable Lint/ConstantDefinitionInBlock
+    configure do
+      # Environment variables setup
+      Figaro.application = Figaro::Application.new(
+        environment:,
+        path: File.expand_path('config/secrets.yml')
+      )
+      Figaro.load
+      def self.config = Figaro.env
+
+      configure :development, :test do
+        ENV['DATABASE_URL'] = "sqlite://#{config.DB_FILENAME}"
+      end
+
+      # Database Setup
+      DB = Sequel.connect(ENV.fetch('DATABASE_URL'))
+      def self.DB = DB # rubocop:disable Naming/MethodName
+    end
+    # rubocop:enable Lint/ConstantDefinitionInBlock
   end
 end

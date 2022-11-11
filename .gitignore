@@ -5,3 +5,4 @@ _snippets/
 lib/trial_space
 message_log/*
 coverage/index.html
+*.db

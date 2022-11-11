@@ -1,26 +1,27 @@
 # frozen_string_literal: false
 
-require_relative '../gateways/place_api'
+require_relative '../../infrastructure/gateways/place_api'
 require_relative '../entities/store'
+require_relative 'mixin_module'
 
 module CafeMap
   # Provides access to contributor data
   module Place
     # Data Mapper: Place store -> store entity
     class StoreMapper
-      def initialize(token_name, store_namearr, gateway_class = Place::PlaceApi)
-        @token_name = token_name
-        @store_namearr = store_namearr
+      def initialize(token, store_list, gateway_class = Place::PlaceApi)
+        @token = token
+        @store_list = store_list
         @gateway_class = gateway_class
-        @gateway = @gateway_class.new(@token_name, @store_namearr)
+        @gateway = @gateway_class.new(@token, @store_list)
       end
 
       def bad_request
-        @gateway.store(@token_name, @store_namearr)[0]['status']
+        @gateway.store_data[0]['status']
       end
 
       def load_several
-        @gateway.store(@token_name, @store_namearr).map do |each_store|
+        @gateway.store_data.map do |each_store|
           data = each_store['results'][0]
           StoreMapper.build_entity(data)
         end
@@ -32,7 +33,7 @@ module CafeMap
 
       # Extracts entity specific elements from data structure
       class DataMapper
-        # hash
+        include StoreMixinAll
         def initialize(data)
           @data = data
         end
@@ -47,36 +48,6 @@ module CafeMap
             rating:,
             user_ratings_total:
           )
-        end
-
-        private
-
-        def place_id
-          @data['place_id']
-        end
-
-        def name
-          @data['name']
-        end
-
-        def formatted_address
-          @data['formatted_address']
-        end
-
-        def location_lat
-          @data['geometry']['location']['lat']
-        end
-
-        def location_lng
-          @data['geometry']['location']['lng']
-        end
-
-        def rating
-          @data['rating']
-        end
-
-        def user_ratings_total
-          @data['user_ratings_total']
         end
       end
     end
