@@ -41,7 +41,6 @@ namespace :db do
     puts "Migrating #{app.environment} database to latest"
     Sequel::Migrator.run(app.DB, 'db/migrations')
   end
-end
 
   desc 'Wipe records from all tables'
   task :wipe => :config do
@@ -64,6 +63,7 @@ end
     FileUtils.rm(CafeMap::App.config.DB_FILENAME)
     puts "Deleted #{CafeMap::App.config.DB_FILENAME}"
   end
+end
 
 desc 'Run application console'
 task :console do

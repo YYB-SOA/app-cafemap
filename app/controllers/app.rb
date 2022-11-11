@@ -68,7 +68,10 @@ module CafeMap
                                                             filtered_store_namearr[0..num]).load_several
             end
             # binding.irb
-            # google_data.each{|google| Repository::For.entity(google)}
+            google_data.each{|google| Repository::For.entity(google).create(google)}
+            
+            # puts Repository::For.klass(Entity::Stores).find_id(id:1)
+
             view 'region', locals: { info: filtered_stores, reviews: google_data, place_call_num: num }
             # rescue StandardError => e
             #   puts e.full_message
