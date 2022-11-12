@@ -52,42 +52,21 @@ module CafeMap
           # GET /cafe/region
           routing.get do
             # Get
-            filtered_store_namearr = Repository::For.klass(Entity::Info).all_filtered_name(city) # get filtered name(array)
+            store_namearr = Repository::For.klass(Entity::Info).all_filtered_name(city) # get filtered name(array)
             filtered_stores = Repository::For.klass(Entity::Info).all_filtered(city) # get all filtered city
             all_storedb_names = Repository::For.klass(Entity::Store).all_name # 抓出所有 store.db 的資料
             lock = 2
 
             if all_storedb_names.any?
-              name_not_in_store_db = all_storedb_names.reject { |store| (filtered_store_namearr.include? store) }
-
-              puts 'TEST: name_not_in_store_db'
-              puts "class: #{name_not_in_store_db.class}"
-              puts "length: #{name_not_in_store_db.length}"
-              print name_not_in_store_db
-
-              google_data = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN,
-                                                            name_not_in_store_db.first(lock)).load_several
-
-              print '###### all_storedb_names.any? == True  end######'
-
-            else
-              puts "filtered_store_namearr: #{filtered_store_namearr}"
-              google_data = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN,
-                                                            filtered_store_namearr.first(lock)).load_several
-
-              print '###### palceapi call completed######'
+              unrecord_name = all_storedb_names.reject { |store| (store_namearr.include? store) }
+              store_namearr = unrecord_name
             end
+
+            google_data = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN, store_namearr.first(lock)).load_several
+
 
             google_data.each { |google| Repository::For.entity(google).create(google) }
             puts 'place db set successfully'
-
-            google_data.each do |google|
-              puts "----------google: #{google}----------"
-              puts "Type: #{google.class}"
-              puts "place_id: #{google.place_id}"
-              puts "name: #{google.name}"
-              puts "rating: #{google.rating}"
-            end
 
             view 'region', locals: { info: filtered_stores, reviews: google_data, place_call_num: lock }
           rescue StandardError => e
