@@ -1,11 +1,20 @@
 # frozen_string_literal: true
 
+def require_app(folders = %w[infrastructure models views controllers])
+  app_list = Array(folders).map { |folder| "app/#{folder}" }
+  full_list = ['config', app_list].flatten.join(',')
+
+  Dir.glob("./{#{full_list}}/**/*.rb").each do |file|
+    require file
+  end
+end
+
 module CafeMap
   module Repository
     # Repository for Info
     class Infos
       def self.find_id(id)
-        rebuild_entity Database::InfoOrm.first(id:)
+        Database::InfoOrm.first(id:)
       end
 
       def self.find(entity)
@@ -13,8 +22,7 @@ module CafeMap
       end
 
       def self.find_name(name)
-        db_record = Database::InfoOrm.first(name:)
-        rebuild_entity(db_record)
+        Database::InfoOrm.first(name:)
       end
 
       def self.all
@@ -33,7 +41,7 @@ module CafeMap
         Database::InfoOrm.all.map { |each| each.name }
       end
 
-      def self.create(entity)
+      def self.create(entity) # check if the data has already in db
         unless find(entity)
           db_info = PersistInfo.new(entity).create_info
           rebuild_entity(db_info)
@@ -87,3 +95,15 @@ module CafeMap
     end
   end
 end
+
+# require_app
+# puts '---------------------------------------------'
+# test = CafeMap::Database::StoreOrm.all.map { |x| x.name }
+# test_info = CafeMap::Database::InfoOrm.all.map { |x| x.name } # filtered 過的 array
+# puts test
+# puts '--------------------------------'
+# puts test_info
+# puts '--------------------------------'
+# puts test.select{|x| !(test_info.include? x) } # 可以成功抓出包含在
+
+

@@ -11,7 +11,7 @@ module CafeMap
     class Info < Dry::Struct
       include Dry.Types
 
-      attribute :infoid,                  Strict::String
+      attribute :infoid,              Strict::String
       attribute :name,                Strict::String
       attribute :city,                Strict::String
       attribute :wifi,                Nominal::Float
