@@ -8,6 +8,7 @@ Sequel.migration do
       primary_key :id
       foreign_key :info_id, :info
 
+      String      :place_id
       String      :name
       String      :formatted_address
       String      :location_lat

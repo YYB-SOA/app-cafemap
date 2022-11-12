@@ -9,10 +9,8 @@ module CafeMap
     class StoreOrm < Sequel::Model(:store)
       many_to_one :info,
                   class: :'CafeMap::Database::InfoOrm'
-                    
-      plugin :timestamps, update_on_create: true
 
+      plugin :timestamps, update_on_create: true
     end
   end
 end
-

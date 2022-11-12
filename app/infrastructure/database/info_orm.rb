@@ -19,11 +19,3 @@ module CafeMap
     end
   end
 end
-
-# CafeMap::Database::InfoOrm.create(infoid: "111078513", name: "FongCafe", city: "新竹")
-# CafeMap::Database::InfoOrm.all
-# CafeMap::Database::InfoOrm.first
-# CafeMap::Database::StoreOrm.create(info_id:1, name:"FongCafe",formatted_address:"清大裡面")
-# CafeMap::Database::StoreOrm.create(info_id:2, name:"KangCafe",formatted_address:"清大裡面")
-# CafeMap::Database::StoreOrm.all
-# CafeMap::Database::InfoOrm.create(infoid: "111078503", name: "KangCafe", city: "新竹")
