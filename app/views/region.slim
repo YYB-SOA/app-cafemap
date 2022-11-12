@@ -20,7 +20,7 @@
                 th scope="col"  quiet
                 th scope="col"  open_time
                 th scope="col"  Address
-                th scope="col"  Google Rank
+                th scope="col"  Google Rating
                 th scope="col"  Reviewers
             tbody
                 tr
@@ -34,8 +34,9 @@
                 td #{store.quiet}
                 td #{store.open_time}
                 td #{store.address}
-                td #{(place_call_num >= index)? reviews[place_call_num].rating : ''}
-                td #{(place_call_num >=index)? reviews[place_call_num].user_ratings_total : ""}
+                /. place_call_num is the input variable from the previous layer (after the cafeapi called)
+                td #{(place_call_num > index)? reviews[index].rating : ""}
+                td #{(place_call_num > index)? reviews[index].user_ratings_total : ""}
             .row               
       
     / .row

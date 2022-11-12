@@ -54,33 +54,44 @@ module CafeMap
             # Get
             filtered_store_namearr = Repository::For.klass(Entity::Info).all_filtered_name(city) # get filtered name(array)
             filtered_stores = Repository::For.klass(Entity::Info).all_filtered(city) # get all filtered city
-            num = 2 # 要改變數名稱
             all_storedb_names = Repository::For.klass(Entity::Store).all_name # 抓出所有 store.db 的資料
+            lock = 2
+
             if all_storedb_names.any?
-              name_not_in_store_db = all_storedb_names.select { |store| !(filtered_store_namearr.include? store) }
-              puts '123'
-              puts name_not_in_store_db.class
-              puts name_not_in_store_db.length
+              name_not_in_store_db = all_storedb_names.reject { |store| (filtered_store_namearr.include? store) }
+
+              puts 'TEST: name_not_in_store_db'
+              puts "class: #{name_not_in_store_db.class}"
+              puts "length: #{name_not_in_store_db.length}"
               print name_not_in_store_db
+
               google_data = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN,
-                                                            name_not_in_store_db[0..num]).load_several
+                                                            name_not_in_store_db.first(lock)).load_several
+
+              print '###### all_storedb_names.any? == True  end######'
+
             else
-              puts filtered_store_namearr
+              puts "filtered_store_namearr: #{filtered_store_namearr}"
               google_data = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN,
-                                                            filtered_store_namearr[0..num]).load_several
+                                                            filtered_store_namearr.first(lock)).load_several
+
+              print '###### palceapi call completed######'
             end
-            # binding.irb
-            google_data.each{|google| Repository::For.entity(google).create(google)}
-            puts "db set successfully"
-            google_data.each do |google| 
-              puts google.place_id
-              puts google.name
-              puts google.rating
-            end
+
+            google_data.each { |google| Repository::For.entity(google).create(google) }
+            puts 'place db set successfully'
             
+            google_data.each do |google|
+              puts "----------google: #{google}----------"
+              puts "Type: #{google.class}"              
+              puts "place_id: #{google.place_id}"
+              puts "name: #{google.name}"
+              puts "rating: #{google.rating}"
+            end
+            # CafeMap::Database::StoreOrm.create(info_id:2, name:"KangCafe",formatted_address:"清大裡面")
             # puts Repository::For.klass(Entity::Stores).find_id(id:1)
 
-            view 'region', locals: { info: filtered_stores, reviews: google_data, place_call_num: num }
+            view 'region', locals: { info: filtered_stores, reviews: google_data, place_call_num: lock }
             # rescue StandardError => e
             #   puts e.full_message
           end
