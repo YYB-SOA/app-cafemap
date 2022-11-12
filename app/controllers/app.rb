@@ -54,12 +54,14 @@ module CafeMap
             # Get
             filtered_store_namearr = Repository::For.klass(Entity::Info).all_filtered_name(city) # get filtered name(array)
             filtered_stores = Repository::For.klass(Entity::Info).all_filtered(city) # get all filtered city
-            num = 1 # 要改變數名稱
+            num = 2 # 要改變數名稱
             all_storedb_names = Repository::For.klass(Entity::Store).all_name # 抓出所有 store.db 的資料
             if all_storedb_names.any?
               name_not_in_store_db = all_storedb_names.select { |store| !(filtered_store_namearr.include? store) }
               puts '123'
-              puts name_not_in_store_db
+              puts name_not_in_store_db.class
+              puts name_not_in_store_db.length
+              print name_not_in_store_db
               google_data = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN,
                                                             name_not_in_store_db[0..num]).load_several
             else
@@ -69,6 +71,12 @@ module CafeMap
             end
             # binding.irb
             google_data.each{|google| Repository::For.entity(google).create(google)}
+            puts "db set successfully"
+            google_data.each do |google| 
+              puts google.place_id
+              puts google.name
+              puts google.rating
+            end
             
             # puts Repository::For.klass(Entity::Stores).find_id(id:1)
 

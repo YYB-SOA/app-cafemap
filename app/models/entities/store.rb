@@ -14,7 +14,7 @@ module CafeMap
       attribute :formatted_address, Strict::String
       attribute :location_lat,  Coercible::String
       attribute :location_lng,  Coercible::String
-      attribute :rating, Nominal::Float
+      attribute :rating, Coercible::Float
       attribute :user_ratings_total, Strict::Integer
 
       def to_attr_hash

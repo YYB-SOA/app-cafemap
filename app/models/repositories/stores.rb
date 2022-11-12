@@ -19,6 +19,7 @@ module CafeMap
         def self.create(entity) # check if the data has already in db
           unless find(entity)
             db_store = PersistStore.new(entity).create_store
+            puts "here start to create  store"
             rebuild_entity(db_store)
           end
         end
