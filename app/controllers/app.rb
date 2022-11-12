@@ -54,7 +54,7 @@ module CafeMap
             # Get
             store_namearr = Repository::For.klass(Entity::Info).all_filtered_name(city) # get filtered name(array)
             filtered_stores = Repository::For.klass(Entity::Info).all_filtered(city) # get all filtered city
-            all_storedb_names = Repository::For.klass(Entity::Store).all_name # 抓出所有 store.db 的資料
+            all_storedb_names = Repository::For.klass(Entity::Store).all_name
             lock = 2
 
             if all_storedb_names.any?
