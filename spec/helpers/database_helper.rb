@@ -1,5 +1,7 @@
 # frozen_string_literal: true
+
 # require '../app/infrastructure/database/info_orm.rb'
+
 
 # Helper to clean database during test runs
 module DatabaseHelper
