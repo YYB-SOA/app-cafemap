@@ -52,29 +52,25 @@ module CafeMap
           # GET /cafe/region
           routing.get do
             # Get
-            filtered_store_namearr = Repository::For.klass(Entity::Info).all_filtered_name(city) # get filtered name(array)
+            store_namearr = Repository::For.klass(Entity::Info).all_filtered_name(city) # get filtered name(array)
             filtered_stores = Repository::For.klass(Entity::Info).all_filtered(city) # get all filtered city
-            num = 1 # 要改變數名稱
-            all_storedb_names = Repository::For.klass(Entity::Store).all_name # 抓出所有 store.db 的資料
-            if all_storedb_names.any?
-              name_not_in_store_db = all_storedb_names.select { |store| !(filtered_store_namearr.include? store) }
-              puts '123'
-              puts name_not_in_store_db
-              google_data = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN,
-                                                            name_not_in_store_db[0..num]).load_several
-            else
-              puts filtered_store_namearr
-              google_data = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN,
-                                                            filtered_store_namearr[0..num]).load_several
-            end
-            # binding.irb
-            google_data.each{|google| Repository::For.entity(google).create(google)}
-            
-            # puts Repository::For.klass(Entity::Stores).find_id(id:1)
+            all_storedb_names = Repository::For.klass(Entity::Store).all_name
+            lock = 2
 
-            view 'region', locals: { info: filtered_stores, reviews: google_data, place_call_num: num }
-            # rescue StandardError => e
-            #   puts e.full_message
+            if all_storedb_names.any?
+              unrecord_name = all_storedb_names.reject { |store| (store_namearr.include? store) }
+              store_namearr = unrecord_name
+            end
+
+            google_data = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN, store_namearr.first(lock)).load_several
+
+
+            google_data.each { |google| Repository::For.entity(google).create(google) }
+            puts 'place db set successfully'
+
+            view 'region', locals: { info: filtered_stores, reviews: google_data, place_call_num: lock }
+          rescue StandardError => e
+            puts e.full_message
           end
         end
       end

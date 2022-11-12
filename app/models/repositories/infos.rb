@@ -38,10 +38,11 @@ module CafeMap
       end
 
       def self.find_all_name
-        Database::InfoOrm.all.map { |each| each.name }
+        Database::InfoOrm.all.map(&:name)
       end
 
-      def self.create(entity) # check if the data has already in db
+      # check if the data has already in db
+      def self.create(entity)
         unless find(entity)
           db_info = PersistInfo.new(entity).create_info
           rebuild_entity(db_info)
@@ -95,15 +96,3 @@ module CafeMap
     end
   end
 end
-
-# require_app
-# puts '---------------------------------------------'
-# test = CafeMap::Database::StoreOrm.all.map { |x| x.name }
-# test_info = CafeMap::Database::InfoOrm.all.map { |x| x.name } # filtered 過的 array
-# puts test
-# puts '--------------------------------'
-# puts test_info
-# puts '--------------------------------'
-# puts test.select{|x| !(test_info.include? x) } # 可以成功抓出包含在
-
-
