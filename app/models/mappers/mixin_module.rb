@@ -111,4 +111,3 @@ module StoreMixinAll
     @data['user_ratings_total']
   end
 end
-

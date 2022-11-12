@@ -2,7 +2,7 @@
 
 require_relative '../../infrastructure/gateways/cafe_api'
 require_relative '../entities/info'
-require_relative 'mixin_module.rb'
+require_relative 'mixin_module'
 
 module CafeMap
   module CafeNomad

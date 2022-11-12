@@ -80,20 +80,18 @@ module CafeMap
 
             google_data.each { |google| Repository::For.entity(google).create(google) }
             puts 'place db set successfully'
-            
+
             google_data.each do |google|
               puts "----------google: #{google}----------"
-              puts "Type: #{google.class}"              
+              puts "Type: #{google.class}"
               puts "place_id: #{google.place_id}"
               puts "name: #{google.name}"
               puts "rating: #{google.rating}"
             end
-            # CafeMap::Database::StoreOrm.create(info_id:2, name:"KangCafe",formatted_address:"清大裡面")
-            # puts Repository::For.klass(Entity::Stores).find_id(id:1)
 
             view 'region', locals: { info: filtered_stores, reviews: google_data, place_call_num: lock }
-            # rescue StandardError => e
-            #   puts e.full_message
+          rescue StandardError => e
+            puts e.full_message
           end
         end
       end

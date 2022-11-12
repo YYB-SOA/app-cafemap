@@ -2,7 +2,7 @@
   .row
     h2
      span.info.name
-        = info[0].city + "市咖啡廳推薦❤️"
+        = info[0].city.capitalize() + "市咖啡廳推薦❤️"
   .container
     .row
       - info.each_with_index  do |store, index|
@@ -32,21 +32,11 @@
                 td #{store.cheap}
                 td #{store.music}
                 td #{store.quiet}
-                td #{store.open_time}
+                td #{(store.open_time == "")? "UnProvided" : store.open_time}
                 td #{store.address}
-                /. place_call_num is the input variable from the previous layer (after the cafeapi called)
+                /. place_call_num: input argument from the previous layer
                 td #{(place_call_num > index)? reviews[index].rating : ""}
                 td #{(place_call_num > index)? reviews[index].user_ratings_total : ""}
             .row               
-      
-    / .row
-    /   - reviews.each do |review|
-    /     .col-lg-4.col-md-6.col-sm-6
-    /     .col-lg-8.col-md-6.col-sm-6
-    /       .row
-    /         .col-sm-12
-    /           a Google Rank：#{review.rating}
-    /         .col-sm-12
-    /           a Reviewers：#{review.user_ratings_total}
     .row
       .col-lg-4.col-md-6.col-sm-6
