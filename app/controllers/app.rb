@@ -63,6 +63,9 @@ module CafeMap
             filtered_stores = Repository::For.klass(Entity::Info).all_filtered(city) # get all filtered city
             all_storedb_names = Repository::For.klass(Entity::Store).all_name
             lock = 2
+
+            google_data = Repository::For.klass(Entity::Store).all_name
+
             view 'region', locals: { info: filtered_stores, reviews: google_data, place_call_num: lock }
           rescue StandardError => e
             puts e.full_message
