@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
+ruby File.read('.ruby-version').strip
 
 # Configuration and Utilities
 gem 'figaro', '~> 1.2'
@@ -27,29 +28,32 @@ group :development, :test do
   gem 'sqlite3', '~> 1.4'
 end
 
+group :production do
+  gem 'pg'
+end
 
 # Testing
 group :test do
-    gem 'minitest', '~> 5'
-    gem 'minitest-rg', '~> 5'
-    gem 'simplecov', '~> 0'
-    gem 'vcr', '~> 6'
-    gem 'webmock', '~> 3'
-  end
+  gem 'minitest', '~> 5'
+  gem 'minitest-rg', '~> 5'
+  gem 'simplecov', '~> 0'
+  gem 'vcr', '~> 6'
+  gem 'webmock', '~> 3'
+end
   
-  group :development do
-    gem 'rerun', '~> 0'
-  end
-
-# Code Quality
 group :development do
-    gem 'flog'
-    gem 'reek'
-    gem 'rubocop'
-  end
-# Parsing
-gem 'json'
-
+  gem 'rerun', '~> 0'
+end
 
 # Debugging
 gem 'pry'
+
+# Code Quality
+group :development do
+  gem 'flog'
+  gem 'reek'
+  gem 'rubocop'
+end
+
+# Parsing
+gem 'json'

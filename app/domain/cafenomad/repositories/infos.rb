@@ -17,6 +17,10 @@ module CafeMap
         Database::InfoOrm.first(id:)
       end
 
+      def self.last_id
+        Database::InfoOrm.last.id
+      end
+
       def self.find(entity)
         find_name(entity.name)
       end
@@ -37,7 +41,7 @@ module CafeMap
         Database::InfoOrm.all.select { |each| each.city.include? city }
       end
 
-      def self.find_all_name
+      def self.all_name
         Database::InfoOrm.all.map(&:name)
       end
 

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+require_relative '../../spec/helpers/spec_helper.rb' #should be removed
 require 'roda'
 require 'slim'
 
@@ -21,7 +21,7 @@ module CafeMap
       routing.assets # load CSS
       response['Content-Type'] = 'text/html; charset=utf-8'
 
-      infos_data = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
+      # infos_data = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
       routing.public # ?
 
       # GET /
@@ -34,16 +34,24 @@ module CafeMap
         routing.is do
           # POST /region/
           routing.post do
-            @user_wordterm = routing.params['The regional keyword you want to search (hsinchu)']
+            @user_wordterm = routing.params['The region keyword you want to search (hsinchu)']
             infos_data = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
             filtered_infos_data = infos_data.select { |filter| filter.address.include? @user_wordterm }.shuffle
             routing.halt 404 unless filtered_infos_data[0]
-
-            info = filtered_infos_data[1..2]
+            lock = 1
+            info = filtered_infos_data[0..lock] # Random Entities Array
+            info_allname = Repository::For.klass(Entity::Info).all_name
+            info_unrecorded = info.reject{|each_info| info_allname.include? each_info.name} # entities not in db
 
             # Add project to database
-            info.each { |obj| Repository::For.entity(obj).create(obj) }
-
+            info_unrecorded.each do |each_unrecorded|
+              Repository::For.entity(each_unrecorded).create(each_unrecorded)
+              place_entity = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN, [each_unrecorded.name]).load_several
+              Repository::For.entity(place_entity[0]).create(place_entity[0], each_unrecorded.name)
+              last_infoid = Repository::For.klass(Entity::Info).last_id
+              last_store = Repository::For.klass(Entity::Store).last
+              last_store.update(info_id:last_infoid)
+            end
             routing.redirect "region/#{info[0].city}"
           end
         end
@@ -51,24 +59,14 @@ module CafeMap
         routing.on String do |city|
           # GET /cafe/region
           routing.get do
-            # Get
-            store_namearr = Repository::For.klass(Entity::Info).all_filtered_name(city) # get filtered name(array)
-            filtered_stores = Repository::For.klass(Entity::Info).all_filtered(city) # get all filtered city
-            all_storedb_names = Repository::For.klass(Entity::Store).all_name
-            lock = 2
+            # Get Obj array
+            filtered_info = CafeMap::Database::InfoOrm.where(city:city).all
+            google_data = filtered_info.map{|info_store|  info_store.store } 
 
-            if all_storedb_names.any?
-              unrecord_name = all_storedb_names.reject { |store| (store_namearr.include? store) }
-              store_namearr = unrecord_name
-            end
-
-            google_data = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN, store_namearr.first(lock)).load_several
-
-
-            google_data.each { |google| Repository::For.entity(google).create(google) }
-            puts 'place db set successfully'
-
-            view 'region', locals: { info: filtered_stores, reviews: google_data, place_call_num: lock }
+            # input  filtered_info # call recommend -> stat : Obj array.map(&:rating).average
+            # stat = ['local_average', 'std']
+            view 'region', locals: { info: filtered_info, reviews: google_data}
+            
           rescue StandardError => e
             puts e.full_message
           end

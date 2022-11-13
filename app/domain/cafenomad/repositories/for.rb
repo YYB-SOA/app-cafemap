@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'infos'
-require_relative 'stores'
+require_relative '../../googleplace/repositories/stores.rb'
 
 module CafeMap
   module Repository

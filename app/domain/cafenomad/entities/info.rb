@@ -2,8 +2,7 @@
 
 require 'dry-struct'
 require 'dry-types'
-
-# require_relative 'status'
+require_relative '../../googleplace/entities/store.rb'
 
 module CafeMap
   module Entity

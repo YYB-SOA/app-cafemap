@@ -1,8 +1,8 @@
 # frozen_string_literal: false
 
-require_relative '../../infrastructure/gateways/place_api'
+require_relative '../../../infrastructure/google/place_api.rb'
 require_relative '../entities/store'
-require_relative 'mixin_module'
+require_relative 'storemixin'
 
 module CafeMap
   # Provides access to contributor data
@@ -33,7 +33,7 @@ module CafeMap
 
       # Extracts entity specific elements from data structure
       class DataMapper
-        include StoreMixinAll
+        include StoreMixin
         def initialize(data)
           @data = data
         end
@@ -41,6 +41,7 @@ module CafeMap
         def build_entity
           CafeMap::Entity::Store.new(
             place_id:,
+            # info_id: nil,
             name:,
             formatted_address:,
             location_lat:,

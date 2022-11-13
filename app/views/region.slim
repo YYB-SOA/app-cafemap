@@ -2,10 +2,11 @@
   .row
     h2
      span.info.name
-        = info[0].city.capitalize() + "市咖啡廳推薦❤️"
+      = info[0].city.capitalize() + "市咖啡廳推薦❤️"
+        
   .container
     .row
-      - info.each_with_index  do |store, index|
+      - info.each_with_index  do |info_obj, index|
         .col-lg-4.col-md-6.col-sm-6
         table.table
             thead
@@ -22,21 +23,23 @@
                 th scope="col"  Address
                 th scope="col"  Google Rating
                 th scope="col"  Reviewers
+
             tbody
                 tr
                 th scope="row"  #{index+1}
-                td #{store.name}
-                td #{store.wifi}
-                td #{store.seat}
-                td #{store.tasty}
-                td #{store.cheap}
-                td #{store.music}
-                td #{store.quiet}
-                td #{(store.open_time == "")? "UnProvided" : store.open_time}
-                td #{store.address}
-                /. place_call_num: input argument from the previous layer
-                td #{(place_call_num > index)? reviews[index].rating : ""}
-                td #{(place_call_num > index)? reviews[index].user_ratings_total : ""}
+                td #{info_obj.name}
+                td #{info_obj.wifi}
+                td #{info_obj.seat}
+                td #{info_obj.tasty}
+                td #{info_obj.cheap}
+                td #{info_obj.music}
+                td #{info_obj.quiet}
+                td #{(info_obj.open_time == "")? "UnProvided" : info_obj.open_time}
+                td #{info_obj.address}
+                td #{info_obj.store.map(&:rating).first}
+                td #{info_obj.store.map(&:user_ratings_total).first}
+                / td #{((info_obj.store.map(&:rating).first) - local_average)/std}
+
             .row               
     .row
       .col-lg-4.col-md-6.col-sm-6

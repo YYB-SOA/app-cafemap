@@ -10,16 +10,16 @@ module VcrHelper
   CAFE_CASSETTE = 'cafe_api'
 
   def self.setup_vcr
-    VCR.configure do |c|
-      c.cassette_library_dir = CASSETTES_FOLDER
-      c.hook_into :webmock
+    VCR.configure do |config|
+      config.cassette_library_dir = CASSETTES_FOLDER
+      config.hook_into :webmock
     end
   end
 
   def self.configure_vcr_for_place
-    VCR.configure do |c|
-      c.filter_sensitive_data('<PLACE_TOKEN>') { PLACE_TOKEN }
-      c.filter_sensitive_data('<PLACE_TOKEN_ESC>') { CGI.escape(PLACE_TOKEN) }
+    VCR.configure do |config|
+      config.filter_sensitive_data('<PLACE_TOKEN>') { PLACE_TOKEN }
+      config.filter_sensitive_data('<PLACE_TOKEN_ESC>') { CGI.escape(PLACE_TOKEN) }
     end
 
     VCR.insert_cassette(
