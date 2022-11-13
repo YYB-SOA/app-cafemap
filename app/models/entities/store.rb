@@ -10,6 +10,7 @@ module CafeMap
       include Dry.Types
 
       attribute :place_id, Strict::String # Coercible #Strict
+      # attribute :info_id, String.optional
       attribute :name, Strict::String
       attribute :formatted_address, Strict::String
       attribute :location_lat,  Coercible::String

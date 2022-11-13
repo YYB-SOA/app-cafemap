@@ -39,11 +39,19 @@ module CafeMap
             filtered_infos_data = infos_data.select { |filter| filter.address.include? @user_wordterm }.shuffle
             routing.halt 404 unless filtered_infos_data[0]
 
-            info = filtered_infos_data[1..2]
+            info = filtered_infos_data[1..2] # Random Entities Array
+            info_allname = Repository::For.klass(Entity::Info).all_name
+            info_unrecorded = info.reject{|each_info| info_allname.include? each_info.name} # entities not in db
 
             # Add project to database
-            info.each { |obj| Repository::For.entity(obj).create(obj) }
-
+            info_unrecorded.each do |each_unrecorded|
+              Repository::For.entity(each_unrecorded).create(each_unrecorded)
+              place_entity = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN, [each_unrecorded.name]).load_several
+              Repository::For.entity(place_entity[0]).create(place_entity[0], each_unrecorded.name)
+              last_infoid = Repository::For.klass(Entity::Info).last_id
+              last_store = Repository::For.klass(Entity::Store).last
+              last_store.update(info_id:last_infoid)
+            end
             routing.redirect "region/#{info[0].city}"
           end
         end
@@ -52,22 +60,9 @@ module CafeMap
           # GET /cafe/region
           routing.get do
             # Get
-            store_namearr = Repository::For.klass(Entity::Info).all_filtered_name(city) # get filtered name(array)
             filtered_stores = Repository::For.klass(Entity::Info).all_filtered(city) # get all filtered city
             all_storedb_names = Repository::For.klass(Entity::Store).all_name
             lock = 2
-
-            if all_storedb_names.any?
-              unrecord_name = all_storedb_names.reject { |store| (store_namearr.include? store) }
-              store_namearr = unrecord_name
-            end
-
-            google_data = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN, store_namearr.first(lock)).load_several
-
-
-            google_data.each { |google| Repository::For.entity(google).create(google) }
-            puts 'place db set successfully'
-
             view 'region', locals: { info: filtered_stores, reviews: google_data, place_call_num: lock }
           rescue StandardError => e
             puts e.full_message
