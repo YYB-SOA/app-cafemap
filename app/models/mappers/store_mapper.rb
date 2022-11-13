@@ -41,6 +41,7 @@ module CafeMap
         def build_entity
           CafeMap::Entity::Store.new(
             place_id:,
+            # info_id: nil,
             name:,
             formatted_address:,
             location_lat:,
