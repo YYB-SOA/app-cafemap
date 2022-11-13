@@ -10,9 +10,9 @@ require 'minitest/autorun'
 require 'minitest/rg'
 require 'vcr'
 require 'webmock'
-require_relative '../require_app'
-require_relative '../app/models/mappers/info_mapper'
-require_relative '../config/environment'
+require_relative '../../require_app'
+require_relative '../../app/domain/cafenomad/mappers/info_mapper.rb'
+require_relative '../../config/environment'
 # require_app
 
 CONFIG = YAML.safe_load(File.read('config/secrets.yml'))
