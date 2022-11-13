@@ -19,11 +19,9 @@ AllCops:
 Metrics/BlockLength:
   Enabled: true
   Exclude:
-    - 'spec/**/*'
-    - Rakefile
-    - app/controllers/**/*.rb # Roda's nested controllers require large blocks
-    - spec/**/* # Minitest's nested test structure requires large blocks
+    - 'spec/**/*' # Minitest's nested test structure requires large blocks
     - Rakefile # Rake namespaces produce large blocks
+    - app/controllers/*.rb # Roda's nested controllers require large blocks
 
 # See: https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Layout/MultilineMethodCallIndentation
 Layout/MultilineMethodCallIndentation:
