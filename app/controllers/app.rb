@@ -34,7 +34,7 @@ module CafeMap
         routing.is do
           # POST /region/
           routing.post do
-            @user_wordterm = routing.params['The region keyword you want to search (hsinchu)']
+            @user_wordterm = routing.params['The regional keyword you want to search (hsinchu)']
             infos_data = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
             filtered_infos_data = infos_data.select { |filter| filter.address.include? @user_wordterm }.shuffle
             routing.halt 404 unless filtered_infos_data[0]
