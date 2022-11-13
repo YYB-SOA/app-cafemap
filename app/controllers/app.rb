@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+require_relative '../../spec/helpers/spec_helper.rb' #should be removed
 require 'roda'
 require 'slim'
 
@@ -21,7 +21,7 @@ module CafeMap
       routing.assets # load CSS
       response['Content-Type'] = 'text/html; charset=utf-8'
 
-      infos_data = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
+      # infos_data = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
       routing.public # ?
 
       # GET /

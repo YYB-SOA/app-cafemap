@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'infos'
+require_relative '../../cafenomad/repositories/infos.rb'
 require_relative 'stores'
 
 module CafeMap

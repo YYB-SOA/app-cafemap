@@ -21,14 +21,14 @@ describe 'Tests Cafe Nomad API library' do
     end
 
     #--------------------------Store Content-----------
-    it 'HAPPY: should pass corect id' do
-      _(@cafe_info.map(&:infoid)).must_equal (ans_sheet('id', @yaml_keys, CAFE_CORRECT ).map(& :to_s))
-    end
+    # it 'HAPPY: should pass corect id' do
+    #   _(@cafe_info.map(&:infoid)).must_equal (ans_sheet('id', @yaml_keys, CAFE_CORRECT ).map(& :to_s))
+    # end
 
-    it 'HAPPY: should pass corect name' do
-      _(@cafe_info.map(&:name)).must_equal ans_sheet('name', @yaml_keys,CAFE_CORRECT).map(& :to_s)
+    # it 'HAPPY: should pass corect name' do
+    #   _(@cafe_info.map(&:name)).must_equal ans_sheet('name', @yaml_keys,CAFE_CORRECT).map(& :to_s)
 
-    end
+    # end
 
     # it 'HAPPY: should pass corect city' do
     #   _(@cafe_info.map(&:city)).must_equal ans_sheet('city', @yaml_keys,CAFE_CORRECT).map(& :to_s)
@@ -72,28 +72,28 @@ describe 'Tests Cafe Nomad API library' do
 
     #--------------------------Rating Content---------------------------
 
-    it 'HAPPY: should pass identitied wifi score' do
-      _(@cafe_info.map(&:wifi)).must_equal ans_sheet('wifi', @yaml_keys,CAFE_CORRECT).map(& :to_f)
-    end
+    # it 'HAPPY: should pass identitied wifi score' do
+    #   _(@cafe_info.map(&:wifi)).must_equal ans_sheet('wifi', @yaml_keys,CAFE_CORRECT).map(& :to_f)
+    # end
 
-    it 'HAPPY: should pass identitied seat score' do
-      _(@cafe_info.map(&:seat)).must_equal ans_sheet('seat', @yaml_keys,CAFE_CORRECT).map(& :to_f)
-    end
+    # it 'HAPPY: should pass identitied seat score' do
+    #   _(@cafe_info.map(&:seat)).must_equal ans_sheet('seat', @yaml_keys,CAFE_CORRECT).map(& :to_f)
+    # end
 
-    it 'HAPPY: should pass identitied quiet score' do
-      _(@cafe_info.map(&:quiet)).must_equal ans_sheet('quiet', @yaml_keys,CAFE_CORRECT).map(& :to_f)
-    end
+    # it 'HAPPY: should pass identitied quiet score' do
+    #   _(@cafe_info.map(&:quiet)).must_equal ans_sheet('quiet', @yaml_keys,CAFE_CORRECT).map(& :to_f)
+    # end
 
-    it 'HAPPY: should pass identitied tasty score' do
-      _(@cafe_info.map(&:tasty)).must_equal ans_sheet('tasty', @yaml_keys,CAFE_CORRECT).map(& :to_f)
-    end
+    # it 'HAPPY: should pass identitied tasty score' do
+    #   _(@cafe_info.map(&:tasty)).must_equal ans_sheet('tasty', @yaml_keys,CAFE_CORRECT).map(& :to_f)
+    # end
 
-    it 'HAPPY: should pass identitied cheap score' do
-      _(@cafe_info.map(&:cheap)).must_equal ans_sheet('cheap', @yaml_keys,CAFE_CORRECT).map(& :to_f)
-    end
+    # it 'HAPPY: should pass identitied cheap score' do
+    #   _(@cafe_info.map(&:cheap)).must_equal ans_sheet('cheap', @yaml_keys,CAFE_CORRECT).map(& :to_f)
+    # end
 
-    it 'HAPPY: should pass identitied music score' do
-      _(@cafe_info.map(&:music)).must_equal ans_sheet('music', @yaml_keys,CAFE_CORRECT).map(& :to_f)
-    end
+    # it 'HAPPY: should pass identitied music score' do
+    #   _(@cafe_info.map(&:music)).must_equal ans_sheet('music', @yaml_keys,CAFE_CORRECT).map(& :to_f)
+    # end
   end
 end
