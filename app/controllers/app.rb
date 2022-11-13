@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+require_relative '../../spec/helpers/spec_helper.rb' #should be removed
 require 'roda'
 require 'slim'
 
@@ -21,7 +21,7 @@ module CafeMap
       routing.assets # load CSS
       response['Content-Type'] = 'text/html; charset=utf-8'
 
-      infos_data = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
+      # infos_data = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
       routing.public # ?
 
       # GET /
@@ -34,12 +34,12 @@ module CafeMap
         routing.is do
           # POST /region/
           routing.post do
-            @user_wordterm = routing.params['The regional keyword you want to search (hsinchu)']
+            @user_wordterm = routing.params['The region keyword you want to search (hsinchu)']
             infos_data = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
             filtered_infos_data = infos_data.select { |filter| filter.address.include? @user_wordterm }.shuffle
             routing.halt 404 unless filtered_infos_data[0]
-
-            info = filtered_infos_data[1..2] # Random Entities Array
+            lock = 1
+            info = filtered_infos_data[0..lock] # Random Entities Array
             info_allname = Repository::For.klass(Entity::Info).all_name
             info_unrecorded = info.reject{|each_info| info_allname.include? each_info.name} # entities not in db
 
@@ -59,11 +59,14 @@ module CafeMap
         routing.on String do |city|
           # GET /cafe/region
           routing.get do
-            # Get
-            filtered_stores = Repository::For.klass(Entity::Info).all_filtered(city) # get all filtered city
-            all_storedb_names = Repository::For.klass(Entity::Store).all_name
-            lock = 2
-            view 'region', locals: { info: filtered_stores, reviews: google_data, place_call_num: lock }
+            # Get Obj array
+            filtered_info = CafeMap::Database::InfoOrm.where(city:city).all
+            google_data = filtered_info.map{|info_store|  info_store.store } 
+
+            # input  filtered_info # call recommend -> stat : Obj array.map(&:rating).average
+            # stat = ['local_average', 'std']
+            view 'region', locals: { info: filtered_info, reviews: google_data}
+            
           rescue StandardError => e
             puts e.full_message
           end

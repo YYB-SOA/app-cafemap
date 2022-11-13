@@ -1,6 +1,6 @@
 # frozen_string_literal: false
 
-require_relative '../../infrastructure/gateways/cafe_api'
+require_relative '../../../infrastructure/cafenomad/cafe_api.rb'
 require_relative '../entities/info'
 require_relative 'mixin_module'
 

@@ -1,6 +1,6 @@
 ---
 status: ok
-amount: 3493
+amount: 3492
 header:
 - id
 - name
@@ -42265,25 +42265,6 @@ Jamling cafe高雄店{a2b5d5eb:
   standing_desk: 'no'
   mrt: ''
   open_time: 全預約制
-村上慢步陶藝咖啡館{a2d3d54c:
-  id: a2d3d54c-3637-4ea9-ba57-bb1ea2ea97ae
-  name: 村上慢步陶藝咖啡館
-  city: yunlin
-  wifi: 5
-  seat: 5
-  quiet: 5
-  tasty: 3
-  cheap: 4
-  music: 4
-  url: https://m.facebook.com/slowvillagetime/
-  address: 雲林縣斗六市嘉東里嘉欣路22號2F
-  latitude: '23.68405100'
-  longitude: '120.55376910'
-  limited_time: maybe
-  socket: maybe
-  standing_desk: 'yes'
-  mrt: ''
-  open_time: 如遇國定假日正常營業
 沐cafe{a2dca6f2:
   id: a2dca6f2-30e0-44cd-b1d1-114bf86a9b1f
   name: 沐cafe
@@ -48596,9 +48577,9 @@ Choco Choco 手工巧克力咖啡館{bc937057:
   standing_desk: 'no'
   mrt: ''
   open_time: ''
-共坐 Cafe & Work{bc968773:
+共坐 Cafe & Space{bc968773:
   id: bc968773-a21f-4e32-a63f-c05697dcb14f
-  name: 共坐 Cafe & Work
+  name: 共坐 Cafe & Space
   city: taoyuan
   wifi: 5
   seat: 5
@@ -48606,7 +48587,7 @@ Choco Choco 手工巧克力咖啡館{bc937057:
   tasty: 5
   cheap: 4
   music: 4
-  url: https://cospacefan.weebly.com/
+  url: https://cafeandspace.weebly.com/
   address: 桃園市中壢區大仁五街35號1樓
   latitude: '24.95635910'
   longitude: '121.24027830'
