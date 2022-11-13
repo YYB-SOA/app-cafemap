@@ -12,6 +12,7 @@ gem 'puma', '~> 5'
 gem 'roda', '~> 3'
 gem 'slim', '~> 4'
 gem 'rakeup', '~> 1.2'
+gem 'tilt'
 
 # Validation
 gem 'dry-struct', '~> 1'
