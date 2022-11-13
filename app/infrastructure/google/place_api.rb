@@ -1,52 +1,65 @@
 # frozen_string_literal: true
 
-require 'net/http'
-require 'json'
+require 'yaml'
+require 'http'
 
 module CafeMap
-  module CafeNomad
-    class Api # rubocop:disable Style/Documentation
-      def initialize(cafe_token)
-        @cafe_token = cafe_token
+  module Place
+    # Library for Place API
+    class PlaceApi
+      def initialize(place_token, store_list)
+        @place_token = place_token
+        @store_list = store_list
       end
 
-      def status_data
-        jarray_temp = Request.new(@cafe_token).get # get jarray
-        Api.jarray_to_yml(jarray_temp)
+      def store_data
+        Request.new(@place_token, @store_list).get
       end
 
-      def info_data
-        Request.new(@cafe_token).get
-      end
-
-      def self.jarray_to_yml(jarray)
-        store = {}
-        store['status'] = 'ok' unless jarray.nil?
-        store['amount'] = jarray.length
-        store['header'] = jarray[0].keys
-
-        jarray.each do |each_store|
-          cafe_name = "#{each_store['name']}{#{each_store['id'].split('-')[0]}"
-          store[cafe_name] = each_store
+      # Sends out HTTP requests to Google Place API
+      class Request
+        API_PLACE_HOST = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=%s&key=%s&language=zh-TW'
+        def initialize(place_token, store_list)
+          @place_token = place_token
+          @store_list = store_list
         end
-        store
-      end
-    end
 
-    class Request # rubocop:disable Style/Documentation
-      # token here would be a cafe_api url
-      def initialize(cafe_token)
-        @cafe_token = cafe_token
+        def get
+          clean_list = Request.data_clean(@store_list)
+
+          clean_list.map do |store|
+            http_response = HTTP.get(format(API_PLACE_HOST, store, @place_token))
+            result = Response.new(http_response).tap do |res|
+              raise(res.error) unless res.successful?
+            end
+            result.parse
+          end
+        end
+
+        def self.data_clean(box)
+          # Input: string array of cafe name
+          box.map { |name_str| name_str.gsub('()', '').gsub(' ', '').gsub("\b", '') }
+        end
       end
 
-      def get
-        uri = URI.parse(@cafe_token)
-        req = Net::HTTP::Get.new(uri.request_uri)
-        https = Net::HTTP.new(uri.host, uri.port)
-        https.use_ssl = true
-        res = https.request(req)
-        JSON.parse(res.body)
-      end   
+      # Decorates HTTP responses  with success/error reporting
+      class Response < SimpleDelegator
+        Unauthorized = Class.new(StandardError)
+        NotFound = Class.new(StandardError)
+
+        HTTP_ERROR = {
+          401 => Unauthorized,
+          404 => NotFound
+        }.freeze
+
+        def successful?
+          HTTP_ERROR.keys.none?(code)
+        end
+
+        def error
+          HTTP_ERROR[code]
+        end
+      end
     end
   end
 end
