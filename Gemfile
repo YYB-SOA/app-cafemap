@@ -11,7 +11,6 @@ gem 'rake'
 gem 'puma', '~> 5'
 gem 'roda', '~> 3'
 gem 'slim', '~> 4'
-gem 'rakeup', '~> 1.2'
 
 # Validation
 gem 'dry-struct', '~> 1'
