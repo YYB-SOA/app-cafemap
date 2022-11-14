@@ -63,6 +63,7 @@ GEM
       ffi-compiler (~> 1.0)
       rake (~> 13.0)
     method_source (1.0.0)
+    mini_portile2 (2.8.0)
     minitest (5.16.3)
     minitest-rg (5.2.0)
       minitest (~> 5.0)
@@ -107,6 +108,8 @@ GEM
     slim (4.1.0)
       temple (>= 0.7.6, < 0.9)
       tilt (>= 2.0.6, < 2.1)
+    sqlite3 (1.5.3)
+      mini_portile2 (~> 2.8.0)
     sqlite3 (1.5.3-x86_64-linux)
     temple (0.8.2)
     thor (1.2.1)
@@ -123,6 +126,7 @@ GEM
     zeitwerk (2.6.6)
 
 PLATFORMS
+  ruby
   x86_64-linux
 
 DEPENDENCIES
