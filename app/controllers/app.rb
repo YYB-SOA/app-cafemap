@@ -6,12 +6,14 @@ require 'slim'
 module CafeMap
   # Web App
   class App < Roda
-    plugin :render, engine: 'slim', views: 'app/views'
-    plugin :public, root: 'app/views/public'
-    plugin :assets, path: 'app/views/assets', css: 'style.css'
+    plugin :render, engine: 'slim', views: 'app/presentation/views_html'
+    plugin :public, root: 'app/presentation/public'
+    plugin :assets, path: 'app/presentation/assets', css: 'style.css', js: 'table_row.js'
     plugin :common_logger, $stderr
     plugin :halt
     plugin :status_handler
+
+    use Rack::MethodOverride # allows HTTP verbs beyond GET/POST (e.g., DELETE)
 
     status_handler(404) do
       view('404')
