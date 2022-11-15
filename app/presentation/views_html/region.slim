@@ -39,6 +39,6 @@
                 td #{info_obj.address}
                 td #{rating = info_obj.store.map(&:rating).first.to_f }
                 td #{info_obj.store.map(&:user_ratings_total).first}
-                td #{(rating- stat[0])/stat[1] }
+                td #{((rating- stat[0])/stat[1]).round(3) }
             .row
     .row   .col-lg-4.col-md-6.col-sm-6
