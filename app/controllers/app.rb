@@ -12,8 +12,8 @@ module CafeMap
     plugin :common_logger, $stderr
     plugin :halt
     plugin :status_handler
-
-    use Rack::MethodOverride # allows HTTP verbs beyond GET/POST (e.g., DELETE)
+    plugin :flash
+    # use Rack::MethodOverride # allows HTTP verbs beyond GET/POST (e.g., DELETE)
 
     status_handler(404) do
       view('404')
@@ -50,8 +50,10 @@ module CafeMap
               Repository::For.entity(each_unrecorded).create(each_unrecorded)
               place_entity = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN, [each_unrecorded.name]).load_several
               Repository::For.entity(place_entity[0]).create(place_entity[0], each_unrecorded.name)
+
               last_infoid = Repository::For.klass(Entity::Info).last_id
               last_store = Repository::For.klass(Entity::Store).last
+
               last_store.update(info_id:last_infoid)
             end
             routing.redirect "region/#{info[0].city}"
@@ -63,11 +65,28 @@ module CafeMap
           routing.get do
             # Get Obj array
             filtered_info = CafeMap::Database::InfoOrm.where(city:city).all
+
             google_data = filtered_info.map{|info_store|  info_store.store } 
 
+            # Wifi average
+            wifi_arr =  filtered_info.map(&:wifi).map(&:to_f)
+            wifi_average = wifi_arr.reduce(:+)/ (wifi_arr.size.to_f)
             # input  filtered_info # call recommend -> stat : Obj array.map(&:rating).average
             # stat = ['local_average', 'std']
-            view 'region', locals: { info: filtered_info, reviews: google_data}
+            # Google Rating Average
+            rating_box = []
+            google_data.each { |obj| obj.each{|datarow| rating_box.append( datarow.rating) } } 
+            
+            rating_mean = rating_box.sum(0.0) / rating_box.size
+            rating_sum = rating_box.sum(0.0) { |element| (element - rating_mean) ** 2 }
+            variance = rating_sum / (rating_box.size - 1)
+            standard_deviation = Math.sqrt(variance)
+
+            view 'region', locals: { info: filtered_info, 
+            reviews: google_data, 
+            wifi_average: wifi_average, 
+            stat: [rating_mean,standard_deviation]
+          }
             
           rescue StandardError => e
             puts e.full_message

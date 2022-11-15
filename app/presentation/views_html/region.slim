@@ -2,8 +2,8 @@
   .row
     h2
      span.info.name
-      = info[0].city.capitalize() + "市咖啡廳推薦❤️"
-        
+      = info[0].city.capitalize() + "市咖啡廳推薦❤️ Wifi平均#{wifi_average}"
+  .row
   .container
     .row
       - info.each_with_index  do |info_obj, index|
@@ -22,7 +22,8 @@
                 th scope="col"  open_time
                 th scope="col"  Address
                 th scope="col"  Google Rating
-                th scope="col"  Reviewers
+                th scope="col"  Reviewer
+                th scope="col"  UnbiasedRating
 
             tbody
                 tr
@@ -36,10 +37,8 @@
                 td #{info_obj.quiet}
                 td #{(info_obj.open_time == "")? "UnProvided" : info_obj.open_time}
                 td #{info_obj.address}
-                td #{info_obj.store.map(&:rating).first}
+                td #{rating = info_obj.store.map(&:rating).first.to_f }
                 td #{info_obj.store.map(&:user_ratings_total).first}
-                / td #{((info_obj.store.map(&:rating).first) - local_average)/std}
-
-            .row               
-    .row
-      .col-lg-4.col-md-6.col-sm-6
+                td #{(rating- stat[0])/stat[1] }
+            .row
+    .row   .col-lg-4.col-md-6.col-sm-6

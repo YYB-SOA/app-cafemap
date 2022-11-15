@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require_relative 'helpers/spec_helper'
-require_relative 'helpers/vcr_helper'
-require_relative 'helpers/database_helper'
-require_relative '../app/domain/googleplace/mappers/store_mapper.rb'
+require_relative '../../helpers/spec_helper'
+require_relative '../../helpers/vcr_helper'
+require_relative '../../helpers/database_helper'
+require_relative '../../../app/domain/googleplace/mappers/store_mapper.rb'
 
 
 describe 'Tests Place API library' do

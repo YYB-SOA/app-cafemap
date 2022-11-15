@@ -16,6 +16,10 @@ module CafeMap
         find_name(entity.name)
       end
 
+      def self.rating
+        Database::StoreOrm.all.map(&:rating)
+      end
+
       def self.all_filtered(city)
         Database::StoreOrm.all.select { |each| each.city.include? city }
       end

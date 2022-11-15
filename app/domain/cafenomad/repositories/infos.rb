@@ -45,6 +45,10 @@ module CafeMap
         Database::InfoOrm.all.map(&:name)
       end
 
+      def self.wifi
+        Database::InfoOrm.all.map(&:wifi)
+      end
+      
       # check if the data has already in db
       def self.create(entity)
         unless find(entity)
