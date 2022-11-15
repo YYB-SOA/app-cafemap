@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 require 'net/http'
 require 'json'
 
@@ -11,15 +10,17 @@ module CafeMap
       end
 
       def status_data
-        jarray_temp = Request.new(@cafe_token).get # get jarray
-        Api.jarray_to_yml(jarray_temp)
+        jarray_temp = Request.new(@cafe_token).get
+        jarray_to_yml(jarray_temp)
       end
 
       def info_data
         Request.new(@cafe_token).get
       end
 
-      def self.jarray_to_yml(jarray)
+      private
+
+      def jarray_to_yml(jarray)
         store = {}
         store['status'] = 'ok' unless jarray.nil?
         store['amount'] = jarray.length
@@ -46,7 +47,7 @@ module CafeMap
         https.use_ssl = true
         res = https.request(req)
         JSON.parse(res.body)
-      end   
+      end
     end
   end
 end
