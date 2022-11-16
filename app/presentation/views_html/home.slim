@@ -16,107 +16,127 @@
         } Search☕
     .row
       .col-md-8.col-sm-6
- 
-nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
-  .container-fluid
-    a.navbar-brand href="#"  Navbar
-    button.navbar-toggler aria-controls="navbarNavDarkDropdown" aria-expanded="true" aria-label=("Toggle navigation") data-bs-target="#navbarNavDarkDropdown" data-bs-toggle="collapse" type="button" 
-      span.navbar-toggler-icon
-    #navbarNavDarkDropdown.collapse.navbar-collapse
-      ul.navbar-nav
-        li.nav-item.dropdown
-          a#navbarDarkDropdownMenuLink.nav-link.dropdown-toggle aria-expanded="true" data-bs-toggle="dropdown" href="#" role="button" 
-            | Northern
-          ul.dropdown-menu.dropdown-menu-dark aria-labelledby="navbarDarkDropdownMenuLink" 
-            li
-              a.dropdown-item href="#"  Taipei
-            li
-              a.dropdown-item href="#"  New Taipei
-            li
-              a.dropdown-item href="#"  Keelung
-            li
-              a.dropdown-item href="#"  Yilan
-            li
-              a.dropdown-item href="#"  Hsinchu
-            li
-              a.dropdown-item href="#"  Taoyuan
-        li.nav-item.dropdown
-          a#navbarDarkDropdownMenuLink.nav-link.dropdown-toggle aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button" 
-            | Central
-          ul.dropdown-menu.dropdown-menu-dark aria-labelledby="navbarDarkDropdownMenuLink" 
-            li
-              a.dropdown-item href="#"  Taichung
-            li
-              a.dropdown-item href="#"  New Taipei
-            li
-              a.dropdown-item href="#"  Miaoli
-            li
-              a.dropdown-item href="#"  Changhua
-            li
-              a.dropdown-item href="#"  Nantou
-            li
-              a.dropdown-item href="#"  Yunlin
-        li.nav-item.dropdown
-          a#navbarDarkDropdownMenuLink.nav-link.dropdown-toggle aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button" 
-            | Southern
-          ul.dropdown-menu.dropdown-menu-dark aria-labelledby="navbarDarkDropdownMenuLink" 
-            li
-              a.dropdown-item href="#"  Chiayi
-            li
-              a.dropdown-item href="#"  Tainan
-            li
-              a.dropdown-item href="#"  Kaohsiung
-            li
-              a.dropdown-item href="#"  Pingtung
-            li
-              a.dropdown-item href="#"  Penghu
-            li
-              a.dropdown-item href="#"  Yunlin
-        li.nav-item.dropdown
-          a#navbarDarkDropdownMenuLink.nav-link.dropdown-toggle aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button" 
-            | Eastern
-          ul.dropdown-menu.dropdown-menu-dark aria-labelledby="navbarDarkDropdownMenuLink" 
-            li
-              a.dropdown-item href="#"  Hualien
-            li
-              a.dropdown-item href="#"  Taitung
-        li.nav-item.dropdown
-          a#navbarDarkDropdownMenuLink.nav-link.dropdown-toggle aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button" 
-            | Outlying Islands
-          ul.dropdown-menu.dropdown-menu-dark aria-labelledby="navbarDarkDropdownMenuLink" 
-            li
-              a.dropdown-item href="#"  Kinmen
-            li
-              a.dropdown-item href="#"  Matsu
-      .col-md-12.blank-row
 
-.s2 style="z-index:2"
-doctype html
-html
-  head
-    title rotate_picture_wall
-    meta charset="utf-8" /
-    meta content="width=device-width, initial-scale=1" name="viewport" /
-    link href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css" rel="stylesheet" /
-    script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js" 
-  body
-    /! 輪流播放
-    #demo.carousel.slide data-bs-ride="carousel" 
-      /! 指示符
-      .carousel-indicators
-        button.active data-bs-slide-to="0" data-bs-target="#demo" type="button" 
-        button data-bs-slide-to="1" data-bs-target="#demo" type="button" 
-        button data-bs-slide-to="2" data-bs-target="#demo" type="button" 
-      /! 播放圖片
-      .carousel-inner
-        .carousel-item.active
-          img.d-block src="https://shopee.tw/blog/wp-content/uploads/2020/10/Frame-123.png" style="width:100%"  class="img-fluid" /
-        .carousel-item
-          img.d-block src="https://opnews.sp88.tw/images/channel_article/819038682d40e6926f43834ce940c046e698b11ca9d11749e9aab3cb0b87c8fd.jpeg" style="width:100%"  class="img-fluid" /
-        .carousel-item
-          img.d-block src="https://i.beauty321.com/816x/https://il.beauty321.com/gallery/gallery/50287/photo-6305cd1b29453.jpg" style="width:100%"  class="img-fluid" /
-      /! 左右切换按钮
-      button.carousel-control-prev data-bs-slide="prev" data-bs-target="#demo" type="button" 
-        span.carousel-control-prev-icon
-      button.carousel-control-next data-bs-slide="next" data-bs-target="#demo" type="button" 
-        span.carousel-control-next-icon
+.container
+  nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+    .container-fluid
+      a.navbar-brand href="#"  Navbar
+      button.navbar-toggler aria-controls="navbarNavDarkDropdown" aria-expanded="true" aria-label=("Toggle navigation") data-bs-target="#navbarNavDarkDropdown" data-bs-toggle="collapse" type="button" 
+        span.navbar-toggler-icon
+      #navbarNavDarkDropdown.collapse.navbar-collapse
+        ul.navbar-nav
+          li.nav-item.dropdown
+            a#navbarDarkDropdownMenuLink.nav-link.dropdown-toggle aria-expanded="true" data-bs-toggle="dropdown" href="#" role="button" 
+              | Northern
+            ul.dropdown-menu.dropdown-menu-dark aria-labelledby="navbarDarkDropdownMenuLink" 
+              li
+                a.dropdown-item href="/region/taipei"  Taipei
+              li
+                a.dropdown-item href="/region/taipei"  New Taipei
+              li
+                a.dropdown-item href="/region/keelung"  Keelung
+              li
+                a.dropdown-item href="/region/yilan"  Yilan
+              li
+                a.dropdown-item href="/region/hsinchu"  Hsinchu
+              li
+                a.dropdown-item href="/region/taoyuan"  Taoyuan
+          li.nav-item.dropdown
+            a#navbarDarkDropdownMenuLink.nav-link.dropdown-toggle aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button" 
+              | Central
+            ul.dropdown-menu.dropdown-menu-dark aria-labelledby="navbarDarkDropdownMenuLink" 
+              li
+                a.dropdown-item href="/region/taichung"  Taichung
+              li
+                a.dropdown-item href="/region/miaoli"  Miaoli
+              li
+                a.dropdown-item href="/region/changhua"  Changhua
+              li
+                a.dropdown-item href="/region/nantou"  Nantou
+              li
+                a.dropdown-item href="/region/yunlin"  Yunlin
+          li.nav-item.dropdown
+            a#navbarDarkDropdownMenuLink.nav-link.dropdown-toggle aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button" 
+              | Southern
+            ul.dropdown-menu.dropdown-menu-dark aria-labelledby="navbarDarkDropdownMenuLink" 
+              li
+                a.dropdown-item href="/region/chiayi"   Chiayi
+              li
+                a.dropdown-item href="/region/tainan"   Tainan
+              li
+                a.dropdown-item href="/region/kaohsiung"   Kaohsiung
+              li
+                a.dropdown-item href="/region/pingtung"   Pingtung
+              li
+                a.dropdown-item href="/region/penghu"   Penghu
+              li
+                a.dropdown-item href="/region/yunlin"   Yunlin
+          li.nav-item.dropdown
+            a#navbarDarkDropdownMenuLink.nav-link.dropdown-toggle aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button" 
+              | Eastern
+            ul.dropdown-menu.dropdown-menu-dark aria-labelledby="navbarDarkDropdownMenuLink" 
+              li
+                a.dropdown-item href="/region/hualien"  Hualien
+              li
+                a.dropdown-item href="/region/taitung" Taitung
+          li.nav-item.dropdown
+            a#navbarDarkDropdownMenuLink.nav-link.dropdown-toggle aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button" 
+              | Outlying Islands
+            ul.dropdown-menu.dropdown-menu-dark aria-labelledby="navbarDarkDropdownMenuLink" 
+              li
+                a.dropdown-item href="/region/kinmen"  Kinmen
+              li
+                a.dropdown-item href="/region/matsu"  Matsu
+        .col-md-12.blank-row
+
+.container
+  #carouselExampleIndicators.carousel.slide data-bs-ride="carousel" 
+    .carousel-indicators
+      button.active aria-current="true" aria-label=("Slide 1") data-bs-slide-to="0" data-bs-target="#carouselExampleIndicators" type="button" 
+      button aria-label=("Slide 2") data-bs-slide-to="1" data-bs-target="#carouselExampleIndicators" type="button" 
+      button aria-label=("Slide 3") data-bs-slide-to="2" data-bs-target="#carouselExampleIndicators" type="button" 
+    .carousel-inner
+      .carousel-item.active
+        img.d-block.w-100 alt="..." src="https://shopee.tw/blog/wp-content/uploads/2020/10/Frame-123.png"/
+      .carousel-item
+        img.d-block.w-100 alt="..." src="https://opnews.sp88.tw/images/channel_article/819038682d40e6926f43834ce940c046e698b11ca9d11749e9aab3cb0b87c8fd.jpeg" /
+      .carousel-item
+        img.d-block.w-100 alt="..." src="https://i.beauty321.com/816x/https://il.beauty321.com/gallery/gallery/50287/photo-6305cd1b29453.jpg"  /
+    button.carousel-control-prev data-bs-slide="prev" data-bs-target="#carouselExampleIndicators" type="button" 
+      span.carousel-control-prev-icon aria-hidden="true" 
+      span.visually-hidden Previous
+    button.carousel-control-next data-bs-slide="next" data-bs-target="#carouselExampleIndicators" type="button" 
+      span.carousel-control-next-icon aria-hidden="true" 
+      span.visually-hidden Next
+
+
+
+  / doctype html 
+  / html 
+  /   head
+  /     title rotate_picture_wall
+  /     meta charset="utf-8" /
+  /     meta content="width=device-width, initial-scale=1" name="viewport" 
+  /     link href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css" rel="stylesheet" /
+  /     script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js" 
+  /   body
+  /     /! 輪流播放
+  /     #demo.carousel.slide data-bs-ride="carousel" 
+  /       /! 指示符
+  /       .carousel-indicators
+  /         button.active data-bs-slide-to="0" data-bs-target="#demo" type="button" 
+  /         button data-bs-slide-to="1" data-bs-target="#demo" type="button" 
+  /         button data-bs-slide-to="2" data-bs-target="#demo" type="button" 
+  /       /! 播放圖片
+  /       .carousel-inner
+  /         .carousel-item.active
+  /           img.d-block src="https://shopee.tw/blog/wp-content/uploads/2020/10/Frame-123.png" style="width:100%" /
+  /         .carousel-item
+  /           img.d-block src="https://opnews.sp88.tw/images/channel_article/819038682d40e6926f43834ce940c046e698b11ca9d11749e9aab3cb0b87c8fd.jpeg" style="width:100%" /
+  /         .carousel-item
+  /           img.d-block src="https://i.beauty321.com/816x/https://il.beauty321.com/gallery/gallery/50287/photo-6305cd1b29453.jpg" style="width:100%" /
+  /       /! 左右切换按钮
+  /       button.carousel-control-prev data-bs-slide="prev" data-bs-target="#demo" type="button" 
+  /         span.carousel-control-prev-icon
+  /       button.carousel-control-next data-bs-slide="next" data-bs-target="#demo" type="button" 
+  /         span.carousel-control-next-icon
