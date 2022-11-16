@@ -21,8 +21,10 @@ gem 'dry-types', '~> 1'
 gem 'http', '~> 5'
 
 # Database
-gem 'hirb', '~> 0'
-gem 'hirb-unicode', '~> 0'
+# gem 'hirb' , '~>0.5.0'
+# gem 'hirb-unicode'#, '~> 0'
+# gem 'unicode-display_width' ,'~> 1.5'
+
 gem 'sequel', '~> 5.49'
 
 group :development, :test do
@@ -57,7 +59,7 @@ gem 'pry'
 group :development do
   gem 'flog'
   gem 'reek'
-  gem 'rubocop'
+  gem 'rubocop', '~> 1.39', require: false
 end
 
 # Parsing
