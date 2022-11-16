@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-require_relative '../../spec/helpers/spec_helper.rb' #should be removed
+
+require_relative '../../spec/helpers/spec_helper' # should be removed
 require 'roda'
 require 'slim'
 
@@ -41,16 +42,17 @@ module CafeMap
             lock = 1
             info = filtered_infos_data[0..lock] # Random Entities Array
             info_allname = Repository::For.klass(Entity::Info).all_name
-            info_unrecorded = info.reject{|each_info| info_allname.include? each_info.name} # entities not in db
+            info_unrecorded = info.reject { |each_info| info_allname.include? each_info.name } # entities not in db
 
             # Add project to database
             info_unrecorded.each do |each_unrecorded|
               Repository::For.entity(each_unrecorded).create(each_unrecorded)
-              place_entity = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN, [each_unrecorded.name]).load_several
+              place_entity = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN,
+                                                             [each_unrecorded.name]).load_several
               Repository::For.entity(place_entity[0]).create(place_entity[0], each_unrecorded.name)
               last_infoid = Repository::For.klass(Entity::Info).last_id
               last_store = Repository::For.klass(Entity::Store).last
-              last_store.update(info_id:last_infoid)
+              last_store.update(info_id: last_infoid)
             end
             routing.redirect "region/#{info[0].city}"
           end
@@ -60,13 +62,13 @@ module CafeMap
           # GET /cafe/region
           routing.get do
             # Get Obj array
-            filtered_info = CafeMap::Database::InfoOrm.where(city:city).all
-            google_data = filtered_info.map{|info_store|  info_store.store } 
+            filtered_info = CafeMap::Database::InfoOrm.where(city:).all
+            google_data = filtered_info.map(&:store)
 
             # input  filtered_info # call recommend -> stat : Obj array.map(&:rating).average
             # stat = ['local_average', 'std']
-            view 'region', locals: { info: filtered_info, reviews: google_data}
-            
+            view 'region', locals: { info: filtered_info, reviews: google_data }
+
           rescue StandardError => e
             puts e.full_message
           end
