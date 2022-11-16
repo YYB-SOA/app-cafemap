@@ -3,7 +3,6 @@
 require 'sequel'
 require './config/environment'
 
-
 module CafeMap
   module Database
     # Object Relational Mapper for Project Entities
@@ -20,7 +19,6 @@ module CafeMap
       def self.wifi(store_info)
         store_info[:wifi].map(&:to_i)
       end
-
     end
   end
 end

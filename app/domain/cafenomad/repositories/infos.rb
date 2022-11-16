@@ -48,13 +48,13 @@ module CafeMap
       def self.wifi
         Database::InfoOrm.all.map(&:wifi)
       end
-      
+
       # check if the data has already in db
       def self.create(entity)
-        unless find(entity)
-          db_info = PersistInfo.new(entity).create_info
-          rebuild_entity(db_info)
-        end
+        return if find(entity)
+
+        db_info = PersistInfo.new(entity).create_info
+        rebuild_entity(db_info)
       end
 
       def self.rebuild_entity(db_record)

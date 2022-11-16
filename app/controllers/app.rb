@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-require_relative '../../spec/helpers/spec_helper.rb' #should be removed
+
+require_relative '../../spec/helpers/spec_helper' # should be removed
 require 'roda'
 require 'slim'
 
@@ -43,18 +44,19 @@ module CafeMap
             lock = 1
             info = filtered_infos_data[0..lock] # Random Entities Array
             info_allname = Repository::For.klass(Entity::Info).all_name
-            info_unrecorded = info.reject{|each_info| info_allname.include? each_info.name} # entities not in db
+            info_unrecorded = info.reject { |each_info| info_allname.include? each_info.name } # entities not in db
 
             # Add project to database
             info_unrecorded.each do |each_unrecorded|
               Repository::For.entity(each_unrecorded).create(each_unrecorded)
-              place_entity = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN, [each_unrecorded.name]).load_several
+              place_entity = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN,
+                                                             [each_unrecorded.name]).load_several
               Repository::For.entity(place_entity[0]).create(place_entity[0], each_unrecorded.name)
 
               last_infoid = Repository::For.klass(Entity::Info).last_id
               last_store = Repository::For.klass(Entity::Store).last
 
-              last_store.update(info_id:last_infoid)
+              last_store.update(info_id: last_infoid)
             end
             routing.redirect "region/#{info[0].city}"
           end
@@ -64,30 +66,29 @@ module CafeMap
           # GET /cafe/region
           routing.get do
             # Get Obj array
-            filtered_info = CafeMap::Database::InfoOrm.where(city:city).all
+            filtered_info = CafeMap::Database::InfoOrm.where(city:).all
 
-            google_data = filtered_info.map{|info_store|  info_store.store } 
+            google_data = filtered_info.map(&:store)
 
             # Wifi average
             wifi_arr =  filtered_info.map(&:wifi).map(&:to_f)
-            wifi_average = wifi_arr.reduce(:+)/ (wifi_arr.size.to_f)
+            wifi_average = wifi_arr.reduce(:+) / wifi_arr.size.to_f
             # input  filtered_info # call recommend -> stat : Obj array.map(&:rating).average
             # stat = ['local_average', 'std']
             # Google Rating Average
             rating_box = []
-            google_data.each { |obj| obj.each{|datarow| rating_box.append( datarow.rating) } } 
-            
+            google_data.each { |obj| obj.each { |datarow| rating_box.append(datarow.rating) } }
+
             rating_mean = rating_box.sum(0.0) / rating_box.size
-            rating_sum = rating_box.sum(0.0) { |element| (element - rating_mean) ** 2 }
+            rating_sum = rating_box.sum(0.0) { |element| (element - rating_mean)**2 }
             variance = rating_sum / (rating_box.size - 1)
             standard_deviation = Math.sqrt(variance)
 
-            view 'region', locals: { info: filtered_info, 
-            reviews: google_data, 
-            wifi_average: wifi_average, 
-            stat: [rating_mean,standard_deviation]
-          }
-            
+            view 'region', locals: { info: filtered_info,
+                                     reviews: google_data,
+                                     wifi_average:,
+                                     stat: [rating_mean, standard_deviation] }
+
           rescue StandardError => e
             puts e.full_message
           end

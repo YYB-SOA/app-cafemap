@@ -9,9 +9,9 @@ gem 'rake', '~> 13.0'
 
 # Web Application
 gem 'puma', '~> 5'
+gem 'rack-session', '~> 0.3'
 gem 'roda', '~> 3'
 gem 'slim', '~> 4'
-gem 'rack-session', '~> 0.3'
 
 # Validation
 gem 'dry-struct', '~> 1'
@@ -47,7 +47,7 @@ group :test do
   gem 'watir', '~> 7.0'
   gem 'webdrivers', '~> 5.0'
 end
-  
+
 group :development do
   gem 'rerun', '~> 0'
 end

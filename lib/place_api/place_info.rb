@@ -38,10 +38,10 @@ def get_placeapi_token(token_category = 'GOOGLE_MAP', name_of_key = 'Place_api')
   config_yaml[token_category][0][name_of_key]
 end
 
-  def call_placeapi_url(input, token_name)
-    token = get_placeapi_token(token_name)
-    HTTP.get("https://maps.googleapis.com/maps/api/place/textsearch/json?query=#{input}&key=#{token}&language=zh-TW")
-  end
+def call_placeapi_url(input, token_name)
+  token = get_placeapi_token(token_name)
+  HTTP.get("https://maps.googleapis.com/maps/api/place/textsearch/json?query=#{input}&key=#{token}&language=zh-TW")
+end
 
 def call_placeapi_storename(clean_name, dist)
   # call google place api
@@ -57,7 +57,7 @@ end
 def save_to_yaml(json_file, dist)
   # Save hash to yaml and keep insert value to
   File.open(dist, 'w') do |file|
-  file.puts json_file.to_yaml
+    file.puts json_file.to_yaml
   end
 end
 

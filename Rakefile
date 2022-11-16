@@ -81,7 +81,7 @@ end
 
 namespace :quality do
   only_app = 'config/ app/'
-  
+
   desc 'run all static-analysis quality checks'
   task all: %i[rubocop reek flog]
 

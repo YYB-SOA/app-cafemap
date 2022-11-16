@@ -1,6 +1,6 @@
 # frozen_string_literal: false
 
-require_relative '../../../infrastructure/google/place_api.rb'
+require_relative '../../../infrastructure/google/place_api'
 require_relative '../entities/store'
 require_relative 'storemixin'
 

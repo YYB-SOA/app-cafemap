@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'sequel'
 
 Sequel.migration do
@@ -29,4 +31,3 @@ Sequel.migration do
     end
   end
 end
-

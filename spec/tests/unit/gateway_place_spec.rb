@@ -3,8 +3,7 @@
 require_relative '../../helpers/spec_helper'
 require_relative '../../helpers/vcr_helper'
 require_relative '../../helpers/database_helper'
-require_relative '../../../app/domain/googleplace/mappers/store_mapper.rb'
-
+require_relative '../../../app/domain/googleplace/mappers/store_mapper'
 
 describe 'Tests Place API library' do
   before do
@@ -17,7 +16,7 @@ describe 'Tests Place API library' do
 
   describe 'Store information' do
     before do
-      @store =  CafeMap::Place::StoreMapper.new(PLACE_TOKEN, TEST_STORE).load_several
+      @store = CafeMap::Place::StoreMapper.new(PLACE_TOKEN, TEST_STORE).load_several
       @yaml_keys = STORE_CORRECT[0..].map { |key| PLACE_CORRECT[key]['results'] }
     end
 

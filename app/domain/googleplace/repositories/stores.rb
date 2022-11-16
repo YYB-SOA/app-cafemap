@@ -23,32 +23,34 @@ module CafeMap
       def self.all_filtered(city)
         Database::StoreOrm.all.select { |each| each.city.include? city }
       end
+
       def self.last
         Database::StoreOrm.last
       end
 
-      def self.create(entity, info_name) # check if the data has already in db
-        unless find(entity)
-          db_store = PersistStore.new(entity).create_store
-          # puts "------------------"
-          # puts db_store.info_id
-          # puts "------------------"
-          # db_store.update(info_id: info_name)
-          rebuild_entity(db_store)
-        end
+      # check if the data has already in db
+      def self.create(entity, _info_name)
+        return if find(entity)
+
+        db_store = PersistStore.new(entity).create_store
+        # puts "------------------"
+        # puts db_store.info_id
+        # puts "------------------"
+        # db_store.update(info_id: info_name)
+        rebuild_entity(db_store)
       end
 
       def self.all_name
-        Database::StoreOrm.all.map { |store| store.name }
+        Database::StoreOrm.all.map(&:name)
       end
 
       def self.rebuild_entity(db_record)
         return nil unless db_record
+
         Entity::Store.new(
           # db_record.to_hash.merge(
           #   info_id: info_id
           # )
-          
           place_id: db_record.place_id,
           # info_id: db_record.info_id,
           name: db_record.name,

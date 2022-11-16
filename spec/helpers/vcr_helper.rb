@@ -29,11 +29,11 @@ module VcrHelper
       match_requests_on: %i[method uri headers]
     )
   end
-  
+
   def self.configure_vcr_for_cafe
     VCR.configure do |c|
       c.filter_sensitive_data('<PLACE_TOKEN>') { CAFE_TOKEN }
-      c.filter_sensitive_data('<PLACE_TOKEN_ESC>') { CGI.escape(CAFE_TOKEN) }     
+      c.filter_sensitive_data('<PLACE_TOKEN_ESC>') { CGI.escape(CAFE_TOKEN) }
     end
 
     VCR.insert_cassette(
@@ -42,7 +42,6 @@ module VcrHelper
       match_requests_on: %i[method uri headers]
     )
   end
-
 
   def self.eject_vcr
     VCR.eject_cassette

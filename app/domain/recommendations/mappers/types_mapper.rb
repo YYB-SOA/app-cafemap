@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # # frozen_string_literal: true
 
 # module CafeMap
@@ -7,7 +8,7 @@
 #         def initialize(place_data)
 #           @place_data = place_data
 #         end
-  
+
 #         def get(@place_data)
 #             @place_data.each do |store|
 #                 store.types

@@ -12,7 +12,7 @@ def url_concat(token)
   token
 end
 
-def get_full_url(token_category, name_of_key)
+def get_full_url(_token_category, _name_of_key)
   # Added the folder 'config/secrets.yml' first
   config = YAML.safe_load(File.read('config/secrets.yml'))
   token = CafeMap::App.config.CAFE_TOKEN
