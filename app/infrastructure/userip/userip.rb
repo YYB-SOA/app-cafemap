@@ -22,20 +22,3 @@ module CafeMap
         end
     end
 end
-
-
-a = CafeMap::UserIp::Api.new.to_geoloc
-puts a
-
-b = CafeMap::UserIp::Api.new.ip
-puts b
-
-# url = 'http://pv.sohu.com/cityjson?ie=utf-8'
-# uri = URI(url)
-# response = Net::HTTP.get(uri)
-# test = response.split("=")[1].split(";")[0]
-# ip = JSON.parse(test)["cip"]
-# puts ip
-
-# results = Geocoder.search(ip)
-# puts results.first.coordinates
