@@ -64,3 +64,5 @@ end
 
 # Parsing
 gem 'json'
+
+gem 'geocoder'
