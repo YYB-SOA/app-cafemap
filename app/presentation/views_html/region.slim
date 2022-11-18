@@ -2,7 +2,7 @@
   .row
     h2
      span.info.name
-      = info[0].city.capitalize() + "市咖啡廳推薦❤️ Wifi平均#{wifi_average}"
+      = info[0].city + "市咖啡廳推薦❤️ Wifi平均#{wifi_average}"+"您的IP位置：#{ip}"
   .row
   .container
     .row
@@ -41,4 +41,3 @@
                 td #{info_obj.store.map(&:user_ratings_total).first}
                 td #{((rating- stat[0])/stat[1]).round(3) }
             .row
-    .row   .col-lg-4.col-md-6.col-sm-6
