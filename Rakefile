@@ -43,7 +43,7 @@ task :new_session_secret do
   puts "SESSION_SECRET: #{secret}"
 end
 
-#################################Database: Rake:db
+# ################################Database: Rake:db
 
 namespace :db do
   task :config do
@@ -56,9 +56,11 @@ namespace :db do
 
   desc 'Run migrations'
   task :migrate => :config do
+
     Sequel.extension :migration
     puts "Migrating #{app.environment} database to latest"
     Sequel::Migrator.run(app.DB, 'db/migrations')
+    
   end
 
   desc 'Wipe records from all tables'
@@ -90,7 +92,33 @@ task :console do
   sh 'pry -r ./load_all'
 end
 
+################ repos
 
+namespace :repos do
+  task :config do
+    require_relative 'config/environment' # load config info
+    def app = CafeMap::App
+  end
+
+  desc 'Create director for repo store'
+  task :create => :config do
+    puts `mkdir #{app.config.REPOSTORE_PATH}`
+  end
+
+  desc 'Delete cloned repos in repo store'
+  task :wipe => :config do
+    sh "rm -rf #{app.config.REPOSTORE_PATH}/*" do |ok, _|
+      puts(ok ? 'Cloned repos deleted' : 'Could not delete cloned repos')
+    end
+  end
+
+  desc 'List cloned repos in repo store'
+  task :list => :config do
+    puts `ls #{app.config.REPOSTORE_PATH}`
+  end
+end
+
+########### VCR
 namespace :vcr do
   desc 'delete cassette fixtures'
   task :wipe do
