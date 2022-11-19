@@ -25,9 +25,8 @@ describe 'Integration Tests of Cafe API and Database' do
 
       info = CafeMap::CafeNomad::InfoMapper.new(CAFE_TOKEN).load_several
       info.each do |each_info|
-        info_hash = each_info.to_hash
-        rebuilt = Repository::For.entity(info).create(info_hash)
-        _(rebuilt.infoid).must_equal(info.infoid)
+        rebuilt = Repository::For.entity(info).create(each_info)
+        _(rebuilt.infoid).must_equal(each_info.infoid)
         _(rebuilt.name).must_equal(each_info.name)
         _(rebuilt.wifi).must_equal(each_info.wifi)
         _(rebuilt.seat).must_equal(each_info.seat)
