@@ -1,12 +1,29 @@
 .container
   .row
     h2
-     span.info.name
-      = info[0].city + "市咖啡廳推薦❤️ Wifi平均#{wifi_average}"+"您的IP位置：#{ip}"
+     span.infostat.entity.name
+      = infostat.entity[0].city.capitalize() + "❤️Recommendation"
+    h3
+      span.ip = "Your IP：#{ip}"
+      .row
+    h4 
+      / span.wifi = "_(┐ ◟;ﾟдﾟ)ノ Wifi: #{wifi_average.round}"
+      .row
+      span.stat = "📶 Wifi: #{infostat.wifi_mean}   🪑 seat: #{infostat.seat_mean}  🍽️ tasty: #{infostat.tasty_mean}  💸 cheap: #{infostat.cheap_mean}  🎼 music: #{infostat.music_mean}  🔕 quiet: #{infostat.quiet_mean}"
+      / .row
+      / span.seat = "🪑 seat: #{infostat.seat_mean}"
+      / .row
+      / span.music = "🍽️ tasty: #{infostat.tasty_mean}" 
+      / .row
+      / span.music = "💸 cheap: #{infostat.cheap_mean}" 
+      / .row
+      / span.music = "🎼 music: #{infostat.music_mean}" 
+      / .row
+      / span.music = "🔕 quiet: #{infostat.quiet_mean}" 
   .row
   .container
     .row
-      - info.each_with_index  do |info_obj, index|
+      - infostat.entity.each_with_index  do |info_obj, index|
         .col-lg-4.col-md-6.col-sm-6
         table.table
             thead

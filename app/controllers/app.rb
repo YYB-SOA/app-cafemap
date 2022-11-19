@@ -2,7 +2,7 @@
 
 require_relative '../../spec/helpers/spec_helper' # should be removed
 require 'roda'
-require 'slim'
+require 'slim/include'
 
 module CafeMap
   # Web App
@@ -83,8 +83,9 @@ module CafeMap
             google_data = filtered_info.map(&:store)
 
             # Wifi average
-            wifi_arr =  filtered_info.map(&:wifi).map(&:to_f)
-            wifi_average = wifi_arr.reduce(:+) / wifi_arr.size.to_f
+            # wifi_arr =  filtered_info.map(&:wifi).map(&:to_f)
+            # wifi_average = wifi_arr.reduce(:+) / wifi_arr.size.to_f
+            infostat = Views::StatInfos.new(filtered_info)
             # input  filtered_info # call recommend -> stat : Obj array.map(&:rating).average
             # stat = ['local_average', 'std']
             # Google Rating Average
@@ -95,11 +96,14 @@ module CafeMap
             rating_sum = rating_box.sum(0.0) { |element| (element - rating_mean)**2 }
             variance = rating_sum / (rating_box.size - 1)
             standard_deviation = Math.sqrt(variance)
-            view 'region', locals: { info: filtered_info,
-                                     reviews: google_data,
-                                     wifi_average:,
-                                     stat: [rating_mean, standard_deviation],
-                                     ip: }
+
+            view 'region', locals: { 
+                                    # info: filtered_info,
+                                    reviews: google_data,
+                                    #  wifi_average:,
+                                    infostat:,
+                                    stat: [rating_mean, standard_deviation],
+                                    ip: }
 
           rescue StandardError => e
             puts e.full_message

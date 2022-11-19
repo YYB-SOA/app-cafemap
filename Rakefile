@@ -7,23 +7,32 @@ task :default do
   puts `rake -T`
 end
 
-desc 'Run tests once'
+desc 'Run unit and integration tests'
 Rake::TestTask.new(:spec) do |t|
   t.pattern = 'spec/*_spec.rb'
   t.warning = false
 end
 
-desc 'Keep rerunning tests upon changes'
+## Haven't complete the acceptance_spec
+# desc 'Run acceptance tests'
+# task :spec_accept do
+#   puts 'NOTE: run app in test environment in another process'
+#   sh 'ruby spec/tests/acceptance/acceptance_spec.rb'
+# end
+
+desc 'Keep rerunning unit/integration tests upon changes'
 task :respec do
-  sh "rerun -c 'rake spec' --ignore 'coverage/*'"
+  sh "rerun -c 'rake spec' --ignore 'coverage/*' --ignore 'repostore/*'"
 end
 
+desc 'Run the webserver and application'
 task :run do
   sh 'bundle exec puma'
 end
 
+desc 'Run the webserver and application and restart if code changes'
 task :rerun do
-  sh "rerun -c --ignore 'coverage/*' -- bundle exec puma"
+  sh "rerun -c --ignore 'coverage/*' --ignore 'repostore/*' -- bundle exec puma"
 end
 
 desc 'Generates a 64 by secret for Rack::Session'
@@ -34,6 +43,7 @@ task :new_session_secret do
   puts "SESSION_SECRET: #{secret}"
 end
 
+#################################Database: Rake:db
 
 namespace :db do
   task :config do
@@ -59,6 +69,7 @@ namespace :db do
     end
 
     require_app('infrastructure')
+    require_relative 'spec/helpers/database_helper'
     DatabaseHelper.wipe_database
   end
 
@@ -79,6 +90,7 @@ task :console do
   sh 'pry -r ./load_all'
 end
 
+
 namespace :vcr do
   desc 'delete cassette fixtures'
   task :wipe do
@@ -88,6 +100,7 @@ namespace :vcr do
   end
 end
 
+# Clean Code Checking
 namespace :quality do
   only_app = 'config/ app/'
 
