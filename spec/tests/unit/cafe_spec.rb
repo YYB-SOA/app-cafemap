@@ -3,6 +3,7 @@
 require_relative '../../helpers/spec_helper'
 require_relative '../../helpers/vcr_helper'
 
+
 describe 'Tests Cafe Nomad API library' do
   VcrHelper.setup_vcr
 
@@ -20,9 +21,16 @@ describe 'Tests Cafe Nomad API library' do
       @yaml_keys = CAFE_CORRECT.keys[3..]
     end
 
-    #--------------------------Store Content-----------
+
+
+  #--------------------------info Content-----------
+
+    it 'HAPPY: should pass similar length' do
+      _(@cafe_info.map(&:infoid).length).must_equal  ans_sheet('id', @yaml_keys, CAFE_CORRECT ).length
+    end
+
     it 'HAPPY: should pass correct id' do
-      _(@cafe_info.map(&:infoid)).must_equal  (ans_sheet('id', @yaml_keys, CAFE_CORRECT ))
+      _(@cafe_info.map(&:infoid)).must_equal  ans_sheet('id', @yaml_keys, CAFE_CORRECT )
     end
 
     it 'HAPPY: should pass corect name' do
@@ -70,7 +78,7 @@ describe 'Tests Cafe Nomad API library' do
       _(@cafe_info.map(&:socket)).must_equal ans_sheet('socket', @yaml_keys,CAFE_CORRECT).map(& :to_s)
     end
 
-    --------------------------Rating Content---------------------------
+    # --------------------------Rating Content---------------------------
 
     it 'HAPPY: should pass identitied wifi score' do
       _(@cafe_info.map(&:wifi)).must_equal ans_sheet('wifi', @yaml_keys,CAFE_CORRECT).map(& :to_f)

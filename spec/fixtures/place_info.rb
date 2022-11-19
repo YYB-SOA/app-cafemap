@@ -18,7 +18,7 @@ end
 
 def get_placeapi_token
   config_yaml = YAML.safe_load(File.read('config/secrets.yml'))
-  config_yaml['GOOGLE_MAP'][0]['Place_api']
+  config_yaml['test']["PLACE_TOKEN"]
 end
 
 def call_placeapi_url(filter_store)
@@ -39,17 +39,15 @@ def call_placeapi_storename(clean_name, dist)
   end
 end
 
-def place_api_ans_sheet(source, dist, limit = true)
+def limited_ans_sheet_builder(source, dist, limit = true)
   # call & filter
   cafe_raw = YAML.load_file(source)
   filtered_store = location_filter(cafe_raw, 'city', 'hsinchu')
 
   # Caution We set it for avoid overcharging from placeAPI
-  filtered_store = ["WHO'S 喜象 CAFE", 'ARTROOM14藝室'] if limit == true
-
-  # data_cleaning
+  filtered_store = ["WHO'S 喜象 CAFE", 'ARTROOM14藝室', "有隻貓咖啡"] if limit == true
   clean_name = data_clean(filtered_store)
   call_placeapi_storename(clean_name, dist)
 end
 
-place_api_ans_sheet('spec/fixtures/cafe_results.yml', 'spec/fixtures/place_results.yml', limit = true)
+limited_ans_sheet_builder('spec/fixtures/cafe_results.yml', 'spec/fixtures/place_results.yml', limit = true)
