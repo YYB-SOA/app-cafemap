@@ -44,12 +44,12 @@ module CafeMap
           # POST /region/
           routing.post do
             @user_wordterm = routing.params['The regional keyword you want to search (hsinchu)']
-            session[:loc].insert(0, @user_wordterm).uniq!
             infos_data = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
             filtered_infos_data = infos_data.select { |filter| filter.address.include? @user_wordterm }.shuffle
-            routing.halt 404 unless filtered_infos_data[0]
+            routing.halt 404 unless filtered_infos_data[0] # if filtered_infos_data is empty.
             lock = 1
             info = filtered_infos_data[0..lock] # Random Entities Array
+            session[:loc].insert(0, info[1]).uniq!
             info_allname = Repository::For.klass(Entity::Info).all_name
             info_unrecorded = info.reject { |each_info| info_allname.include? each_info.name } # entities not in db
 
@@ -76,9 +76,19 @@ module CafeMap
 
           # GET /cafe/region
           routing.get do
+            begin
+              filtered_info = CafeMap::Database::InfoOrm.where(city:).all
+              if filtered_info.nil?
+                flash[:error] = 'There is no cafe shop in the region'
+                routing.redirect '/'
+              end
+            rescue StandardError => e
+              flash[:error] = 'Having trouble accessing database'
+              routing.redirect '/'
+            end
+
             ip = CafeMap::UserIp::Api.new.ip
             # Get Obj array
-            filtered_info = CafeMap::Database::InfoOrm.where(city:).all
             google_data = filtered_info.map(&:store)
 
             # Get Value object
