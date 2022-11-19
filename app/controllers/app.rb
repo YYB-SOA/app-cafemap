@@ -3,6 +3,7 @@
 require_relative '../../spec/helpers/spec_helper' # should be removed
 require 'roda'
 require 'slim/include'
+require 'descriptive_statistics'
 
 module CafeMap
   # Web App
@@ -79,15 +80,12 @@ module CafeMap
             ip = CafeMap::UserIp::Api.new.ip
             # Get Obj array
             filtered_info = CafeMap::Database::InfoOrm.where(city:).all
-
             google_data = filtered_info.map(&:store)
 
-            # Wifi average
-            # wifi_arr =  filtered_info.map(&:wifi).map(&:to_f)
-            # wifi_average = wifi_arr.reduce(:+) / wifi_arr.size.to_f
+            # Get Value object
             infostat = Views::StatInfos.new(filtered_info)
-            # input  filtered_info # call recommend -> stat : Obj array.map(&:rating).average
-            # stat = ['local_average', 'std']
+            storestat = Views::StatStores.new(google_data)
+
             # Google Rating Average
             rating_box = []
             google_data.each { |obj| obj.each { |datarow| rating_box.append(datarow.rating) } }
@@ -97,12 +95,10 @@ module CafeMap
             variance = rating_sum / (rating_box.size - 1)
             standard_deviation = Math.sqrt(variance)
 
-            view 'region', locals: { 
-                                    # info: filtered_info,
+            view 'region', locals: {infostat:,
                                     reviews: google_data,
-                                    #  wifi_average:,
-                                    infostat:,
-                                    stat: [rating_mean, standard_deviation],
+                                    #stat: [rating_mean, standard_deviation],
+                                    storestat: storestat,
                                     ip: }
 
           rescue StandardError => e
