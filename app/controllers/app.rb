@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../../spec/helpers/spec_helper' # should be removed
 require 'roda'
 require 'slim/include'
 require 'descriptive_statistics'
@@ -34,8 +33,7 @@ module CafeMap
         session[:loc] ||= []
 
         # Load previously viewed projects
-        loc = Repository::For.klass(Entity::Info)
-          .find_all_city
+        Repository::For.klass(Entity::Info).find_all_city
         view 'home' # , locals: { infos: }
       end
 
@@ -47,8 +45,9 @@ module CafeMap
             infos_data = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
             filtered_infos_data = infos_data.select { |filter| filter.address.include? @user_wordterm }.shuffle
             routing.halt 404 unless filtered_infos_data[0] # if filtered_infos_data is empty.
-            lock = 1
-            info = filtered_infos_data[0..lock] # Random Entities Array
+
+            @lock = 1
+            info = filtered_infos_data[0..@lock] # Random Entities Array
             session[:loc].insert(0, info[1]).uniq!
             info_allname = Repository::For.klass(Entity::Info).all_name
             info_unrecorded = info.reject { |each_info| info_allname.include? each_info.name } # entities not in db
@@ -71,7 +70,7 @@ module CafeMap
 
         routing.on String do |city|
           routing.delete do
-            session[:loc].delete(city) # 這裡可能需要修正成中文
+            session[:loc].delete(city)
           end
 
           # GET /cafe/region
@@ -83,7 +82,7 @@ module CafeMap
                 routing.redirect '/'
               end
             rescue StandardError => e
-              flash[:error] = 'Having trouble accessing database'
+              flash[:error] = "Having trouble accessing database: error type: #{e}"
               routing.redirect '/'
             end
 
@@ -95,10 +94,9 @@ module CafeMap
             infostat = Views::StatInfos.new(filtered_info)
             storestat = Views::StatStores.new(google_data)
 
-
-            view 'region', locals: {infostat:,
-                                    storestat:,
-                                    ip: }
+            view 'region', locals: { infostat:,
+                                     storestat:,
+                                     ip: }
 
           rescue StandardError => e
             puts e.full_message

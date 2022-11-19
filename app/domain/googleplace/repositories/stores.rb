@@ -33,10 +33,6 @@ module CafeMap
         return if find(entity)
 
         db_store = PersistStore.new(entity).create_store
-        # puts "------------------"
-        # puts db_store.info_id
-        # puts "------------------"
-        # db_store.update(info_id: info_name)
         rebuild_entity(db_store)
       end
 
@@ -48,11 +44,7 @@ module CafeMap
         return nil unless db_record
 
         Entity::Store.new(
-          # db_record.to_hash.merge(
-          #   info_id: info_id
-          # )
           place_id: db_record.place_id,
-          # info_id: db_record.info_id,
           name: db_record.name,
           formatted_address: db_record.formatted_address,
           location_lat: db_record.location_lat,
@@ -74,6 +66,7 @@ module CafeMap
       end
     end
 
+    #  top-level documentation comment for class CafeMap::Repository::PersistStore.
     class PersistStore
       def initialize(entity)
         @entity = entity

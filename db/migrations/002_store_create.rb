@@ -21,5 +21,3 @@ Sequel.migration do
     end
   end
 end
-
-# CafeMap::Database::StoreOrm.create(info_id:1, name:"FongCafe",formatted_address:"清大裡面")
