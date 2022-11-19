@@ -27,8 +27,7 @@ module CafeMap
       # routing.assets # load CSS
       response['Content-Type'] = 'text/html; charset=utf-8'
 
-      # infos_data = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
-      routing.public # ?
+      # routing.public # ?
 
       # GET /
       routing.root do
@@ -88,7 +87,7 @@ module CafeMap
 
 
             view 'region', locals: {infostat:,
-                                    storestat: storestat,
+                                    storestat:,
                                     ip: }
 
           rescue StandardError => e
