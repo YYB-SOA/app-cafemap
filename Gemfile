@@ -64,5 +64,7 @@ end
 
 # Parsing
 gem 'json'
-
 gem 'geocoder'
+
+# Stat feature
+gem 'descriptive_statistics'
