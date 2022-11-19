@@ -27,8 +27,7 @@ module CafeMap
       # routing.assets # load CSS
       response['Content-Type'] = 'text/html; charset=utf-8'
 
-      # infos_data = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
-      routing.public # ?
+      # routing.public # ?
 
       # GET /
       routing.root do
@@ -86,19 +85,9 @@ module CafeMap
             infostat = Views::StatInfos.new(filtered_info)
             storestat = Views::StatStores.new(google_data)
 
-            # Google Rating Average
-            rating_box = []
-            google_data.each { |obj| obj.each { |datarow| rating_box.append(datarow.rating) } }
-
-            rating_mean = rating_box.sum(0.0) / rating_box.size
-            rating_sum = rating_box.sum(0.0) { |element| (element - rating_mean)**2 }
-            variance = rating_sum / (rating_box.size - 1)
-            standard_deviation = Math.sqrt(variance)
 
             view 'region', locals: {infostat:,
-                                    reviews: google_data,
-                                    #stat: [rating_mean, standard_deviation],
-                                    storestat: storestat,
+                                    storestat:,
                                     ip: }
 
           rescue StandardError => e
