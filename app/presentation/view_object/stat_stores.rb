@@ -35,7 +35,7 @@ module Views
     end
 
     def scaling_parameter
-      return 'The store quantity is too limit to create unbaised normailzaed rating' unless @rating_box.length >= 2
+      return 'The store quantity is too limited to create unbaised normailzaed rating' unless @rating_box.length >= 2
 
       # min, max = std_rating_box().minmax
       min, max = rating_box.minmax
