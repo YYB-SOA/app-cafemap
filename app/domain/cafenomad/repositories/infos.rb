@@ -29,6 +29,10 @@ module CafeMap
         Database::InfoOrm.first(name:)
       end
 
+      def self.find_all_city
+        Database::InfoOrm.all.map { |each| each.city }.uniq!
+      end
+
       def self.all
         Database::InfoOrm.all.map { |each| rebuild_entity(each) }
       end

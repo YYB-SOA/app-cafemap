@@ -4,6 +4,7 @@ require 'figaro'
 require 'roda'
 require 'sequel'
 require 'yaml'
+require 'rack/session'
 
 module CafeMap
   # Configuration for the App
@@ -19,6 +20,8 @@ module CafeMap
       )
       Figaro.load
       def self.config = Figaro.env
+
+      use Rack::Session::Cookie, secret: config.SESSION_SECRET
 
       configure :development, :test do
         ENV['DATABASE_URL'] = "sqlite://#{config.DB_FILENAME}"

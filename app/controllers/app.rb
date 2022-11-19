@@ -12,8 +12,10 @@ module CafeMap
     plugin :assets, path: 'app/presentation/assets', css: 'style.css', js: 'table_row.js'
     plugin :common_logger, $stderr
     plugin :halt
+    plugin :all_verbs
     plugin :status_handler
     plugin :flash
+
     # use Rack::MethodOverride # allows HTTP verbs beyond GET/POST (e.g., DELETE)
 
     status_handler(404) do
@@ -21,7 +23,7 @@ module CafeMap
     end
 
     route do |routing|
-      routing.assets # load CSS
+      # routing.assets # load CSS
       response['Content-Type'] = 'text/html; charset=utf-8'
 
       # infos_data = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
@@ -29,7 +31,11 @@ module CafeMap
 
       # GET /
       routing.root do
-        # infos = Repository::For.klass(Entity::Info).all
+        session[:loc] ||= []
+
+        # Load previously viewed projects
+        loc = Repository::For.klass(Entity::Info)
+          .find_all_city
         view 'home' # , locals: { infos: }
       end
 
@@ -38,6 +44,7 @@ module CafeMap
           # POST /region/
           routing.post do
             @user_wordterm = routing.params['The regional keyword you want to search (hsinchu)']
+            session[:loc].insert(0, @user_wordterm).uniq!
             infos_data = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
             filtered_infos_data = infos_data.select { |filter| filter.address.include? @user_wordterm }.shuffle
             routing.halt 404 unless filtered_infos_data[0]
@@ -63,8 +70,13 @@ module CafeMap
         end
 
         routing.on String do |city|
+          routing.delete do
+            session[:loc].delete(city) # 這裡可能需要修正成中文
+          end
+
           # GET /cafe/region
           routing.get do
+            ip = CafeMap::UserIp::Api.new.ip
             # Get Obj array
             filtered_info = CafeMap::Database::InfoOrm.where(city:).all
 
@@ -83,11 +95,11 @@ module CafeMap
             rating_sum = rating_box.sum(0.0) { |element| (element - rating_mean)**2 }
             variance = rating_sum / (rating_box.size - 1)
             standard_deviation = Math.sqrt(variance)
-
             view 'region', locals: { info: filtered_info,
                                      reviews: google_data,
                                      wifi_average:,
-                                     stat: [rating_mean, standard_deviation] }
+                                     stat: [rating_mean, standard_deviation],
+                                     ip: }
 
           rescue StandardError => e
             puts e.full_message
