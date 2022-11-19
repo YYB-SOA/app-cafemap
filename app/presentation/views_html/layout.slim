@@ -3,6 +3,7 @@ html
   head
     title CafeMap 
 
+
     / Bootstrap CSS and theme (United Theme)
     link{
       href="https://cdn.jsdelivr.net/npm/bootswatch@5.2.2/dist/cerulean/bootstrap.min.css"
@@ -34,6 +35,7 @@ html
               a.text-underline-hover href="/" CafeMap
 
       section
+        include :flash_bar
         == yield
 
       footer
