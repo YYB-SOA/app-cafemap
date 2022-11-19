@@ -1,8 +1,8 @@
 # frozen_string_literal: false
 
-require_relative 'helpers/spec_helper'
-require_relative 'helpers/vcr_helper'
-require_relative 'helpers/database_helper'
+require_relative '../../helpers/spec_helper'
+require_relative '../../helpers/vcr_helper'
+require_relative '../../helpers/database_helper'
 
 describe 'Integration Tests of Cafe API and Database' do
   VcrHelper.setup_vcr
@@ -18,12 +18,11 @@ describe 'Integration Tests of Cafe API and Database' do
   describe 'Retrieve and store info' do
     before do
       DatabaseHelper.wipe_database
+      
     end
 
     it 'HAPPY: should be able to save Info from CafeNomad to database' do
-      info = CafeMap::CafeNomad::InfoMapper
-        .new(CAFE_TOKEN)
-        .load_several
+      info = CafeMap::CafeNomad::InfoMapper.new(CAFE_TOKEN).load_several
 
       rebuilt = CafeMap::Repository::For.entity(info).create(info)
 

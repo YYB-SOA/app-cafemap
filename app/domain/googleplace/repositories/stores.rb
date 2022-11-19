@@ -66,7 +66,7 @@ module CafeMap
       end
     end
 
-    #  top-level documentation comment for class CafeMap::Repository::PersistStore.
+    #  Top-level documentation comment for class CafeMap::Repository::PersistStore.
     class PersistStore
       def initialize(entity)
         @entity = entity
