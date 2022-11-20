@@ -21,7 +21,7 @@ module CafeMap
       end
 
       def self.find_all_city
-        Database::InfoOrm.all.map { |each| each.city }.uniq!
+        Database::InfoOrm.all
       end
 
       def self.all
