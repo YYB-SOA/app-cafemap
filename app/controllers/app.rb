@@ -139,6 +139,20 @@ module CafeMap
           end
         end
       end
+    
+      routing.on 'map' do
+        routing.get do
+          infos_data = CafeMap::Database::InfoOrm.all
+          # puts infos_data.map(&:wifi)
+          ip = CafeMap::UserIp::Api.new.ip
+          location = CafeMap::UserIp::Api.new.to_geoloc
+
+          view 'map', locals: {info: infos_data,
+                               ip: ip,
+                               your_lat: location[0],
+                               your_long: location[1]}
+        end
+      end
     end
   end
 end

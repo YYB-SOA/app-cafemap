@@ -92,3 +92,14 @@ h1 {
     color: black;
     /* padding:0 5px; */
   }
+
+#map {
+  height: 80%;
+}
+
+
+.btn-mybutton {
+  color: #000;
+  background-color: #cccccc;
+  border-color: #cccccc;
+}
