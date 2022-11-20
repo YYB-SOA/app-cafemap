@@ -34,7 +34,7 @@ module CafeMap
 
         # Load previously viewed location
         cities = Repository::For.klass(Entity::Info).find_all_city
-        session[:city] = cities
+        # session[:city] = cities
         if cities.nil?
           flash.now[:notice] = 'Add a city name to get started'
         end
