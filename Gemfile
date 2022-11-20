@@ -63,8 +63,8 @@ group :development do
 end
 
 # Parsing
-gem 'json'
 gem 'geocoder'
+gem 'json'
 
 # Stat feature
 gem 'descriptive_statistics'

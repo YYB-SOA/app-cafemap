@@ -12,32 +12,32 @@ module Views
     end
 
     def wifi_mean
-      arr =  @info.map(&:wifi).map(&:to_f)
+      arr = @info.map(&:wifi).map(&:to_f)
       (arr.reduce(:+) / arr.size.to_f).round(1)
-    end    
+    end
 
     def seat_mean
-      arr =  @info.map(&:seat).map(&:to_f)
+      arr = @info.map(&:seat).map(&:to_f)
       (arr.reduce(:+) / arr.size.to_f).round(1)
-    end  
+    end
 
     def tasty_mean
-      arr =  @info.map(&:tasty).map(&:to_f)
+      arr = @info.map(&:tasty).map(&:to_f)
       (arr.reduce(:+) / arr.size.to_f).round(1)
     end
 
     def cheap_mean
-      arr =  @info.map(&:cheap).map(&:to_f)
+      arr = @info.map(&:cheap).map(&:to_f)
       (arr.reduce(:+) / arr.size.to_f).round(1)
     end
 
     def music_mean
-      arr =  @info.map(&:music).map(&:to_f)
+      arr = @info.map(&:music).map(&:to_f)
       (arr.reduce(:+) / arr.size.to_f).round(1)
     end
 
     def quiet_mean
-      arr =  @info.map(&:quiet).map(&:to_f)
+      arr = @info.map(&:quiet).map(&:to_f)
       (arr.reduce(:+) / arr.size.to_f).round(1)
     end
   end
