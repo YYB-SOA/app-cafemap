@@ -5,7 +5,6 @@ require_relative '../../helpers/vcr_helper'
 require_relative '../../helpers/database_helper'
 require_relative '../../../app/domain/googleplace/mappers/store_mapper'
 
-
 describe 'Tests Place API library' do
   before do
     VcrHelper.configure_vcr_for_place
@@ -22,33 +21,36 @@ describe 'Tests Place API library' do
       @yaml_keys = STORE_CORRECT
     end
 
-## First Layer in yaml: Testing
+    ## First Layer in yaml: Testing
 
     it 'HAPPY: should provide similar place_id' do
-      _(@store.map(&:place_id)).must_equal   (ans_sheet('place_id', @yaml_keys, PLACE_CORRECT, 'place'))
+      _(@store.map(&:place_id)).must_equal(ans_sheet('place_id', @yaml_keys, PLACE_CORRECT, 'place'))
     end
 
     it 'HAPPY: should provide similar rating' do
-      _(@store.map(&:rating)).must_equal   (ans_sheet('rating', @yaml_keys, PLACE_CORRECT, 'place'))
+      _(@store.map(&:rating)).must_equal(ans_sheet('rating', @yaml_keys, PLACE_CORRECT, 'place'))
     end
 
-    
     it 'HAPPY: should provide similar user_ratings_total' do
-      _(@store.map(&:user_ratings_total)).must_equal   (ans_sheet('user_ratings_total', @yaml_keys, PLACE_CORRECT, 'place'))
+      _(@store.map(&:user_ratings_total)).must_equal(ans_sheet('user_ratings_total', @yaml_keys, PLACE_CORRECT,
+                                                               'place'))
     end
 
-## Second  Layer in yaml: Testing for location related info
+    ## Second  Layer in yaml: Testing for location related info
 
     it 'HAPPY: should provide similar latitute' do
-      _(@store.map(&:location_lat)).must_equal   (
-        ans_sheet('geometry', @yaml_keys, PLACE_CORRECT, placei="place").map{|item| item['location']['lat']}.map(&:to_s)
+      _(@store.map(&:location_lat)).must_equal(
+        ans_sheet('geometry', @yaml_keys, PLACE_CORRECT, placei = 'place').map do |item|
+          item['location']['lat']
+        end.map(&:to_s)
       )
     end
 
-    
     it 'HAPPY: should provide similar longitude' do
-      _(@store.map(&:location_lng)).must_equal   (
-        ans_sheet('geometry', @yaml_keys, PLACE_CORRECT, placei="place").map{|item| item['location']['lng']}.map(&:to_s)
+      _(@store.map(&:location_lng)).must_equal(
+        ans_sheet('geometry', @yaml_keys, PLACE_CORRECT, placei = 'place').map do |item|
+          item['location']['lng']
+        end.map(&:to_s)
       )
     end
 

@@ -18,11 +18,9 @@ describe 'Integration Tests of Cafe API and Database' do
   describe 'Retrieve and store info' do
     before do
       DatabaseHelper.wipe_database
-      
     end
 
     it 'HAPPY: should be able to save Info from CafeNomad to database' do
-
       info = CafeMap::CafeNomad::InfoMapper.new(CAFE_TOKEN).load_several
       info.each do |each_info|
         rebuilt = Repository::For.entity(info).create(each_info)

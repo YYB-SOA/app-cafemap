@@ -46,3 +46,7 @@ def ans_sheet(target_attr, data_keys, correct, api_type = 'cafe')
     data_keys.map { |item| correct[item][target_attr] }
   end
 end
+
+def homepage
+  CafeMap::App.config.APP_HOST
+end
