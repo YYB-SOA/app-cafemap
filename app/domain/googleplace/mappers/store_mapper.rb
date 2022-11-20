@@ -1,6 +1,6 @@
 # frozen_string_literal: false
 
-require_relative '../../../infrastructure/google/place_api.rb'
+require_relative '../../../infrastructure/google/place_api'
 require_relative '../entities/store'
 require_relative 'storemixin'
 
@@ -41,7 +41,6 @@ module CafeMap
         def build_entity
           CafeMap::Entity::Store.new(
             place_id:,
-            # info_id: nil,
             name:,
             formatted_address:,
             location_lat:,

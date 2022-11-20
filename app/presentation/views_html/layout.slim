@@ -3,6 +3,7 @@ html
   head
     title CafeMap 
 
+
     / Bootstrap CSS and theme (United Theme)
     link{
       href="https://cdn.jsdelivr.net/npm/bootswatch@5.2.2/dist/cerulean/bootstrap.min.css"
@@ -30,11 +31,12 @@ html
       section
         .row style="vertical-align: middle;"
           .col-12
-            h1 
+            h1 id='main_header'
               a.text-underline-hover href="/" CafeMap
 
       section
+        include :flash_bar
         == yield
 
       footer
-        = "CafeMap  is made for demonstration purposes. "
+      = "CafeMap is made for demonstration purposes. We cannot warrant full correctness of all content. CafeMap may use cookies for sessions but does not track users."

@@ -1,14 +1,5 @@
 # frozen_string_literal: true
 
-def require_app(folders = %w[infrastructure models views controllers])
-  app_list = Array(folders).map { |folder| "app/#{folder}" }
-  full_list = ['config', app_list].flatten.join(',')
-
-  Dir.glob("./{#{full_list}}/**/*.rb").each do |file|
-    require file
-  end
-end
-
 module CafeMap
   module Repository
     # Repository for Info
@@ -29,6 +20,10 @@ module CafeMap
         Database::InfoOrm.first(name:)
       end
 
+      def self.find_all_city
+        Database::InfoOrm.all
+      end
+
       def self.all
         Database::InfoOrm.all.map { |each| rebuild_entity(each) }
       end
@@ -45,12 +40,16 @@ module CafeMap
         Database::InfoOrm.all.map(&:name)
       end
 
+      def self.wifi
+        Database::InfoOrm.all.map(&:wifi)
+      end
+
       # check if the data has already in db
       def self.create(entity)
-        unless find(entity)
-          db_info = PersistInfo.new(entity).create_info
-          rebuild_entity(db_info)
-        end
+        return if find(entity)
+
+        db_info = PersistInfo.new(entity).create_info
+        rebuild_entity(db_info)
       end
 
       def self.rebuild_entity(db_record)

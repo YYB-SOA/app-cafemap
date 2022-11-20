@@ -1,6 +1,6 @@
 ---
 status: ok
-amount: 3492
+amount: 3493
 header:
 - id
 - name
@@ -304,7 +304,7 @@ Full of Beans 充滿豆豆咖啡館{00971781:
   socket: 'yes'
   standing_desk: 'no'
   mrt: ''
-  open_time: '11:30~21:00每月單數週日及每週一店休 '
+  open_time: '11:30~20:00每月單數週日及每週一店休 '
 BeYou.té Café{00d2ea54:
   id: 00d2ea54-ed84-41c5-a857-4bd38504b28d
   name: BeYou.té Café
@@ -61327,6 +61327,25 @@ KNIGHT COFFEE騎士精品咖啡{eda55afd:
   limited_time: ''
   socket: ''
   standing_desk: ''
+  mrt: ''
+  open_time: ''
+加啤咖啡 +B CAFÉ{edad1d9d:
+  id: edad1d9d-d339-42aa-a7bb-2bd9ef5a02b5
+  name: 加啤咖啡 +B CAFÉ
+  city: changhua
+  wifi: 5
+  seat: 5
+  quiet: 5
+  tasty: 5
+  cheap: 4
+  music: 5
+  url: https://www.instagram.com/plusbcafe/
+  address: 彰化市延平路558號1樓
+  latitude: '24.06308540'
+  longitude: '120.53800660'
+  limited_time: maybe
+  socket: maybe
+  standing_desk: 'yes'
   mrt: ''
   open_time: ''
 Phoenix Roasteria 鳳焙吉林{edb4669c:
