@@ -17,6 +17,11 @@ gem 'slim', '~> 4'
 gem 'dry-struct', '~> 1'
 gem 'dry-types', '~> 1'
 
+# Controllers and services
+gem 'dry-monads', '~> 1.4'
+gem 'dry-transaction', '~> 0.13'
+gem 'dry-validation', '~> 1.7'
+
 # Networking
 gem 'http', '~> 5'
 

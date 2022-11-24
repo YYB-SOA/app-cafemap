@@ -33,9 +33,18 @@ module CafeMap
         session[:city] ||= []
 
         # Load previously viewed location
-        cities = Repository::For.klass(Entity::Info).find_all_city
-        session[:city] = cities.map(&:city)
-        flash.now[:notice] = 'Add a city name to get started' if cities.none?
+        result = Service::ListCities.new.call
+        # cities = Repository::For.klass(Entity::Info).find_all_city # 要改成 result
+
+        if result.failure?
+          flash[:error] = result.failure
+        else
+          cities = result.value!
+          if cities.none?
+            flash.now[:notice] = 'Add a city name to get started'
+          end
+          session[:city] = cities.map(&:city)
+        end
 
         # add our view_objects?
 
