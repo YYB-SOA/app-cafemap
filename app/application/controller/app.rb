@@ -55,57 +55,66 @@ module CafeMap
         routing.is do
           # POST /region/
           routing.post do
-            @user_wordterm = routing.params['The regional keyword you want to search (hsinchu)']
-            unless @user_wordterm &&
-                   Views::CityNames.new(@user_wordterm).legal_city?
-              flash[:error] = 'Empty city name filled in'
-              routing.halt 404
-              routing.redirect '/'
-            end
+
+            city_request = Forms::NewCity.new.call(routing.params)
+    
+            #@user_wordterm = routing.params['The regional keyword you want to search (hsinchu)']
+            # unless @user_wordterm &&
+            #        Views::CityNames.new(@user_wordterm).legal_city?
+            #   flash[:error] = 'Empty city name filled in'
+            #   routing.halt 404
+            #   routing.redirect '/'
+            # end
 
             # get info from cafenomad
-
-            begin
-              infos_data = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
-              filtered_infos_data = infos_data.select { |filter| filter.address.include? @user_wordterm }.shuffle
-            rescue StandardError
-              flash[:error] = 'Could not find that city in cafenomad'
+            info_made = Service::AddCafe.new.call(city_request)
+            if info_made.failure?
+              flash[:error] = info_made.failure
               routing.redirect '/'
             end
+            info = info_made.value!
 
-            @lock = 1
-            info = filtered_infos_data[0..@lock] # Random Entities Array
+            # begin
+            #   infos_data = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
+            #   filtered_infos_data = infos_data.select { |filter| filter.address.include? @user_wordterm }.shuffle
+            # rescue StandardError
+            #   flash[:error] = 'Could not find that city in cafenomad'
+            #   routing.redirect '/'
+            # end
+
+            # @lock = 1
+            # info = filtered_infos_data[0..@lock] # Random Entities Array
             session[:city].insert(0, info[1]).uniq!
-            info_allname = Repository::For.klass(Entity::Info).all_name
-            info_unrecorded = info.reject { |each_info| info_allname.include? each_info.name } # entities not in db
+            # info_allname = Repository::For.klass(Entity::Info).all_name
+            # info_unrecorded = info.reject { |each_info| info_allname.include? each_info.name } # entities not in db
 
-            # Add project to database
-            info_unrecorded.each do |each_unrecorded|
-              begin
-                Repository::For.entity(each_unrecorded).create(each_unrecorded)
-              rescue StandardError => e
-                routing.redirect '/'
-                flash[:error] = 'Having trouble accessing the info database'
-              end
+            # # Add info to database
+            # info_unrecorded.each do |each_unrecorded|
+            #   begin
+            #     Repository::For.entity(each_unrecorded).create(each_unrecorded)
+            #   rescue StandardError => e
+            #     routing.redirect '/'
+            #     flash[:error] = 'Having trouble accessing the info database'
+            #   end
 
-              begin
-                place_entity = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN,
-                                                               [each_unrecorded.name]).load_several
-                Repository::For.entity(place_entity[0]).create(place_entity[0], each_unrecorded.name)
-              rescue StandardError => e
-                routing.redirect '/'
-                flash[:error] = 'Having trouble accessing the store database'
-              end
+            #   begin
+            #     place_entity = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN,
+            #                                                    [each_unrecorded.name]).load_several
+            #     Repository::For.entity(place_entity[0]).create(place_entity[0], each_unrecorded.name)
+            #   rescue StandardError => e
+            #     routing.redirect '/'
+            #     flash[:error] = 'Having trouble accessing the store database'
+            #   end
 
-              begin
-                last_infoid = Repository::For.klass(Entity::Info).last_id
-                last_store = Repository::For.klass(Entity::Store).last
-                last_store.update(info_id: last_infoid)
-              rescue StandardError => e
-                routing.redirect '/'
-                flash[:error] = 'Having trouble making relation'
-              end
-            end
+            #   begin
+            #     last_infoid = Repository::For.klass(Entity::Info).last_id
+            #     last_store = Repository::For.klass(Entity::Store).last
+            #     last_store.update(info_id: last_infoid)
+            #   rescue StandardError => e
+            #     routing.redirect '/'
+            #     flash[:error] = 'Having trouble making relation'
+            #   end
+            # end
             routing.redirect "region/#{info[0].city}"
           end
         end
