@@ -53,7 +53,10 @@ module CafeMap
           # POST /region/
           routing.post do
             city_request = Forms::NewCity.new.call(routing.params)
+            # puts routing.params
+            # puts city_request
             info_made = Service::AddCafe.new.call(city_request)
+            # puts info_made
             if info_made.failure?
               flash[:error] = info_made.failure
               routing.redirect '/'
