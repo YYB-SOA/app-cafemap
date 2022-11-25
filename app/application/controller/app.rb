@@ -34,7 +34,6 @@ module CafeMap
 
         # Load previously viewed location
         result = Service::ListCities.new.call
-
         if result.failure?
           flash[:error] = result.failure
         else
@@ -42,8 +41,6 @@ module CafeMap
           flash.now[:notice] = 'Add a city name to get started' if cities.none?
           session[:city] = cities.map(&:city)
         end
-
-        # add our view_objects?
 
         view 'home'
       end
@@ -53,10 +50,7 @@ module CafeMap
           # POST /region/
           routing.post do
             city_request = Forms::NewCity.new.call(routing.params)
-            # puts routing.params
-            # puts city_request
             info_made = Service::AddCafe.new.call(city_request)
-            # puts info_made
             if info_made.failure?
               flash[:error] = info_made.failure
               routing.redirect '/'
@@ -85,7 +79,7 @@ module CafeMap
               routing.redirect '/'
             end
 
-            ip = CafeMap::UserIp::Api.new.ip
+            # ip = CafeMap::UserIp::Api.new.ip
             # Get Obj array
             google_data = filtered_info.map(&:store)
 
@@ -94,8 +88,7 @@ module CafeMap
             storestat = Views::StatStores.new(google_data)
 
             view 'region', locals: { infostat:,
-                                     storestat:,
-                                     ip: }
+                                     storestat: }
 
           rescue StandardError => e
             puts e.full_message
