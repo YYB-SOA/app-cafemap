@@ -4,6 +4,7 @@ require 'dry/transaction'
 
 module CafeMap
   module Service
+    # Transaction to store cafe data from CafeNomad API to database
     class AddCafe
       include Dry::Transaction
 
@@ -32,8 +33,8 @@ module CafeMap
       end
 
       def check_unrecorded(input)
-        @lock = 1
-        if (info = input[:filtered_infos_data][0..@lock])
+        lock = 1
+        if (info = input[:filtered_infos_data][0..lock])
           info_allname = Repository::For.klass(Entity::Info).all_name
           input[:info_unrecorded] = info.reject { |each_info| info_allname.include? each_info.name }
         end
@@ -55,7 +56,7 @@ module CafeMap
         end
         Success(info_unrecorded)
       rescue StandardError => e
-         Failure("Having trouble in building database")
+        Failure('Having trouble in building database')
       end
 
       def cafe_from_cafenomad(input)

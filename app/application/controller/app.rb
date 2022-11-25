@@ -23,7 +23,7 @@ module CafeMap
     end
 
     route do |routing|
-      # routing.assets # load CSS
+      routing.assets # load CSS
       response['Content-Type'] = 'text/html; charset=utf-8'
 
       # routing.public # ?
@@ -34,18 +34,13 @@ module CafeMap
 
         # Load previously viewed location
         result = Service::ListCities.new.call
-
         if result.failure?
           flash[:error] = result.failure
         else
           cities = result.value!
-          if cities.none?
-            flash.now[:notice] = 'Add a city name to get started'
-          end
+          flash.now[:notice] = 'Add a city name to get started' if cities.none?
           session[:city] = cities.map(&:city)
         end
-
-        # add our view_objects?
 
         view 'home'
       end
@@ -54,7 +49,6 @@ module CafeMap
         routing.is do
           # POST /region/
           routing.post do
-
             city_request = Forms::NewCity.new.call(routing.params)
             info_made = Service::AddCafe.new.call(city_request)
             if info_made.failure?
@@ -85,7 +79,7 @@ module CafeMap
               routing.redirect '/'
             end
 
-            ip = CafeMap::UserIp::Api.new.ip
+            # ip = CafeMap::UserIp::Api.new.ip
             # Get Obj array
             google_data = filtered_info.map(&:store)
 
@@ -94,8 +88,7 @@ module CafeMap
             storestat = Views::StatStores.new(google_data)
 
             view 'region', locals: { infostat:,
-                                     storestat:,
-                                     ip: }
+                                     storestat: }
 
           rescue StandardError => e
             puts e.full_message
@@ -111,15 +104,12 @@ module CafeMap
           else
             infos_data = result.value!
           end
-          # puts infos_data.map(&:wifi)
           ip = CafeMap::UserIp::Api.new.ip
           location = CafeMap::UserIp::Api.new.to_geoloc
-          $temp = []
           view 'map', locals: { info: infos_data,
                                 ip:,
                                 your_lat: location[0],
-                                your_long: location[1],
-                                uni_temp: $temp }
+                                your_long: location[1] }
         end
       end
     end

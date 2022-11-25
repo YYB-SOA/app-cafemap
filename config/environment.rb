@@ -5,32 +5,41 @@ require 'roda'
 require 'sequel'
 require 'yaml'
 require 'rack/session'
+require 'logger'
 
 module CafeMap
-  # Configuration for the App
+  # Environment-specific configuration
   class App < Roda
     plugin :environments
 
-    # rubocop:disable Lint/ConstantDefinitionInBlock
-    configure do
-      # Environment variables setup
-      Figaro.application = Figaro::Application.new(
-        environment:,
-        path: File.expand_path('config/secrets.yml')
-      )
-      Figaro.load
-      def self.config = Figaro.env
+    # Environment variables setup
+    Figaro.application = Figaro::Application.new(
+      environment:,
+      path: File.expand_path('config/secrets.yml')
+    )
+    Figaro.load
+    def self.config = Figaro.env
 
-      use Rack::Session::Cookie, secret: config.SESSION_SECRET
+    use Rack::Session::Cookie, secret: config.SESSION_SECRET
 
-      configure :development, :test do
-        ENV['DATABASE_URL'] = "sqlite://#{config.DB_FILENAME}"
-      end
-
-      # Database Setup
-      DB = Sequel.connect(ENV.fetch('DATABASE_URL'))
-      def self.DB = DB # rubocop:disable Naming/MethodName
+    configure :app_test do
+      require_relative '../spec/helpers/vcr_helper'
+      VcrHelper.setup_vcr
+      VcrHelper.configure_vcr_for_github(recording: :none)
     end
-    # rubocop:enable Lint/ConstantDefinitionInBlock
+
+    # Database Setup
+    configure :development, :test, :app_test do
+      require 'pry'; # for breakpoints
+      ENV['DATABASE_URL'] = "sqlite://#{config.DB_FILENAME}"
+    end
+
+    DB = Sequel.connect(ENV.fetch('DATABASE_URL'))
+    # deliberately :reek:UncommunicativeMethodName calling method DB
+    def self.DB = DB # rubocop:disable Naming/MethodName
+
+    # Logger Setup
+    LOGGER = Logger.new($stderr)
+    def self.logger = LOGGER
   end
 end
