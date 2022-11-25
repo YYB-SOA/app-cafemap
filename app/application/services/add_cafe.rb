@@ -4,6 +4,7 @@ require 'dry/transaction'
 
 module CafeMap
   module Service
+    # Transaction to store cafe data from CafeNomad API to database
     class AddCafe
       include Dry::Transaction
 
@@ -55,7 +56,7 @@ module CafeMap
         end
         Success(info_unrecorded)
       rescue StandardError => e
-         Failure("Having trouble in building database")
+        Failure('Having trouble in building database')
       end
 
       def cafe_from_cafenomad(input)

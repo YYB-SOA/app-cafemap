@@ -7,29 +7,33 @@ ruby File.read('.ruby-version').strip
 gem 'figaro', '~> 1.2'
 gem 'rake', '~> 13.0'
 
+# PRESENTATION LAYER
+gem 'slim', '~> 4.1'
+
+# APPLICATION LAYER
 # Web Application
 gem 'puma', '~> 5'
 gem 'rack-session', '~> 0.3'
 gem 'roda', '~> 3'
-gem 'slim', '~> 4'
-
-# Validation
-gem 'dry-struct', '~> 1'
-gem 'dry-types', '~> 1'
 
 # Controllers and services
 gem 'dry-monads', '~> 1.4'
 gem 'dry-transaction', '~> 0.13'
 gem 'dry-validation', '~> 1.7'
 
+# DOMAIN LAYER
+# Validation
+gem 'dry-struct', '~> 1'
+gem 'dry-types', '~> 1'
+
+# INFRASTRUCTURE LAYER
 # Networking
 gem 'http', '~> 5'
 
 # Database
-# gem 'hirb' , '~>0.5.0'
-# gem 'hirb-unicode'#, '~> 0'
+# gem 'hirb', '~> 0'
+# gem 'hirb-unicode', '~> 0'
 # gem 'unicode-display_width' ,'~> 1.5'
-
 gem 'sequel', '~> 5.49'
 
 group :development, :test do
@@ -49,6 +53,7 @@ group :test do
   gem 'webmock', '~> 3.0'
 
   gem 'headless', '~> 2.3'
+  gem 'page-object', '~> 2.3'
   gem 'watir', '~> 7.0'
   gem 'webdrivers', '~> 5.0'
 end

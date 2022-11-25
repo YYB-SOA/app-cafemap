@@ -23,7 +23,7 @@ module CafeMap
     end
 
     route do |routing|
-      # routing.assets # load CSS
+      routing.assets # load CSS
       response['Content-Type'] = 'text/html; charset=utf-8'
 
       # routing.public # ?
@@ -114,12 +114,11 @@ module CafeMap
           # puts infos_data.map(&:wifi)
           ip = CafeMap::UserIp::Api.new.ip
           location = CafeMap::UserIp::Api.new.to_geoloc
-          $temp = []
           view 'map', locals: { info: infos_data,
                                 ip:,
                                 your_lat: location[0],
                                 your_long: location[1],
-                                uni_temp: $temp }
+                                }
         end
       end
     end
