@@ -33,8 +33,8 @@ module CafeMap
       end
 
       def check_unrecorded(input)
-        @lock = 1
-        if (info = input[:filtered_infos_data][0..@lock])
+        lock = 1
+        if (info = input[:filtered_infos_data][0..lock])
           info_allname = Repository::For.klass(Entity::Info).all_name
           input[:info_unrecorded] = info.reject { |each_info| info_allname.include? each_info.name }
         end

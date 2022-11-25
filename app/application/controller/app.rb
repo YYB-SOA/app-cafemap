@@ -39,9 +39,7 @@ module CafeMap
           flash[:error] = result.failure
         else
           cities = result.value!
-          if cities.none?
-            flash.now[:notice] = 'Add a city name to get started'
-          end
+          flash.now[:notice] = 'Add a city name to get started' if cities.none?
           session[:city] = cities.map(&:city)
         end
 
@@ -54,7 +52,6 @@ module CafeMap
         routing.is do
           # POST /region/
           routing.post do
-
             city_request = Forms::NewCity.new.call(routing.params)
             info_made = Service::AddCafe.new.call(city_request)
             if info_made.failure?
@@ -111,14 +108,12 @@ module CafeMap
           else
             infos_data = result.value!
           end
-          # puts infos_data.map(&:wifi)
           ip = CafeMap::UserIp::Api.new.ip
           location = CafeMap::UserIp::Api.new.to_geoloc
           view 'map', locals: { info: infos_data,
                                 ip:,
                                 your_lat: location[0],
-                                your_long: location[1],
-                                }
+                                your_long: location[1] }
         end
       end
     end
