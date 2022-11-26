@@ -26,7 +26,7 @@ module CafeMap
       routing.assets # load CSS
       response['Content-Type'] = 'text/html; charset=utf-8'
 
-      # routing.public # ?
+      routing.public
 
       # GET /
       routing.root do
@@ -71,15 +71,14 @@ module CafeMap
             begin
               filtered_info = CafeMap::Database::InfoOrm.where(city:).all
               if filtered_info.nil?
-                flash[:error] = 'There is no cafe shop in the region'
+                flash[:error] = 'ArgumentError:nil obj returned. \n -- No cafe shop in the region-- \n'
                 routing.redirect '/'
               end
             rescue StandardError => e
-              flash[:error] = "Having trouble accessing database: error type: #{e}"
+              flash[:error] = "ERROR TYPE: #{e}-- Having trouble accessing database--"
               routing.redirect '/'
             end
 
-            # ip = CafeMap::UserIp::Api.new.ip
             # Get Obj array
             google_data = filtered_info.map(&:store)
 

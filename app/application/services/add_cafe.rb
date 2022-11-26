@@ -56,14 +56,14 @@ module CafeMap
         end
         Success(info_unrecorded)
       rescue StandardError => e
-        Failure('Having trouble in building database')
+        Failure("Having trouble in building database. #{e} ")
       end
 
       def cafe_from_cafenomad(input)
         infos_data = CafeMap::CafeNomad::InfoMapper.new(App.config.CAFE_TOKEN).load_several
         infos_data.select { |filter| filter.address.include? input[:city] }.shuffle
       rescue StandardError => e
-        raise 'Could not find that city on CafeNomad'
+        raise "Could not find that city on CafeNomad #{e}"
       end
     end
   end

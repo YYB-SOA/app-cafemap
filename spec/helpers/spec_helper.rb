@@ -24,7 +24,8 @@ FAKE_TOKEN = 'Fake_api'
 
 ## PLACE_API
 
-KEYWORD_FILTER = '新竹'
+# KEYWORD_FILTER = '新竹'
+CITY_DEFAULT = '新竹'
 TOKEN_NAME = 'Place_api'
 
 PLACE_TOKEN = CafeMap::App.config.PLACE_TOKEN
@@ -50,4 +51,12 @@ end
 # Helper method for acceptance tests
 def homepage
   CafeMap::App.config.APP_HOST
+end
+
+def includeChecker(rebuilt, sym, ans_db )
+  rebuilt.map(&sym).each do |item|
+      ans_db.include? (item)
+    rescue StandardError => e
+      print ("#{e}: #{item} is not in db yet")
+    end
 end
