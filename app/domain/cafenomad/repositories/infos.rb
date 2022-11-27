@@ -40,10 +40,41 @@ module CafeMap
         Database::InfoOrm.all.map(&:name)
       end
 
-      def self.wifi
+      def self.all_name
+        Database::InfoOrm.all.map(&:name)
+      end
+
+      def self.all_wifi
         Database::InfoOrm.all.map(&:wifi)
       end
 
+      def self.all_quiet
+        Database::InfoOrm.all.map(&:quiet)
+      end
+
+      def self.all_tasty
+        Database::InfoOrm.all.map(&:tasty)
+      end
+
+      def self.all_cheap
+        Database::InfoOrm.all.map(&:cheap)
+      end
+
+      def self.all_music
+        Database::InfoOrm.all.map(&:music)
+      end
+
+      def self.all_latitude
+        Database::InfoOrm.all.map(&:latitude)
+      end
+
+      def self.all_longitude
+        Database::InfoOrm.all.map(&:longitude)
+      end
+
+      def self.all_address
+        Database::InfoOrm.all.map(&:address)
+      end
       # check if the data has already in db
       def self.create(entity)
         return if find(entity)
