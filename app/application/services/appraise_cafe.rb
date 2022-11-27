@@ -1,10 +1,7 @@
-# frozen_string_literal: true
-
 require 'dry/monads'
 
 module CafeMap
   module Service
-    # Retrieves array of all listed cafe entities
     class AppraiseCafe
       include Dry::Monads::Result::Mixin
       def call

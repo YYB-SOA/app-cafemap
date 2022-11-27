@@ -4,7 +4,6 @@ require 'dry-validation'
 
 module CafeMap
   module Forms
-    # forms inputs validation
     class NewCity < Dry::Validation::Contract
       good_city_ch = %w[台北 新北 基隆 宜蘭 新竹 桃園
                         苗栗 彰化 南投 雲林 台中 嘉義 台南 高雄

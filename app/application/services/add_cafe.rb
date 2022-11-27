@@ -46,12 +46,12 @@ module CafeMap
       def store_info(input)
         info_unrecorded = input[:info_unrecorded]
         info_unrecorded.each do |each_unrecorded|
-          Repository::For.entity(each_unrecorded).create(each_unrecorded)
+          connect_database(each_unrecorded).create(each_unrecorded) 
           place_entity = CafeMap::Place::StoreMapper.new(App.config.PLACE_TOKEN,
                                                          [each_unrecorded.name]).load_several
-          Repository::For.entity(place_entity[0]).create(place_entity[0], each_unrecorded.name)
-          last_infoid = Repository::For.klass(Entity::Info).last_id
-          last_store = Repository::For.klass(Entity::Store).last
+          connect_database(place_entity[0]).create(place_entity[0], each_unrecorded.name)
+          last_infoid = connect_database(each_unrecorded).last_id
+          last_store = connect_database(place_entity[0]).last
           last_store.update(info_id: last_infoid)
         end
         Success(info_unrecorded)
@@ -64,6 +64,10 @@ module CafeMap
         infos_data.select { |filter| filter.address.include? input[:city] }.shuffle
       rescue StandardError => e
         raise "Could not find that city on CafeNomad #{e}"
+      end
+
+      def connect_database(entity)
+        Repository::For.entity(entity)
       end
     end
   end
