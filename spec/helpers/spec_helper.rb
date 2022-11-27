@@ -54,9 +54,13 @@ def homepage
 end
 
 def includeChecker(rebuilt, sym, ans_db )
-  rebuilt.map(&sym).each do |item|
-      ans_db.include? (item)
-    rescue StandardError => e
-      print ("#{e}: #{item} is not in db yet")
+  error = true
+    rebuilt.map(&sym).each do |item|
+      unless ans_db.include?(item)
+          print("IncludeChecker: unexpected stuff happended. symbol: #{sym}\n\n")
+          error = false
+        break
+      end
     end
+    error
 end
