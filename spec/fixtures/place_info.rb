@@ -16,13 +16,13 @@ def data_clean(store_name)
   store_name.map { |name_str| name_str.gsub('()', '').gsub(' ', '').gsub("\b", '') }
 end
 
-def placeapi_token
+def get_placeapi_token # rubocop:disable Naming/AccessorMethodName
   config_yaml = YAML.safe_load(File.read('config/secrets.yml'))
   config_yaml['test']['PLACE_TOKEN']
 end
 
 def call_placeapi_url(filter_store)
-  token = placeapi_token
+  token = get_placeapi_token
   HTTP.get("https://maps.googleapis.com/maps/api/place/textsearch/json?query=#{filter_store}&key=#{token}&language=zh-TW")
 end
 
@@ -39,7 +39,7 @@ def call_placeapi_storename(clean_name, dist)
   end
 end
 
-def limited_ans_sheet_builder(source, dist, limit: true)
+def limited_ans_sheet_builder(source, dist, limit = true) # rubocop:disable Style/OptionalBooleanParameter, Style/OptionalBooleanParameter
   # call & filter
   cafe_raw = YAML.load_file(source)
   filtered_store = location_filter(cafe_raw, 'city', 'hsinchu')
@@ -50,4 +50,4 @@ def limited_ans_sheet_builder(source, dist, limit: true)
   call_placeapi_storename(clean_name, dist)
 end
 
-limited_ans_sheet_builder('spec/fixtures/cafe_results.yml', 'spec/fixtures/place_results.yml', true)
+limited_ans_sheet_builder('spec/fixtures/cafe_results.yml', 'spec/fixtures/place_results.yml', limit = true) # rubocop:disable Lint/UselessAssignment

@@ -17,7 +17,7 @@ module VcrHelper
     end
   end
 
-  def self.configure_vcr_for_place
+  def self.configure_vcr_for_place(recording: :new_episodes)
     VCR.configure do |config|
       config.filter_sensitive_data('<PLACE_TOKEN>') { PLACE_TOKEN }
       config.filter_sensitive_data('<PLACE_TOKEN_ESC>') { CGI.escape(PLACE_TOKEN) }
@@ -25,12 +25,13 @@ module VcrHelper
 
     VCR.insert_cassette(
       PLACE_CASSETTE,
-      record: :new_episodes,
-      match_requests_on: %i[method uri headers]
+      record: recording,
+      match_requests_on: %i[method uri headers],
+      allow_playback_repeats: true
     )
   end
 
-  def self.configure_vcr_for_cafe
+  def self.configure_vcr_for_cafe(recording: :new_episodes)
     VCR.configure do |c|
       c.filter_sensitive_data('<PLACE_TOKEN>') { CAFE_TOKEN }
       c.filter_sensitive_data('<PLACE_TOKEN_ESC>') { CGI.escape(CAFE_TOKEN) }
@@ -38,8 +39,9 @@ module VcrHelper
 
     VCR.insert_cassette(
       CAFE_CASSETTE,
-      record: :new_episodes,
-      match_requests_on: %i[method uri headers]
+      record: recording,
+      match_requests_on: %i[method uri headers],
+      allow_playback_repeats: true
     )
   end
 

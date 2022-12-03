@@ -20,6 +20,8 @@ end
 #   sh 'ruby spec/tests/acceptance/acceptance_spec.rb'
 # end
 
+
+
 desc 'Keep rerunning unit/integration tests upon changes'
 task :respec do
   sh "rerun -c 'rake spec' --ignore 'coverage/*' --ignore 'repostore/*'"
@@ -38,7 +40,7 @@ end
 desc 'Generates a 64 by secret for Rack::Session'
 task :new_session_secret do
   require 'base64'
-  require 'SecureRandom'
+  require 'securerandom'
   secret = SecureRandom.random_bytes(64).then { Base64.urlsafe_encode64(_1) }
   puts "SESSION_SECRET: #{secret}"
 end

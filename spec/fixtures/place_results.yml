@@ -24,7 +24,7 @@ WHO'S喜象CAFE:
     - height: 3468
       html_attributions:
       - <a href="https://maps.google.com/maps/contrib/101154546347312496566">芸漀吳</a>
-      photo_reference: AW30NDyMSPh0wey7zIX6FqhztTEu-lSbVpNyMoLhwt6cgM5tsyxKnVZ3UrkTG1Ieiqz3iVPmVG_6jH-rIpy5PCIF0uqhKvamWoT7-SJ2H1CTi0caa5Si-mlAMUvWNvxzoogp1ZGz1qrfld642kPG8qCgapL159-3y5rhqTITdilBdLWV-KDK
+      photo_reference: AW30NDyHptLsJoTCWqma5LN3EmrYbiFU1mgg5LDLmgIHuy6Q-XmK9tBkzqU2KqUQVDZQJFWEWSL5vZvhY0_zAXlXnVXG9XoL-U9UuOxin3gT2Ytrrj2N96uzwKRNG16z6_JqzkNQm5jy-3iT2CfWYpa65LXsKafuDhnDdRUdmMV79gyDYqST
       width: 4624
     place_id: ChIJnyawAAc2aDQRsweZWTh80d8
     plus_code:
@@ -34,8 +34,8 @@ WHO'S喜象CAFE:
     reference: ChIJnyawAAc2aDQRsweZWTh80d8
     types:
     - cafe
-    - point_of_interest
     - food
+    - point_of_interest
     - establishment
     user_ratings_total: 52
   status: OK
@@ -63,7 +63,7 @@ ARTROOM14藝室:
     - height: 3900
       html_attributions:
       - <a href="https://maps.google.com/maps/contrib/105668604756257969526">陳承志</a>
-      photo_reference: AW30NDwQzHNyhZdX07t2CGIPJoDOz4JEZHWyms1OvJV_ZRhS8XcGpPiYTSlX-DeGFS4PWrT70wfGG9tDF0y-_097S3rjVyo9oIEbIoEa9bTaox7GLTSA9lBVkW-aGsrkNk6bcS5scGsrf_AKIGzt832zl38gvCqHEJ9k6Lbiy4hkz_a1xGfS
+      photo_reference: AW30NDyt8ndFXsa4ukCMJNceubICe40WKj2DMbjqiKNAKO_VqqbJY82bce2CkbkbwzHYaA1KJ_VvCmaQo-6QuUGj4KDYfoGTY1FBAPsm6GzbEID0fB0E82ymwkUGW4Gfj4NyWb1iPUI6cpVYQh3jo6TreFtXhSIfR8vjEJdfdwU48jkFrtJC
       width: 6298
     place_id: ChIJC2c7HFc1aDQRdtptswP3kko
     plus_code:
@@ -104,7 +104,7 @@ ARTROOM14藝室:
       html_attributions:
       - <a href="https://maps.google.com/maps/contrib/105686929950519879600">SHOOTA
         CHEN</a>
-      photo_reference: AW30NDwU3Rip2fK_deWS6ajAXLBuPUmnUGFQQ0q6QBdzKQg5f_tE5S1pT9KP2xQJFkMP45ePhFAiPLMHCmnKUX6i4xmp2P1tPGkL5e_Fbc1y3WFi9PAO-BIzB59dkJzG1eJdfUYn0fMqmK-m_-RGum-A8nexXuJ46TKkNjeKzUT8qJoNe5it
+      photo_reference: AW30NDxMHTkKRTUGGIvjFYJNV6vuOjW_bOTdld8KwZP2DsgAnjmH9rzhDB5PNEUwuKcswNuMXukduUsEUQw0GAt-4wVjph1_KfLABXT6qLmWCusZSJcNosfAI3ruPIo_MceWmrQW2NNrX3kyhrEXxnHSGWqknI3hkn3FI81QmhrypCCSwDz_
       width: 4032
     place_id: ChIJuUN50Ro3aDQR2yyuhfbfKfw
     plus_code:
@@ -118,7 +118,7 @@ ARTROOM14藝室:
     - food
     - point_of_interest
     - establishment
-    user_ratings_total: 246
+    user_ratings_total: 256
   - business_status: OPERATIONAL
     formatted_address: 100050台灣台北市中正區汀州路三段69號
     geometry:
@@ -143,7 +143,7 @@ ARTROOM14藝室:
       html_attributions:
       - <a href="https://maps.google.com/maps/contrib/106079198152087547302">A Google
         User</a>
-      photo_reference: AW30NDzAVQc64-_oN0zlrdm4iWS4BP3K6KQytQ6jxdIN4jH6hmed9Ahba1x7KYeXhpkGBYSL_w6cxF96vKIMufTxOe_2x0GlEmAhjF0XJwPUYz16vd8IX8bLle7xlL61CTU2SZKN3WJGleC-_7kf340wqwWFYxzVht11icv6wDAsv-nRGh-4
+      photo_reference: AW30NDyO4pNTJ3nmodbOMdJRHREVwaqNtOVAfPNLTjFWf2aTMXHa2_thNRtVAYXIPtcvw3xZNxWCy1IAER72nRPxoKdJmGr1iXDM1jdwTEqy3baMrea0vApJrjt2kdL6JBLpmhFZ-PGVKjpmHAt11sH9caQ14QHGFkweMpqS-9a0c5WqXBxM
       width: 4032
     place_id: ChIJrXLxZd6pQjQRCGqYAj-ZWU0
     plus_code:
@@ -181,7 +181,7 @@ ARTROOM14藝室:
     - height: 3024
       html_attributions:
       - <a href="https://maps.google.com/maps/contrib/115636234835551221970">明漢</a>
-      photo_reference: AW30NDyCljxEwwAPm5mEWsQv2fOj7L86J6W9S9hqPdb8gxcoM1TripzCbjuVrK64SM3C8xpxVrAk8DT_HWCK_2ADDgcQ-grrdkQMBe2GV-xefhnD_o65o2UNgwJ4-IeTbp2AEIOPq9lP2iHdhBWteNhifK7icODWM2HjinAUSoK8eqJE-GxK
+      photo_reference: AW30NDzcLJ30vuWb-OyFjA5a0l0RWaL5BgQky2BbddazjM1WOydFXnpPncXUAxmSnyGfVtUihaudcPNbf-dIGrlWw0tsSZegHxTh0BGM89glv92-58F7HHQioBd2sCKo5lt3YU_g4KuOxdYC0tmJI6PcnkvWq64P80y9fs6BxZ3qPQe9vXAH
       width: 4032
     place_id: ChIJ68roDBgEaTQR7cEYOdDAv6A
     plus_code:
@@ -195,5 +195,5 @@ ARTROOM14藝室:
     - food
     - point_of_interest
     - establishment
-    user_ratings_total: 456
+    user_ratings_total: 457
   status: OK
