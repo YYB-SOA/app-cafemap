@@ -7,6 +7,7 @@ require 'descriptive_statistics'
 module CafeMap
   # Web App
   class App < Roda
+    # include RouteHelpers
     plugin :render, engine: 'slim', views: 'app/presentation/views_html'
     plugin :public, root: 'app/presentation/public'
     plugin :assets, path: 'app/presentation/assets', css: 'style.css', js: 'table_row.js'
@@ -15,6 +16,7 @@ module CafeMap
     plugin :all_verbs
     plugin :status_handler
     plugin :flash
+    # plugin :cashing
 
     # use Rack::MethodOverride # allows HTTP verbs beyond GET/POST (e.g., DELETE)
 
@@ -31,16 +33,15 @@ module CafeMap
       # GET /
       routing.root do
         session[:city] ||= []
-
         # Load previously viewed location
-        result = Service::ListCities.new.call
-        if result.failure?
-          flash[:error] = result.failure
-        else
-          cities = result.value!
-          flash.now[:notice] = 'Add a city name to get started' if cities.none?
-          session[:city] = cities.map(&:city)
-        end
+        # result = Service::ListCities.new.call
+        # if result.failure?
+        #   flash[:error] = result.failure
+        # else
+        #   cities = result.value!
+        #   flash.now[:notice] = 'Add a city name to get started' if cities.none?
+        #   session[:city] = cities.map(&:city)
+        # end
 
         view 'home'
       end
@@ -57,7 +58,7 @@ module CafeMap
             end
             info = info_made.value!
             session[:city].insert(0, info[1]).uniq!
-            routing.redirect "region/#{info[0].city}"
+            routing.redirect "region/hsinchu"
           end
         end
 
@@ -92,23 +93,6 @@ module CafeMap
           rescue StandardError => e
             puts e.full_message
           end
-        end
-      end
-
-      routing.on 'map' do
-        routing.get do
-          result = CafeMap::Service::AppraiseCafe.new.call
-          if result.failure?
-            flash[:error] = result.failure
-          else
-            infos_data = result.value!
-          end
-          ip = CafeMap::UserIp::Api.new.ip
-          location = CafeMap::UserIp::Api.new.to_geoloc
-          view 'map', locals: { info: infos_data,
-                                ip:,
-                                your_lat: location[0],
-                                your_long: location[1] }
         end
       end
     end

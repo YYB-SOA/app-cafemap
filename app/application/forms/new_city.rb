@@ -16,7 +16,7 @@ module CafeMap
       end
       rule(:city_name) do
         unless good_city_ch.include?(value) | good_city_en.include?(value) | good_city_en.map(&:downcase).include?(value)
-          key.failure('is an invalid city for CafeMap')
+          key.failure('It is an invalid city for CafeMap')
         end
       end
     end

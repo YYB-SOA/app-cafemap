@@ -8,7 +8,7 @@ module CafeMap
     class ListCities
       include Dry::Monads::Result::Mixin
       def call
-        cities = Repository::For.klass(Entity::Info).find_all_city
+        cities = CafeMap::Repository::For.klass(Entity::Info).find_all_city
         Success(cities)
       end
     rescue StandardError
