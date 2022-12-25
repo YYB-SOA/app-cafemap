@@ -6,6 +6,7 @@ require 'sequel'
 require 'yaml'
 require 'rack/session'
 require 'logger'
+require 'openssl'
 
 module CafeMap
   # Environment-specific configuration
@@ -19,6 +20,8 @@ module CafeMap
     )
     Figaro.load
     def self.config = Figaro.env
+    Figaro.env.force_ssl
+
 
     use Rack::Session::Cookie, secret: config.SESSION_SECRET
 

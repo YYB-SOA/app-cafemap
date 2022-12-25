@@ -32,7 +32,7 @@ module CafeMap
 
       # GET /
       routing.root do
-        session[:city] ||= []
+        # session[:city] ||= []
         # Load previously viewed location
         # result = Service::ListCities.new.call
         # if result.failure?
@@ -57,8 +57,9 @@ module CafeMap
               routing.redirect '/'
             end
             info = info_made.value!
-            session[:city].insert(0, info[1]).uniq!
-            routing.redirect "region/hsinchu"
+            puts info['infos'][0]['city']
+            # session[:city].insert(0, info['infos'][0]['city']).uniq!
+            routing.redirect "region/#{info['infos'][0]['city']}"
           end
         end
 
@@ -69,21 +70,23 @@ module CafeMap
 
           # GET /cafe/region
           routing.get do
-            begin
-              filtered_info = CafeMap::Database::InfoOrm.where(city:).all
-              if filtered_info.nil?
-                flash[:error] = 'ArgumentError:nil obj returned. \n -- No cafe shop in the region-- \n'
-                routing.redirect '/'
-              end
-            rescue StandardError => e
-              flash[:error] = "ERROR TYPE: #{e}-- Having trouble accessing database--"
+            info_get = Service::GetCafe.new.call(city)
+            if info_get.failure?
+              flash[:error] = info_made.failure
               routing.redirect '/'
             end
 
-            # Get Obj array
-            google_data = filtered_info.map(&:store)
+            info = info_get.value!
+            filtered_info = info['infos']
+            google_data = info['stores']
 
-            # Get Value object
+            # rescue StandardError => e
+            #   flash[:error] = "ERROR TYPE: #{e}-- Having trouble accessing database--"
+            #   routing.redirect '/'
+            # # Get Obj array
+            # google_data = filtered_info.map(&:store)
+
+            # # Get Value object
             infostat = Views::StatInfos.new(filtered_info)
             storestat = Views::StatStores.new(google_data)
 

@@ -24,8 +24,8 @@ module CafeMap
         @request.add_cafeinfo(city)
       end
 
-      def add_project(owner_name, project_name)
-        @request.add_project(owner_name, project_name)
+      def get_cafeinfo(city)
+        @request.get_cafeinfo(city)
       end
 
       # Gets appraisal of a project folder rom API
@@ -47,12 +47,13 @@ module CafeMap
         end
 
         def add_cafeinfo(city)
-          call_api('post', ["cafemap", "random_store"], 'city' => Base64.encode64(city))
+          # call_api('post', ["cafemap", "random_store"], 'city' => Base64.encode64(city))
+          # call_api('post', ["cafemap", "random_store"], 'city' => 'Taipei')
+          call_api('post', ["cafemap", "random_store"], 'city' => city)
         end
 
-        def get_appraisal(req)
-          call_api('get', ['projects',
-                           req.owner_name, req.project_name, req.folder_name])
+        def get_cafeinfo(city)
+          call_api('get', ['cafemap'], 'city' => city)
         end
 
         private
@@ -65,7 +66,6 @@ module CafeMap
         def call_api(method, resources = [], params = {})
           api_path = resources.empty? ? @api_host : @api_root
           url = [api_path, resources].flatten.join('/') + params_str(params)
-          puts url
           HTTP.headers('Accept' => 'application/json').send(method, url)
             .then { |http_response| Response.new(http_response) }
         rescue StandardError
