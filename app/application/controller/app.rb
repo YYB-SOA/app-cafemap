@@ -16,6 +16,7 @@ module CafeMap
     plugin :all_verbs
     plugin :status_handler
     plugin :flash
+    plugin :caching
     # plugin :cashing
 
     # use Rack::MethodOverride # allows HTTP verbs beyond GET/POST (e.g., DELETE)
@@ -32,6 +33,7 @@ module CafeMap
 
       # GET /
       routing.root do
+        session[:city] = []
         # session[:city] ||= []
         # Load previously viewed location
         # result = Service::ListCities.new.call
@@ -79,22 +81,33 @@ module CafeMap
             info = info_get.value!
             filtered_info = info['infos']
             google_data = info['stores']
-
-            # rescue StandardError => e
-            #   flash[:error] = "ERROR TYPE: #{e}-- Having trouble accessing database--"
-            #   routing.redirect '/'
-            # # Get Obj array
-            # google_data = filtered_info.map(&:store)
-
-            # # Get Value object
             infostat = Views::StatInfos.new(filtered_info)
             storestat = Views::StatStores.new(google_data)
-
+            response.expires 60, public: true
             view 'region', locals: { infostat:,
                                      storestat: }
 
           rescue StandardError => e
             puts e.full_message
+          end
+        end
+      end
+      routing.on "cluster" do
+        routing.is do
+          routing.get do
+            cluster_request = Forms::NewCluster.new.call(routing.params)
+            get_cluster= Service::GetCluster.new.call(cluster_request)
+            if get_cluster.failure?
+              flash[:error] = get_cluster.failure
+              routing.redirect '/'
+            end
+            cluster = get_cluster.value!
+            cluster_info = cluster["clusters"]
+            puts cluster_info
+            puts cluster_info[0]
+            puts cluster_info[1]
+            cluster_view = Views::ClusterData.new(cluster_info)
+            view 'cluster', locals: { cluster_view:}
           end
         end
       end

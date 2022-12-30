@@ -108,7 +108,24 @@
     button.carousel-control-next data-bs-slide="next" data-bs-target="#carouselExampleIndicators" type="button" 
       span.carousel-control-next-icon aria-hidden="true" 
       span.visually-hidden Next
-
+.container
+  form role="form" action="/cluster" method='GET' id='show-store-form'
+    .row.vertical-align.query-bar
+      .col-md-2.col-sm-3
+        .text-right Cluster City :
+      .col-md-8.col-sm-6
+        input { 
+          type='text' name='cluster_city'
+          id='cluster' class="form-control"
+          placeholder="e.g. 彰化"
+        }
+      .col-md-2.col-sm-3
+        button { 
+          type='submit' id='repo-form-submit' class='submit' 
+          value='submit' class="btn btn-success" 
+        } Cluster!
+    .row
+      .col-md-8.col-sm-6
 .container
   a.button.btn.btn-primary href="/map" role="button" type="button"  recommendation
 

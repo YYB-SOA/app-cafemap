@@ -24,8 +24,8 @@ module CafeMap
         @request.add_cafeinfo(city)
       end
 
-      def get_cafeinfo(city)
-        @request.get_cafeinfo(city)
+      def get_cluster(city)
+        @request.get_cluster(city)
       end
 
       # Gets appraisal of a project folder rom API
@@ -54,6 +54,10 @@ module CafeMap
 
         def get_cafeinfo(city)
           call_api('get', ['cafemap'], 'city' => city)
+        end
+
+        def get_cluster(city)
+          call_api('get', ['cafemap', "clusters"], 'city' => city)
         end
 
         private
