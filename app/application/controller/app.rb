@@ -17,7 +17,6 @@ module CafeMap
     plugin :status_handler
     plugin :flash
     plugin :caching
-    # plugin :cashing
 
     # use Rack::MethodOverride # allows HTTP verbs beyond GET/POST (e.g., DELETE)
 
@@ -83,7 +82,6 @@ module CafeMap
             google_data = info['stores']
             infostat = Views::StatInfos.new(filtered_info)
             storestat = Views::StatStores.new(google_data)
-            response.expires 60, public: true
             view 'region', locals: { infostat:,
                                      storestat: }
 
@@ -103,10 +101,8 @@ module CafeMap
             end
             cluster = get_cluster.value!
             cluster_info = cluster["clusters"]
-            puts cluster_info
-            puts cluster_info[0]
-            puts cluster_info[1]
             cluster_view = Views::ClusterData.new(cluster_info)
+            response.expires 60, public: true
             view 'cluster', locals: { cluster_view:}
           end
         end
