@@ -24,6 +24,11 @@ module CafeMap
         @request.add_cafeinfo(city)
       end
 
+      def get_cafeinfo(city)
+        @request.get_cafeinfo(city)
+      end
+
+
       def get_cluster(city)
         @request.get_cluster(city)
       end
