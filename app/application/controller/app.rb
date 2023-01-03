@@ -90,20 +90,26 @@ module CafeMap
           end
         end
       end
-      routing.on "cluster" do
+      routing.on 'cluster' do
         routing.is do
           routing.get do
             cluster_request = Forms::NewCluster.new.call(routing.params)
-            get_cluster= Service::GetCluster.new.call(cluster_request)
+            get_cluster = Service::GetCluster.new.call(cluster_request)
             if get_cluster.failure?
               flash[:error] = get_cluster.failure
               routing.redirect '/'
             end
+
             cluster = get_cluster.value!
-            cluster_info = cluster["clusters"]
+            cluster_info = cluster['clusters']
+            if cluster_info.nil?
+              flash[:notice] = 'CafeMAp is clustering now, ' \
+                               'please check back in a moment.'
+              routing.redirect '/'
+            end
             cluster_view = Views::ClusterData.new(cluster_info)
-            response.expires 60, public: true
-            view 'cluster', locals: { cluster_view:}
+            # response.expires 60, public: true
+            view 'cluster', locals: { cluster_view: }
           end
         end
       end
