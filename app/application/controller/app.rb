@@ -3,6 +3,7 @@
 require 'roda'
 require 'slim/include'
 require 'descriptive_statistics'
+require 'json'
 
 module CafeMap
   # Web App
@@ -95,21 +96,25 @@ module CafeMap
           routing.get do
             cluster_request = Forms::NewCluster.new.call(routing.params)
             get_cluster = Service::GetCluster.new.call(cluster_request)
+            
             if get_cluster.failure?
               flash[:error] = get_cluster.failure
               routing.redirect '/'
             end
 
-            cluster = get_cluster.value!
-            cluster_info = cluster['clusters']
-            if cluster_info.nil?
-              flash[:notice] = 'CafeMAp is clustering now, ' \
-                               'please check back in a moment.'
-              routing.redirect '/'
+            cluster = OpenStruct.new(get_cluster.value!)
+            
+            if cluster.response.processing?
+              flash.now[:notice] = 'The CafeInfo is being clustered'
+            else
+              cluster_info = cluster.cluster_info.clusters
+              cluster_view = Views::ClusterData.new(cluster_info)
             end
-            cluster_view = Views::ClusterData.new(cluster_info)
-            # response.expires 60, public: true
-            view 'cluster', locals: { cluster_view: }
+
+            processing = Views::ClusterProcessing.new(
+              App.config, cluster.response
+            )
+            view 'cluster', locals: { cluster_view: , processing:}
           end
         end
       end

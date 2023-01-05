@@ -23,19 +23,27 @@ module CafeMap
       end
 
       def request_cluster(input)
-        result = Gateway::Api.new(CafeMap::App.config).get_cluster(input[:cluster_name])
-        result.success? ? Success(result.payload) : Failure(result.message)
+        input[:response] = Gateway::Api.new(CafeMap::App.config).get_cluster(input[:cluster_name])
+        # puts "mes:", result.message
+        # puts "pay:", result.payload
+        # puts "rs:", result.success?
+  
+        input[:response].success? ? Success(input) : Failure(input[:response].message)
       rescue StandardError => e
         puts e.inspect
         puts e.backtrace
         Failure('Cannot add cafeinfo right now; please try again later')
       end
 
-      def reify_cluster(cluster_json)
-        Representer::ClusterList.new(OpenStruct.new)
-          .from_json(cluster_json)
-          .then { |cluster| Success(cluster) }
+      def reify_cluster(input)
+        unless input[:response].processing?
+          Representer::ClusterList.new(OpenStruct.new)
+            .from_json(input[:response].payload)
+            .then {input[:cluster_info] = _1}
+        end
+        Success(input)
       rescue StandardError => e
+        puts e
         Failure(e)
         # 'Error in the project -- please try again'
       end
