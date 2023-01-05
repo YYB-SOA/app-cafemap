@@ -29,7 +29,7 @@
                 th scope="col"  Address
                 th scope="col"  Google Rating
                 th scope="col"  Reviewer
-                / th scope="col"  Standardized Rating
+                th scope="col"  Standardized Rating
                 th scope="col"  Nomalization Rating
             tbody
               - infostat.entity.each_with_index  do |info_obj, index|
@@ -48,10 +48,11 @@
                 td #{info_obj.address}
                 
                 / googel api data 
-                td #{rating = info_obj.store.map(&:rating).first.to_f }
-                td #{info_obj.store.map(&:user_ratings_total).first}
+                td #{rating = storestat.entity[index].rating.to_f }
+                td #{storestat.entity[index].user_ratings_total}
+                / td #{info_obj.store.map(&:user_ratings_total).first}
 
                 / stat features
-                / td #{standard_deviation = (rating - (storestat.mean) / (storestat.standard_deviation)).round(2)}
+                td #{standard_deviation = (rating - (storestat.mean) / (storestat.standard_deviation)).round(2)}
                 td #{((rating + storestat.scaling_parameter['min_range'])* storestat.scaling_parameter['shrink_value']).round(2)}
             .row

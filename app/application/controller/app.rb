@@ -3,10 +3,12 @@
 require 'roda'
 require 'slim/include'
 require 'descriptive_statistics'
+require 'json'
 
 module CafeMap
   # Web App
   class App < Roda
+    # include RouteHelpers
     plugin :render, engine: 'slim', views: 'app/presentation/views_html'
     plugin :public, root: 'app/presentation/public'
     plugin :assets, path: 'app/presentation/assets', css: 'style.css', js: 'table_row.js'
@@ -15,6 +17,7 @@ module CafeMap
     plugin :all_verbs
     plugin :status_handler
     plugin :flash
+    plugin :caching
 
     # use Rack::MethodOverride # allows HTTP verbs beyond GET/POST (e.g., DELETE)
 
@@ -30,17 +33,17 @@ module CafeMap
 
       # GET /
       routing.root do
-        session[:city] ||= []
-
+        session[:city] = []
+        # session[:city] ||= []
         # Load previously viewed location
-        result = Service::ListCities.new.call
-        if result.failure?
-          flash[:error] = result.failure
-        else
-          cities = result.value!
-          flash.now[:notice] = 'Add a city name to get started' if cities.none?
-          session[:city] = cities.map(&:city)
-        end
+        # result = Service::ListCities.new.call
+        # if result.failure?
+        #   flash[:error] = result.failure
+        # else
+        #   cities = result.value!
+        #   flash.now[:notice] = 'Add a city name to get started' if cities.none?
+        #   session[:city] = cities.map(&:city)
+        # end
 
         view 'home'
       end
@@ -56,8 +59,9 @@ module CafeMap
               routing.redirect '/'
             end
             info = info_made.value!
-            session[:city].insert(0, info[1]).uniq!
-            routing.redirect "region/#{info[0].city}"
+            puts info['infos'][0]['city']
+            # session[:city].insert(0, info['infos'][0]['city']).uniq!
+            routing.redirect "region/#{info['infos'][0]['city']}"
           end
         end
 
@@ -68,24 +72,17 @@ module CafeMap
 
           # GET /cafe/region
           routing.get do
-            begin
-              filtered_info = CafeMap::Database::InfoOrm.where(city:).all
-              if filtered_info.nil?
-                flash[:error] = 'ArgumentError:nil obj returned. \n -- No cafe shop in the region-- \n'
-                routing.redirect '/'
-              end
-            rescue StandardError => e
-              flash[:error] = "ERROR TYPE: #{e}-- Having trouble accessing database--"
+            info_get = Service::GetCafe.new.call(city)
+            if info_get.failure?
+              flash[:error] = info_made.failure
               routing.redirect '/'
             end
 
-            # Get Obj array
-            google_data = filtered_info.map(&:store)
-
-            # Get Value object
+            info = info_get.value!
+            filtered_info = info['infos']
+            google_data = info['stores']
             infostat = Views::StatInfos.new(filtered_info)
             storestat = Views::StatStores.new(google_data)
-
             view 'region', locals: { infostat:,
                                      storestat: }
 
@@ -94,21 +91,31 @@ module CafeMap
           end
         end
       end
+      routing.on 'cluster' do
+        routing.is do
+          routing.get do
+            cluster_request = Forms::NewCluster.new.call(routing.params)
+            get_cluster = Service::GetCluster.new.call(cluster_request)
+            
+            if get_cluster.failure?
+              flash[:error] = get_cluster.failure
+              routing.redirect '/'
+            end
 
-      routing.on 'map' do
-        routing.get do
-          result = CafeMap::Service::AppraiseCafe.new.call
-          if result.failure?
-            flash[:error] = result.failure
-          else
-            infos_data = result.value!
+            cluster = OpenStruct.new(get_cluster.value!)
+            
+            if cluster.response.processing?
+              flash.now[:notice] = 'The CafeInfo is being clustered'
+            else
+              cluster_info = cluster.cluster_info.clusters
+              cluster_view = Views::ClusterData.new(cluster_info)
+            end
+
+            processing = Views::ClusterProcessing.new(
+              App.config, cluster.response
+            )
+            view 'cluster', locals: { cluster_view: , processing:}
           end
-          ip = CafeMap::UserIp::Api.new.ip
-          location = CafeMap::UserIp::Api.new.to_geoloc
-          view 'map', locals: { info: infos_data,
-                                ip:,
-                                your_lat: location[0],
-                                your_long: location[1] }
         end
       end
     end

@@ -1,0 +1,92 @@
+.container
+- if processing.in_progress?
+  .progress
+  .progress-bar.bg-success.progress-bar-striped.active[
+    role="progressbar" aria-valuenow="10" aria-valuemin="0"
+    aria-valuemax="100" style="width:0%"]
+  script src = "#{processing.ws_javascript}"
+  javascript:
+    var channel = "#{processing.ws_channel_id}";
+    console.log(channel);
+    var client = new Faye.Client("#{processing.ws_route}");
+    var bar = document.getElementsByClassName("progress-bar")[0];
+    var reg = /\:(\d+)%/
+    client.subscribe('/' + channel, function(message) {
+      // Collect progressbar element and percentage
+      var progress = bar.getAttribute("style")
+      var currentProgress = reg.exec(progress)[1]
+      
+      if (isNaN(message)) {
+        bar.setAttribute("style", "width:100%")
+        bar.setAttribute("class", "progress-bar bg-danger progress-bar-striped")
+        bar.innerHTML = message
+      } else {
+        if (parseInt(message) > parseInt(currentProgress)) {
+          // Set the progress bar and percentage
+          bar.setAttribute("aria-valuenow", message)
+          bar.setAttribute("style", "width:"+message+"%")
+          bar.innerHTML = message+"%"
+          // Reload page at 100%
+          if (message == "100") {
+            setTimeout(function () {
+              window.location = window.location.href
+            }, 1000);
+          }
+        }
+      }
+    });
+-  else
+  .row
+    h2
+     span.cluster_view.entity.name
+      = cluster_view.entity[0].city.capitalize() + "❤️Recommendation"
+    / h3
+    /   span.ip = "Your IP：#{ip}"
+    /   .row
+    h4 
+      / span.wifi = "_(┐ ◟;ﾟдﾟ)ノ Wifi: #{wifi_average.round}"
+      .row
+      span.stat = "📶 Wifi: #{cluster_view.wifi_mean}   🪑 seat: #{cluster_view.seat_mean}   🍽️ tasty: #{cluster_view.tasty_mean}  💸 cheap: #{cluster_view.cheap_mean}  🎼 music: #{cluster_view.music_mean}   🔕 quiet: #{cluster_view.quiet_mean}"
+  
+  .container
+    .row
+        .col-lg-4.col-md-6.col-sm-6
+        table.table
+            thead
+                tr
+                th scope="col"  #
+                th scope="col"  Store Name
+                th scope="col"  Wifi
+                th scope="col"  Seat
+                th scope="col"  Tasty
+                th scope="col"  Cheap
+                th scope="col"  music
+                th scope="col"  quiet
+                th scope="col"  open_time
+                th scope="col"  Address
+                th scope="col"  Google Rating
+                th scope="col"  Reviewer
+                th scope="col"  Cluster
+            tbody
+              - cluster_view.entity.each_with_index  do |info_obj, index|
+                tr
+                th scope="row"  #{index+1}
+                td #{info_obj.name}
+
+                td #{(info_obj.wifi == '0')? "N/A" : info_obj.wifi}
+                td #{(info_obj.seat == '0')? "N/A" : info_obj.seat}
+                td #{(info_obj.tasty == '0')? "N/A" : info_obj.tasty}
+                td #{(info_obj.cheap == '0')? "N/A" : info_obj.cheap}
+                td #{(info_obj.music == '0')? "N/A" : info_obj.music}
+                td #{(info_obj.quiet == '0')? "N/A" : info_obj.quiet}
+
+                td #{(info_obj.open_time == "")? "N/A" : info_obj.open_time}
+                td #{info_obj.address}
+                
+                / googel api data 
+                td #{rating = info_obj.rating.to_f }
+                td #{info_obj.user_ratings_total}
+
+                / stat features
+                td #{info_obj.cluster}
+            .row

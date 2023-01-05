@@ -9,7 +9,7 @@ module Views
       @google_data = google_data
 
       @rating_box = []
-      @google_data.each { |obj| obj.each { |each_store| @rating_box.append(each_store.rating) } }
+      @google_data.each { |obj| @rating_box.append(obj.rating) }
     end
 
     def entity

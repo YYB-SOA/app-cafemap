@@ -5,26 +5,16 @@ require 'dry/transaction'
 module CafeMap
   module Service
     # Transaction to store cafe data from CafeNomad API to database
-    class AddCafe
+    class GetCafe
       include Dry::Transaction
 
-      step :validate_input
       step :request_cafeinfo
       step :reify_project
 
       private
 
-      def validate_input(input)
-        if input.success?
-
-          Success(city: input[:city_name])
-        else
-          Failure("City #{input.errors.messages.first}")
-        end
-      end
-
       def request_cafeinfo(input)
-        result = Gateway::Api.new(CafeMap::App.config).add_cafeinfo(input[:city])
+        result = Gateway::Api.new(CafeMap::App.config).get_cafeinfo(input)
         result.success? ? Success(result.payload) : Failure(result.message)
       rescue StandardError => e
         puts e.inspect
