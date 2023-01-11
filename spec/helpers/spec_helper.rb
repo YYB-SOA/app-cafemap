@@ -10,7 +10,6 @@ require 'minitest/autorun'
 require 'minitest/rg'
 require 'vcr'
 require 'webmock'
-require_relative '../../app/domain/cafenomad/mappers/info_mapper'
 require_relative '../../config/environment'
 require_relative '../../require_app'
 require_app
